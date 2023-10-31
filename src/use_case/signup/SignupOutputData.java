@@ -24,5 +24,4 @@ public class SignupOutputData {
     public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
     }
-
 }

@@ -1,6 +1,6 @@
 package entities;
 
-public class PasswordValidatorService implements PasswordValidator {
+public class PasswordValidatorService {
     public boolean passwordIsValid(String password) {
         return password != null && password.length() > 5;
     }
