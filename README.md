@@ -1,9 +1,11 @@
 # YouTube-Analytics
 
 This project is for CSC207H1
+
 **Contributors:** Jonathan Chen, Alex Tran, Zoey Xie, Cynthia Zhou
 
 **Project domain:** Statistics/Data Analytics
+
 **API:** Youtube Data V3
 
 **Project Specifications:**
