@@ -11,6 +11,7 @@ public class CommonUser implements User {
      * @param name
      * @param password
      */
+  
     CommonUser(String name, String password) {
         this.name = name;
         this.password = password;
@@ -25,4 +26,5 @@ public class CommonUser implements User {
     public String getPassword() {
         return password;
     }
+
 }

@@ -6,6 +6,7 @@ import entities.UserFactory;
 import java.time.LocalDateTime;
 
 public class SignupInteractor implements SignupInputBoundary{
+
     final SignupDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
     final UserFactory userFactory;
@@ -25,9 +26,11 @@ public class SignupInteractor implements SignupInputBoundary{
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
+
             LocalDateTime now = LocalDateTime.now();
 
             User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), now.toString(), false);

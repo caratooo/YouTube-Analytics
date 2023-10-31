@@ -1,6 +1,7 @@
 package use_case.login;
 
 public class LoginOutputData {
+
     private final String username;
     private boolean useCaseFailed;
 
@@ -12,4 +13,5 @@ public class LoginOutputData {
     public String getUsername() {
         return username;
     }
+
 }
