@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccess implements SignupDataAccessInterface, LoginDataAccessInterface, HistoryDataAccessInterface, CompareDataAccessInterface, ChannelSearchDataAccessInterface {
+public class FileUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface, HistoryDataAccessInterface, CompareDataAccessInterface, ChannelSearchDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -22,7 +22,7 @@ public class FileUserDataAccess implements SignupDataAccessInterface, LoginDataA
 
     private UserFactory userFactory;
 
-    public FileUserDataAccess(String csvPath, UserFactory userFactory) throws IOException {
+    public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
 
         csvFile = new File(csvPath);
