@@ -1,9 +1,27 @@
 package views;
 
+import interface_adapter.channel_search.ChannelSearchState;
 import interface_adapter.home.HomeController;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.signup.SignupController;
+import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.video_search.VideoSearchState;
+import interface_adapter.video_search.VideoSearchViewModel;
+import interface_adapter.video_search.VideoSearchController;
+import interface_adapter.channel_search.ChannelSearchState;
+import interface_adapter.channel_search.ChannelSearchViewModel;
+import interface_adapter.channel_search.ChannelSearchController;
+import interface_adapter.trending.TrendingState;
+import interface_adapter.trending.TrendingViewModel;
+import interface_adapter.trending.TrendingController;
+import interface_adapter.compare.CompareState;
+import interface_adapter.compare.CompareViewModel;
+import interface_adapter.compare.CompareController;
+import interface_adapter.history.HistoryState;
+import interface_adapter.history.HistoryViewModel;
+import interface_adapter.history.HistoryController;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,6 +65,83 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         instruction = new JButton(HomeViewModel.INSTRUCTION_BUTTON_LABEL);
         buttons.add(instruction);
 
+        searchVideo.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(searchVideo)) {
+                            VideoSearchState currentState = VideoSearchViewModel.getState();
+                            VideoSearchController.execute();
+                            // TODO
+                        }
+                    }
+                }
+        );
+
+        searchChannel.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(searchChannel)) {
+                            ChannelSearchState currentState = ChannelSearchViewModel.getState();
+                            ChannelSearchController.execute();
+                            // TODO
+                        }
+                    }
+                }
+        );
+
+        trending.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(trending)) {
+                            TrendingState currentState = TrendingViewModel.getState();
+                            TrendingController.execute();
+                            // TODO
+                        }
+                    }
+                }
+        );
+
+        compare.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(compare)) {
+                            CompareState currentState = CompareViewModel.getState();
+                            CompareController.execute();
+                            // TODO
+                        }
+                    }
+                }
+        );
+
+        history.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(history)) {
+                            HistoryState currentState = HistoryViewModel.getState();
+                            HistoryController.execute();
+                            // TODO
+                        }
+                    }
+                }
+        );
+
+        instruction.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(instruction)) {
+                            // TODO
+                        }
+                    }
+                }
+        );
+
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
         this.add(buttons);
@@ -54,7 +149,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
     @Override
     public void actionPerformed(ActionEvent e)  {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+        System.out.println("Click " + e.getActionCommand());
     }
 
     @Override

@@ -2,6 +2,7 @@ package interface_adapter.home;
 
 import interface_adapter.ViewModel;
 import interface_adapter.home.HomeState;
+import interface_adapter.logged_in.LoggedInState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -15,8 +16,9 @@ public class HomeViewModel extends ViewModel{
     public static final String HISTORY_BUTTON_LABEL = "History";
     public static final String INSTRUCTION_BUTTON_LABEL = "Instruction";
     public static final String TITLE_LABEL = "Home";
+    private HomeState state = new HomeState();
 
-    public HomeViewModel() {
+    public HomeViewModel(){
         super("home");
     }
 
