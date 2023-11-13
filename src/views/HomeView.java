@@ -65,81 +65,81 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         instruction = new JButton(HomeViewModel.INSTRUCTION_BUTTON_LABEL);
         buttons.add(instruction);
 
-        searchVideo.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(searchVideo)) {
-                            VideoSearchState currentState = VideoSearchViewModel.getState();
-                            VideoSearchController.execute();
-                            // TODO
-                        }
-                    }
-                }
-        );
-
-        searchChannel.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(searchChannel)) {
-                            ChannelSearchState currentState = ChannelSearchViewModel.getState();
-                            ChannelSearchController.execute();
-                            // TODO
-                        }
-                    }
-                }
-        );
-
-        trending.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(trending)) {
-                            TrendingState currentState = TrendingViewModel.getState();
-                            TrendingController.execute();
-                            // TODO
-                        }
-                    }
-                }
-        );
-
-        compare.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(compare)) {
-                            CompareState currentState = CompareViewModel.getState();
-                            CompareController.execute();
-                            // TODO
-                        }
-                    }
-                }
-        );
-
-        history.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(history)) {
-                            HistoryState currentState = HistoryViewModel.getState();
-                            HistoryController.execute();
-                            // TODO
-                        }
-                    }
-                }
-        );
-
-        instruction.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(instruction)) {
-                            // TODO
-                        }
-                    }
-                }
-        );
+//        searchVideo.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(searchVideo)) {
+//                            VideoSearchState currentState = VideoSearchViewModel.getState();
+//                            VideoSearchController.execute();
+//                            // TODO
+//                        }
+//                    }
+//                }
+//        );
+//
+//        searchChannel.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(searchChannel)) {
+//                            ChannelSearchState currentState = ChannelSearchViewModel.getState();
+//                            ChannelSearchController.execute();
+//                            // TODO
+//                        }
+//                    }
+//                }
+//        );
+//
+//        trending.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(trending)) {
+//                            TrendingState currentState = TrendingViewModel.getState();
+//                            TrendingController.execute();
+//                            // TODO
+//                        }
+//                    }
+//                }
+//        );
+//
+//        compare.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(compare)) {
+//                            CompareState currentState = CompareViewModel.getState();
+//                            CompareController.execute();
+//                            // TODO
+//                        }
+//                    }
+//                }
+//        );
+//
+//        history.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(history)) {
+//                            HistoryState currentState = HistoryViewModel.getState();
+//                            HistoryController.execute();
+//                            // TODO
+//                        }
+//                    }
+//                }
+//        );
+//
+//        instruction.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                new ActionListener() {
+//                    public void actionPerformed(ActionEvent evt) {
+//                        if (evt.getSource().equals(instruction)) {
+//                            // TODO
+//                        }
+//                    }
+//                }
+//        );
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
