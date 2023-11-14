@@ -1,27 +1,6 @@
 package views;
 
-import interface_adapter.channel_search.ChannelSearchState;
-import interface_adapter.home.HomeController;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.video_search.VideoSearchState;
-import interface_adapter.video_search.VideoSearchViewModel;
-import interface_adapter.video_search.VideoSearchController;
-import interface_adapter.channel_search.ChannelSearchState;
-import interface_adapter.channel_search.ChannelSearchViewModel;
-import interface_adapter.channel_search.ChannelSearchController;
-import interface_adapter.trending.TrendingState;
-import interface_adapter.trending.TrendingViewModel;
-import interface_adapter.trending.TrendingController;
-import interface_adapter.compare.CompareState;
-import interface_adapter.compare.CompareViewModel;
-import interface_adapter.compare.CompareController;
-import interface_adapter.history.HistoryState;
-import interface_adapter.history.HistoryViewModel;
-import interface_adapter.history.HistoryController;
-
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,10 +20,8 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton history;
     final JButton instruction;
 
-    private final HomeController homeController;
 
-    public HomeView(HomeController controller, HomeViewModel homeViewModel) {
-        this.homeController = controller;
+    public HomeView(HomeViewModel homeViewModel) {
         this.homeViewModel = homeViewModel;
         homeViewModel.addPropertyChangeListener(this);
 
