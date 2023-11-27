@@ -1,7 +1,6 @@
 package interface_adapter.trending;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.home.HomeViewModel;
 import use_case.trending.TrendingOutputBoundary;
 import use_case.trending.TrendingOutputData;
 
@@ -23,9 +22,4 @@ public class TrendingPresenter implements TrendingOutputBoundary {
 
     }
 
-    @Override
-    public void prepareSelectView() {
-        this.viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
-        this.viewManagerModel.firePropertyChanged();
-    }
 }
