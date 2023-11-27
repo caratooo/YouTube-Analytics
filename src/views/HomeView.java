@@ -1,7 +1,7 @@
 package views;
 
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending.TrendingSelectViewModel;
+import interface_adapter.trending.TrendingCategorySelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,8 +70,8 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
-                            TrendingSelectViewModel trendingSelectViewModel = new TrendingSelectViewModel(/* dependencies */);
-                            TrendingSelectView trendingSelectView = new TrendingSelectView(trendingSelectViewModel);
+                            TrendingCategorySelectViewModel trendingSelectViewModel = new TrendingCategorySelectViewModel(/* dependencies */);
+                            TrendingCategorySelectView trendingSelectView = new TrendingCategorySelectView(trendingSelectViewModel);
 
                             // Depending on your UI management, add trendingSelectView to your layout
                             // For a simple approach, you might open it in a new frame

@@ -6,25 +6,26 @@ import use_case.trending.TrendingOutputBoundary;
 import use_case.trending.TrendingOutputData;
 
 public class TrendingPresenter implements TrendingOutputBoundary {
-    private final TrendingSelectViewModel trendingSelectViewModel;
-    private final HomeViewModel homeViewModel;
+    private final TrendingCategorySelectViewModel trendingCategorySelectViewModel;
+    private final TrendingDataViewModel trendingDataViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public TrendingPresenter(TrendingSelectViewModel trendingSelectViewModel, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
-        this.trendingSelectViewModel = trendingSelectViewModel;
-        this.homeViewModel = homeViewModel;
+    public TrendingPresenter(TrendingCategorySelectViewModel trendingCategorySelectViewModel, TrendingDataViewModel trendingDataViewModel, ViewManagerModel viewManagerModel) {
+        this.trendingCategorySelectViewModel = trendingCategorySelectViewModel;
+        this.trendingDataViewModel = trendingDataViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareDataView(TrendingOutputData data) {
-        this.viewManagerModel.setActiveView(trendingSelectViewModel.getViewName());
+        this.viewManagerModel.setActiveView(trendingDataViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
 
     }
 
     @Override
     public void prepareSelectView() {
-
+        this.viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
+        this.viewManagerModel.firePropertyChanged();
     }
 }

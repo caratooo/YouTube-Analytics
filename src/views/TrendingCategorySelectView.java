@@ -1,5 +1,7 @@
 package views;
 
+import interface_adapter.trending.TrendingCategorySelectViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +13,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
     private JComboBox<String> categoryComboBox;
     private JButton selectButton;
 
-    public TrendingCategorySelectView() {
+    public TrendingCategorySelectView(TrendingCategorySelectViewModel trendingSelectViewModel) {
         initializeComponents();
         layoutComponents();
         addEventListeners();

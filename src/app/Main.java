@@ -6,7 +6,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.trending.TrendingSelectViewModel;
 import views.*;
 
 import javax.swing.*;
@@ -35,7 +34,6 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
-        TrendingSelectViewModel trendingSelectViewModel = new TrendingSelectViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -52,9 +50,6 @@ public class Main {
 
         HomeView homeView = new HomeView(homeViewModel);
         views.add(homeView, homeView.viewName);
-
-        TrendingSelectView trendingView = new TrendingSelectView(trendingSelectViewModel);
-        views.add(trendingView, trendingView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
