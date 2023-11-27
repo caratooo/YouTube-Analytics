@@ -1,4 +1,5 @@
 package data_access;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -9,18 +10,32 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-//
+
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.ChannelListResponse;
+import com.google.api.services.youtube.model.Video;
+import com.google.api.services.youtube.model.VideoListResponse;
+import com.google.api.services.youtube.model.VideoSnippet;
+import com.google.api.services.youtube.model.VideoStatistics;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import use_case.video_search.VideoSearchDataAccessInterface;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
-public class YouTubeDataAccess {
+import java.lang.reflect.Type;
+import com.google.gson.reflect.TypeToken;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
 
     private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
@@ -55,4 +70,25 @@ public class YouTubeDataAccess {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
+
+    public static VideoListResponse get_video_response(String videoId) throws GeneralSecurityException, IOException {
+        YouTube youtubeService = getService();
+        YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+        return request.setId(videoId).execute();
+    }
+
+    public static entities.Video get_video(String videoId) throws GeneralSecurityException, IOException {
+        VideoListResponse response = get_video_response(videoId);
+        String jsonString = response.toPrettyString();
+        Video video = response.getItems().get(0);
+        VideoSnippet snippet = video.getSnippet();
+        VideoStatistics statistics = video.getStatistics();
+
+        entities.Video video = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
+                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
+                statistics.getLikeCount(), statistics.getCommentCount());
+
+        return video;
+    }
+
 }
