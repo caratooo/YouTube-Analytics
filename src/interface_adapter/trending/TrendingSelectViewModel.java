@@ -5,7 +5,7 @@ import interface_adapter.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class TrendingViewModel extends ViewModel {
+public class TrendingSelectViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Trending View";
 
     public static final String GENERAL_BUTTON_LABEL = "General";
@@ -13,7 +13,7 @@ public class TrendingViewModel extends ViewModel {
 
     private TrendingState state = new TrendingState();
 
-    public TrendingViewModel(){super("Trending");}
+    public TrendingSelectViewModel(){super("Trending");}
 
     public void setState(TrendingState state) {
         this.state = state;

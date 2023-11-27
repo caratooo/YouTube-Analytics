@@ -1,8 +1,6 @@
 package views;
 
-import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending.TrendingViewModel;
-import jdk.jfr.Category;
+import interface_adapter.trending.TrendingSelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,21 +11,21 @@ import java.beans.PropertyChangeListener;
 
 public class TrendingSelectView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "trending select";
-    private final TrendingViewModel trendingViewModel;
+    private final TrendingSelectViewModel trendingSelectViewModel;
     final JButton general;
     final JButton category;
 
-    public TrendingSelectView(TrendingViewModel trendingViewModel) {
-        this.trendingViewModel = trendingViewModel;
-        trendingViewModel.addPropertyChangeListener(this);
+    public TrendingSelectView(TrendingSelectViewModel trendingSelectViewModel) {
+        this.trendingSelectViewModel = trendingSelectViewModel;
+        trendingSelectViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel(TrendingViewModel.TITLE_LABEL);
+        JLabel title = new JLabel(TrendingSelectViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttons = new JPanel();
-        general = new JButton(TrendingViewModel.GENERAL_BUTTON_LABEL);
+        general = new JButton(TrendingSelectViewModel.GENERAL_BUTTON_LABEL);
         buttons.add(general);
-        category = new JButton(TrendingViewModel.CATEGORY_BUTTON_LABEL);
+        category = new JButton(TrendingSelectViewModel.CATEGORY_BUTTON_LABEL);
         buttons.add(category);
 
         general.addActionListener(
@@ -46,7 +44,14 @@ public class TrendingSelectView extends JPanel implements ActionListener, Proper
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(category)) {
-//                            new TrendingCategorySelectView();
+                            TrendingCategorySelectView categorySelectView = new TrendingCategorySelectView();
+                            JFrame frame = new JFrame("Select Category");
+                            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            frame.getContentPane().add(categorySelectView);
+                            frame.pack();
+                            frame.setLocationRelativeTo(null); // Center the frame
+                            frame.setVisible(true);
+
                         }
                     }
                 }

@@ -1,7 +1,7 @@
 package views;
 
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending.TrendingViewModel;
+import interface_adapter.trending.TrendingSelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,8 +70,8 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
-                            TrendingViewModel trendingViewModel = new TrendingViewModel(/* dependencies */);
-                            TrendingSelectView trendingSelectView = new TrendingSelectView(trendingViewModel);
+                            TrendingSelectViewModel trendingSelectViewModel = new TrendingSelectViewModel(/* dependencies */);
+                            TrendingSelectView trendingSelectView = new TrendingSelectView(trendingSelectViewModel);
 
                             // Depending on your UI management, add trendingSelectView to your layout
                             // For a simple approach, you might open it in a new frame
@@ -112,7 +112,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(instruction)) {
-//                            openInstructionPanel();
+                            openInstructionPanel();
                         }
                     }
                 }
@@ -125,35 +125,35 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     }
 
 
-//    private static void openInstructionPanel() {
-//        // Create a new JFrame for the search video view
-//        JFrame instructionFrame = new JFrame("Instructions");
-//        instructionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        instructionFrame.setSize(400, 300);
+    private static void openInstructionPanel() {
+        // Create a new JFrame for the search video view
+        JFrame instructionFrame = new JFrame("Instructions");
+        instructionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        instructionFrame.setSize(400, 300);
 
-//        // Create a panel for the search video view
-//        JPanel instructionPanel = new JPanel(new GridLayout(0, 1));
-//
-//        // Sample instructions
-//        String[] instructions = {
-//                "Search Video: Type in Youtube Video ID in the search bar to see its stats.",
-//                "Search Channel: Type in Youtube Channel ID in the search bar to see its stats.",
-//                "Trending: Search most popular videos in general or by categories.",
-//                "Compare: Compare statistics between two videos.",
-//                "History: Show 5 most recent search history."
-//        };
-//
-//        // Add instructions to the panel
-//        for (String instruction : instructions) {
-//            JLabel instructionLabel = new JLabel(instruction);
-//            instructionPanel.add(instructionLabel);
-//        }
-//        // Set the search panel as the content pane of the search frame
-//        instructionFrame.setContentPane(instructionPanel);
-//
-//        // Display the search frame
-//        instructionFrame.setVisible(true);
-//    }
+        // Create a panel for the search video view
+        JPanel instructionPanel = new JPanel(new GridLayout(0, 1));
+
+        // Sample instructions
+        String[] instructions = {
+                "Search Video: Type in Youtube Video ID in the search bar to see its stats.",
+                "Search Channel: Type in Youtube Channel ID in the search bar to see its stats.",
+                "Trending: Search most popular videos in general or by categories.",
+                "Compare: Compare statistics between two videos.",
+                "History: Show 5 most recent search history."
+        };
+
+        // Add instructions to the panel
+        for (String instruction : instructions) {
+            JLabel instructionLabel = new JLabel(instruction);
+            instructionPanel.add(instructionLabel);
+        }
+        // Set the search panel as the content pane of the search frame
+        instructionFrame.setContentPane(instructionPanel);
+
+        // Display the search frame
+        instructionFrame.setVisible(true);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e)  {

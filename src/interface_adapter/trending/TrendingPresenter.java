@@ -6,19 +6,19 @@ import use_case.trending.TrendingOutputBoundary;
 import use_case.trending.TrendingOutputData;
 
 public class TrendingPresenter implements TrendingOutputBoundary {
-    private final TrendingViewModel trendingViewModel;
+    private final TrendingSelectViewModel trendingSelectViewModel;
     private final HomeViewModel homeViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public TrendingPresenter(TrendingViewModel trendingViewModel, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
-        this.trendingViewModel = trendingViewModel;
+    public TrendingPresenter(TrendingSelectViewModel trendingSelectViewModel, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
+        this.trendingSelectViewModel = trendingSelectViewModel;
         this.homeViewModel = homeViewModel;
         this.viewManagerModel = viewManagerModel;
     }
 
     @Override
     public void prepareDataView(TrendingOutputData data) {
-        this.viewManagerModel.setActiveView(trendingViewModel.getViewName());
+        this.viewManagerModel.setActiveView(trendingSelectViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
 
     }
