@@ -40,26 +40,56 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
             public void actionPerformed(ActionEvent e) {
                 String selectedCategory = (String) categoryComboBox.getSelectedItem();
                 TrendingCategorySelectState currState = trendingCategorySelectViewModel.getState();
-                handleCategorySelection(selectedCategory);
+                Integer category = handleCategorySelection(selectedCategory);
+                System.out.println(category);
+//                controller.execute(category);
             }
         });
 
 
     }
 
-//    youtube category id:
-//            general
-//            10 - Music
-//            15 - Animals
-//            17 - Sports
-//            20 - Gaming
-//            25 - News
-//            30 - Movies
-//            31 - Animation
 
 
-    private void handleCategorySelection(String category) {
-        System.out.println("Selected category: " + category);
+    private Integer handleCategorySelection(String selectedCategory) {
+        System.out.println("Selected category: " + selectedCategory);
+    //    youtube category:
+    //            General
+    //            10 - Music
+    //            15 - Animals
+    //            17 - Sports
+    //            20 - Gaming
+    //            25 - News
+    //            30 - Movies
+    //            31 - Animation
+
+        if(selectedCategory.equals("general")){
+            return null;
+        }
+        else if(selectedCategory.equals("Music")){
+            return 10;
+        }
+        else if(selectedCategory.equals("Animals")){
+            return 15;
+        }
+        else if(selectedCategory.equals("Sports")){
+            return 17;
+        }
+        else if(selectedCategory.equals("Gaming")){
+            return 20;
+        }
+        else if(selectedCategory.equals("News")){
+            return 25;
+        }
+        else if(selectedCategory.equals("Movies")){
+            return 30;
+        }
+        else if(selectedCategory.equals("Animations")){
+            return 31;
+        }
+        else{
+            return 31;
+        }
 
     }
 
