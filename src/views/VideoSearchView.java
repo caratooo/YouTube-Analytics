@@ -1,5 +1,7 @@
 package views;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.home.HomeViewModel;
 import interface_adapter.video_search.VideoSearchController;
 import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchState;
@@ -28,8 +30,11 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
 
     private final JButton search;
 
+    private final JButton back;
 
-    public VideoSearchView(VideoSearchController controller, VideoSearchViewModel videoSearchViewModel) {
+
+    public VideoSearchView(VideoSearchController controller, VideoSearchViewModel videoSearchViewModel,
+                           HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
 
         this.videoSearchViewModel = videoSearchViewModel;
         this.videoSearchController = controller;
@@ -45,6 +50,9 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
         search = new JButton(VideoSearchViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
 
+        back = new JButton(VideoSearchViewModel.BACK_BUTTON_LABEL);
+        buttons.add(back);
+
         search.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -58,6 +66,17 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
+                        }
+                    }
+                }
+        );
+
+        back.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(back)) {
+                            viewManagerModel.setActiveView(homeViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
