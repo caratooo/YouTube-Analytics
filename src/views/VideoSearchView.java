@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class VideoSearchView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -49,7 +51,13 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
                         if (e.getSource().equals(search)) {
                             VideoSearchState currState = videoSearchViewModel.getState();
 
-                            videoSearchController.execute(currState.getVideoId());
+                            try {
+                                videoSearchController.execute(currState.getVideoId());
+                            } catch (GeneralSecurityException ex) {
+                                throw new RuntimeException(ex);
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         }
                     }
                 }
