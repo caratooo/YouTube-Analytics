@@ -42,6 +42,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
                 TrendingCategorySelectState currState = trendingCategorySelectViewModel.getState();
                 String categoryInt = handleCategorySelection(selectedCategory);
                 System.out.println(categoryInt);
+                System.out.println(categoryInt == null);
                 controller.execute(categoryInt);
             }
         });
@@ -64,7 +65,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
     //            31 - Animation
 
         if(selectedCategory.equals("General")){
-            return "General";
+            return "0";
         }
         else if(selectedCategory.equals("Music")){
             return "10";

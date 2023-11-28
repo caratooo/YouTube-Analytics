@@ -8,4 +8,8 @@ public class TrendingInputData {
     }
 
     String getCategoryId() { return categoryInt; }
+
+    Boolean equal(String compare){
+        return categoryInt.equals(compare);
+    }
 }
