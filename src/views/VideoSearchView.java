@@ -104,5 +104,8 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         VideoSearchState state = (VideoSearchState) evt.getNewValue();
         // TODO check if need to add errors
+        if (state.getVideoIdError() != null) {
+            JOptionPane.showMessageDialog(this, state.getVideoIdError());
+        }
     }
 }
