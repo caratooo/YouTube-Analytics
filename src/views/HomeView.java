@@ -1,6 +1,12 @@
 package views;
 
+import app.VideoSearchUseCaseFactory;
+import data_access.YouTubeDataAccess;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.signup.SignupState;
+import interface_adapter.video_search.VideoSearchViewModel;
+import interface_adapter.video_stats.VideoStatsViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +14,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
+
+    private ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
     final JButton searchChannel;
@@ -21,8 +30,10 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton instruction;
 
 
-    public HomeView(HomeViewModel homeViewModel) {
+    public HomeView(HomeViewModel homeViewModel, VideoSearchViewModel videoSearchViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
+        this.viewManagerModel = viewManagerModel;
+
         homeViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(HomeViewModel.TITLE_LABEL);
@@ -47,11 +58,41 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(searchVideo)) {
-                            new VideoSearchView();
+                            viewManagerModel.setActiveView(videoSearchViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+//                            VideoSearchViewModel currentState = videoSearchViewModel.getState();
+//
+//                            signupController.execute(
+//                                    currentState.getUsername(),
+//                                    currentState.getPassword(),
+//                                    currentState.getRepeatPassword()
+//                            );
                         }
+//                            VideoSearchViewModel videoSearchViewModel = new VideoSearchViewModel(/* dependencies */);
+//                            VideoStatsViewModel videoStatsViewModel = new VideoStatsViewModel();
+//                            YouTubeDataAccess youTubeDataAccess = null;
+//                            try {
+//                                youTubeDataAccess = new YouTubeDataAccess();
+//                            } catch (IOException e) {
+//                                throw new RuntimeException(e);
+//                            }
+//                            VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel,youTubeDataAccess);
+//                            VideoSearchView videoSelectView = new VideoSearchView(videoSearchViewModel);
+
+                            // Depending on your UI management, add trendingSelectView to your layout
+                            // For a simple approach, you might open it in a new frame
+//                            JFrame frame = new JFrame("Video Search");
+//                            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                            frame.getContentPane().add(videoSearchView);
+//                            frame.pack();
+//                            frame.setVisible(true);
+//                        }
+
+
                     }
                 }
         );
+
 
         searchChannel.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
