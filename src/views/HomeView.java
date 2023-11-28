@@ -29,7 +29,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
 
-    private final TrendingCategorySelectViewModel trendingCategorySelectViewModel;
+//    private final TrendingCategorySelectViewModel trendingCategorySelectViewModel;
     private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
@@ -43,7 +43,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
     public HomeView(HomeViewModel homeViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
-        this.trendingCategorySelectViewModel = trendingCategorySelectViewModel;
+//        this.trendingCategorySelectViewModel = trendingCategorySelectViewModel;
         this.viewManagerModel = viewManagerModel;
         homeViewModel.addPropertyChangeListener(this);
 
@@ -88,19 +88,21 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
         trending.addActionListener(
                 new ActionListener() {
-
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
-                            JFrame trendingFrame = new JFrame("Trending Category Select");
+                            viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+//                            JFrame trendingFrame = new JFrame("Trending Category Select");
+//
+//                            TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
+//                            YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+//                            TrendingCategorySelectView trendingCategorySelectView = TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
+//                            trendingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                            trendingFrame.getContentPane().add(trendingCategorySelectView);
+//                            trendingFrame.pack();
+//                            trendingFrame.setLocationRelativeTo(null); // Center the frame on the screen
+//                            trendingFrame.setVisible(true);
 
-                            TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
-                            YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
-                            TrendingCategorySelectView trendingCategorySelectView = TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
-                            trendingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                            trendingFrame.getContentPane().add(trendingCategorySelectView);
-                            trendingFrame.pack();
-                            trendingFrame.setLocationRelativeTo(null); // Center the frame on the screen
-                            trendingFrame.setVisible(true);
                         }
                     }
                 }
