@@ -20,7 +20,7 @@ public class TrendingInteractor implements TrendingInputBoundary{
     @Override
     public void execute(TrendingInputData trendingInputData) {
         System.out.println("trendingInputData:" + trendingInputData.getCategoryId());
-        System.out.println("general?" + (trendingInputData.equal("0")));
+        System.out.println("general? " + (trendingInputData.equal("0")));
         if (trendingInputData.equal("0")){
             try {
                 ArrayList<Video> videos = trendingDataAccessObject.get_trending_default();

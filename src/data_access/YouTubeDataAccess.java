@@ -14,9 +14,11 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
+import interface_adapter.trending.TrendingDataViewModel;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,12 +29,16 @@ import java.util.Collection;
 
 public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
 
-    private static final String CLIENT_SECRETS= "client_secret.json";
+//    private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
             Arrays.asList("https://www.googleapis.com/auth/youtube.readonly");
 
     private static final String APPLICATION_NAME = "API code samples";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
+    public YouTubeDataAccess(){
+
+    }
     /**
      * Create an authorized Credential object.
      *
@@ -41,9 +47,11 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
      */
     public static Credential authorize(final NetHttpTransport httpTransport) throws IOException {
         // Load client secrets.
-        InputStream in = YouTubeDataAccess.class.getResourceAsStream(CLIENT_SECRETS);
-        GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+        FileInputStream fis = new FileInputStream((".\\client_secret.json"));
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(fis));
+//        InputStream in = YouTubeDataAccess.class.getResourceAsStream(CLIENT_SECRETS);
+//        GoogleClientSecrets clientSecrets =
+//                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow =
                 new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
