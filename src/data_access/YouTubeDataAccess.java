@@ -71,24 +71,25 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
                 .build();
     }
 
-    public static VideoListResponse get_video_response(String videoId) throws GeneralSecurityException, IOException {
+    public static VideoListResponse getVideoResponse(String videoId) throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
         return request.setId(videoId).execute();
     }
 
-    public static entities.Video get_video(String videoId) throws GeneralSecurityException, IOException {
-        VideoListResponse response = get_video_response(videoId);
+    @Override
+    public entities.Video get(String videoId) throws GeneralSecurityException, IOException {
+        VideoListResponse response = getVideoResponse(videoId);
         String jsonString = response.toPrettyString();
         Video video = response.getItems().get(0);
         VideoSnippet snippet = video.getSnippet();
         VideoStatistics statistics = video.getStatistics();
 
-        entities.Video video = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
-                statistics.getLikeCount(), statistics.getCommentCount());
+        entities.Video videoEn = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
+                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
+                statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
 
-        return video;
+        return videoEn;
     }
 
 }

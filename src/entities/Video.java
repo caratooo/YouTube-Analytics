@@ -1,21 +1,20 @@
 package entities;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import com.google.api.client.util.DateTime;
 
 public class Video {
     private final String videoId;
     private final String channelName;
     private final String title;
     private final String description;
-    private final LocalDate videoPublishDate;
+    private final DateTime videoPublishDate;
     private final int viewCount;
     private final int likeCount;
     private final int commentCount;
 
 
     public Video(String videoId, String channelName, String title,
-                 String description, LocalDate videoPublishDate,
+                 String description, DateTime videoPublishDate,
                  int viewCount, int likeCount, int commentCount) {
         this.videoId = videoId;
         this.channelName = channelName;
@@ -43,7 +42,7 @@ public class Video {
         return this.description;
     }
 
-    public LocalDate getVideoPublishDate() {
+    public DateTime getVideoPublishDate() {
         return this.videoPublishDate;
     }
 

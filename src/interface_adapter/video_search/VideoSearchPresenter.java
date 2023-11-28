@@ -1,6 +1,8 @@
 package interface_adapter.video_search;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.video_stats.VideoStatsState;
+import interface_adapter.video_stats.VideoStatsViewModel;
 import use_case.video_search.VideoSearchOutputBoundary;
 import use_case.video_search.VideoSearchOutputData;
 
@@ -38,7 +40,7 @@ public class VideoSearchPresenter implements VideoSearchOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         VideoSearchState videoSearchState = videoSearchViewModel.getState();
-        videoSearchState.setVideoIdError(error);  // TODO see comments of VideoSearchState
+//        videoSearchState.setVideoIdError(error);  // TODO see comments of VideoSearchState
         videoSearchViewModel.firePropertyChanged();
     }
 }
