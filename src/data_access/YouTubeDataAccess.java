@@ -87,6 +87,16 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
         VideoListResponse response = request.setChart("mostPopular").execute();
+        return getVideos(response);
+    }
+    public static ArrayList<entities.Video> get_trending_category(String category) throws GeneralSecurityException, IOException {
+        YouTube youtubeService = getService();
+        YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+        VideoListResponse response = request.setChart("mostPopular").setVideoCategoryId(category).execute();
+        return getVideos(response);
+    }
+
+    private static ArrayList<entities.Video> getVideos(VideoListResponse response) {
         ArrayList<entities.Video> videos = new ArrayList<>();
         for (int i = 0; i < 5; i ++){
             Video video = response.getItems().get(i);
