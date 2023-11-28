@@ -28,8 +28,13 @@ public class VideoSearchPresenter implements VideoSearchOutputBoundary {
 
         VideoStatsState videoStatsState = videoStatsViewModel.getState();
         videoStatsState.setVideoId(video.getVideoId());
-        videoStatsState.setVideoStats(video.getVideoStats());
-        videoStatsState.setVideoAbout(video.getVideoAbout());
+        videoStatsState.setChannelName(video.getChannelName());
+        videoStatsState.setTitle(video.getTitle());
+        videoStatsState.setDescription(video.getDescription());
+        videoStatsState.setVideoPublishDate(video.getVideoPublishDate());
+        videoStatsState.setViewCount(video.getViewCount());
+        videoStatsState.setLikeCount(video.getLikeCount());
+        videoStatsState.setCommentCount(video.getCommentCount());
         this.videoStatsViewModel.setState(videoStatsState);
         this.videoStatsViewModel.firePropertyChanged();
 
@@ -40,7 +45,7 @@ public class VideoSearchPresenter implements VideoSearchOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         VideoSearchState videoSearchState = videoSearchViewModel.getState();
-//        videoSearchState.setVideoIdError(error);  // TODO see comments of VideoSearchState
+        videoSearchState.setVideoIdError(error);  // TODO see comments of VideoSearchState
         videoSearchViewModel.firePropertyChanged();
     }
 }
