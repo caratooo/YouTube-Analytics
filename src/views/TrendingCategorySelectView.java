@@ -1,5 +1,7 @@
 package views;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.home.HomeViewModel;
 import interface_adapter.trending.TrendingCategorySelectState;
 import interface_adapter.trending.TrendingCategorySelectViewModel;
 import interface_adapter.trending.TrendingController;
@@ -18,8 +20,9 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
 
     private JComboBox<String> categoryComboBox;
     private JButton selectButton;
+    private JButton homeButton;
 
-    public TrendingCategorySelectView(TrendingController controller, TrendingCategorySelectViewModel trendingCategorySelectViewModel) {
+    public TrendingCategorySelectView(TrendingController controller, TrendingCategorySelectViewModel trendingCategorySelectViewModel, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
 
         this.controller = controller;
         this.trendingCategorySelectViewModel = trendingCategorySelectViewModel;
@@ -28,11 +31,15 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         // initialize Components
         categoryComboBox = new JComboBox<>(new String[]{"General", "Music", "Animals","Sports", "Gaming", "News", "Movies", "Animation"});
         selectButton = new JButton("Select");
+        homeButton = new JButton("home");
 
         // layout Components
-        setLayout(new BorderLayout());
-        add(categoryComboBox, BorderLayout.NORTH);
-        add(selectButton, BorderLayout.SOUTH);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(categoryComboBox);
+        add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space between components
+        add(selectButton);
+        add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space
+        add(homeButton);
 
         // add Event Listeners
         selectButton.addActionListener(new ActionListener() {
@@ -44,6 +51,14 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
                 System.out.println(categoryInt);
                 System.out.println(categoryInt == null);
                 controller.execute(categoryInt);
+            }
+        });
+
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView(homeViewModel.getViewName());
+                viewManagerModel.firePropertyChanged();
             }
         });
 

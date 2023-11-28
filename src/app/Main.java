@@ -59,7 +59,7 @@ public class Main {
 
         YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
 
-        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
+        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess, homeViewModel);
         views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
 
         TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel);

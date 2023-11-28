@@ -32,11 +32,12 @@ public class TrendingUseCaseFactory {
             ViewManagerModel viewManagerModel,
             TrendingCategorySelectViewModel trendingCategorySelectViewModel,
             TrendingDataViewModel trendingDataViewModel,
-            TrendingDataAccessInterface trendingDataAccessObject) {
+            TrendingDataAccessInterface trendingDataAccessObject,
+            HomeViewModel homeViewModel) {
 
         try {
-            TrendingController trendingController = createTrendingUseCase(viewManagerModel, trendingCategorySelectViewModel,trendingDataViewModel, trendingDataAccessObject);
-            return new TrendingCategorySelectView(trendingController, trendingCategorySelectViewModel);
+            TrendingController trendingController = createTrendingUseCase(viewManagerModel, trendingCategorySelectViewModel,trendingDataViewModel, trendingDataAccessObject, homeViewModel);
+            return new TrendingCategorySelectView(trendingController, trendingCategorySelectViewModel, homeViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Fail");
         }
@@ -48,7 +49,8 @@ public class TrendingUseCaseFactory {
             ViewManagerModel viewManagerModel,
             TrendingCategorySelectViewModel trendingCategorySelectViewModel,
             TrendingDataViewModel trendingDataViewModel,
-            TrendingDataAccessInterface trendingDataAccessObject) throws IOException {
+            TrendingDataAccessInterface trendingDataAccessObject,
+            HomeViewModel homeViewModel) throws IOException {
 
         // Notice how we pass this method's parameters to the Presenter.
         TrendingOutputBoundary trendingOutputBoundary = new TrendingPresenter(trendingCategorySelectViewModel, trendingDataViewModel, viewManagerModel);
