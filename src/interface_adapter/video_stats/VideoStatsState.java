@@ -12,8 +12,7 @@ public class VideoStatsState {
 
     private String description = "";
 
-    // TODO default datetime
-    private DateTime videoPublishDate = new DateTime("December 10");
+    private DateTime videoPublishDate = new DateTime("2013-02-14T13:15:03-08:00");
 
     private int viewCount = 0;
 
