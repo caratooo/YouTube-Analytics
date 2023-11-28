@@ -6,6 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.trending.TrendingCategorySelectViewModel;
 import views.*;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
+        TrendingCategorySelectViewModel trendingCategorySelectViewModel =  new TrendingCategorySelectViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -48,8 +50,9 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel);
+        HomeView homeView = new HomeView(homeViewModel, trendingCategorySelectViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
+
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

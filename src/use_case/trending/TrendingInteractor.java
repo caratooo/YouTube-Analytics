@@ -19,9 +19,10 @@ public class TrendingInteractor implements TrendingInputBoundary{
     }
     @Override
     public void execute(TrendingInputData trendingInputData) {
-        if (trendingInputData == null){
+        if (trendingInputData.equals("General")){
             try {
                 ArrayList<Video> videos = trendingDataAccessObject.get_trending_default();
+                System.out.println(videos);
             } catch (GeneralSecurityException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
@@ -33,6 +34,7 @@ public class TrendingInteractor implements TrendingInputBoundary{
             // get trend by category
             try {
                 ArrayList<Video> videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
+                System.out.println(videos);
             } catch (GeneralSecurityException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {

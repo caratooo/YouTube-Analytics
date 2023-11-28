@@ -40,9 +40,9 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
             public void actionPerformed(ActionEvent e) {
                 String selectedCategory = (String) categoryComboBox.getSelectedItem();
                 TrendingCategorySelectState currState = trendingCategorySelectViewModel.getState();
-                Integer category = handleCategorySelection(selectedCategory);
-                System.out.println(category);
-//                controller.execute(category);
+                String categoryInt = handleCategorySelection(selectedCategory);
+                System.out.println(categoryInt);
+                controller.execute(categoryInt);
             }
         });
 
@@ -51,7 +51,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
 
 
 
-    private Integer handleCategorySelection(String selectedCategory) {
+    private String handleCategorySelection(String selectedCategory) {
         System.out.println("Selected category: " + selectedCategory);
     //    youtube category:
     //            General
@@ -63,32 +63,29 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
     //            30 - Movies
     //            31 - Animation
 
-        if(selectedCategory.equals("general")){
-            return null;
+        if(selectedCategory.equals("General")){
+            return "General";
         }
         else if(selectedCategory.equals("Music")){
-            return 10;
+            return "10";
         }
         else if(selectedCategory.equals("Animals")){
-            return 15;
+            return "15";
         }
         else if(selectedCategory.equals("Sports")){
-            return 17;
+            return "17";
         }
         else if(selectedCategory.equals("Gaming")){
-            return 20;
+            return "20";
         }
         else if(selectedCategory.equals("News")){
-            return 25;
+            return "25";
         }
         else if(selectedCategory.equals("Movies")){
-            return 30;
+            return "30";
         }
-        else if(selectedCategory.equals("Animations")){
-            return 31;
-        }
-        else{
-            return 31;
+        else {
+            return "31";
         }
 
     }
