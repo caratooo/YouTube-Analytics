@@ -52,5 +52,4 @@ public class VideoSearchOutputData {
 
     public int getCommentCount() {return commentCount; }
 
-
 }
