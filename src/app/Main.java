@@ -3,21 +3,21 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import views.LoggedInView;
+import views.HomeView;
 import views.LoginView;
 import views.SignupView;
 import views.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame application = new JFrame("Login Example");
+        JFrame application = new JFrame("Youtube Analytics");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -35,8 +35,8 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         LoginViewModel loginViewModel = new LoginViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
+        HomeViewModel homeViewModel = new HomeViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -48,11 +48,12 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
-        views.add(loggedInView, loggedInView.viewName);
+        HomeView homeView = new HomeView(homeViewModel);
+        views.add(homeView, homeView.viewName);
+
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
