@@ -1,12 +1,15 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.trending.TrendingCategorySelectViewModel;
+import interface_adapter.trending.TrendingDataViewModel;
+import use_case.trending.TrendingDataAccessInterface;
 import views.*;
 
 import javax.swing.*;
@@ -36,6 +39,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
         TrendingCategorySelectViewModel trendingCategorySelectViewModel =  new TrendingCategorySelectViewModel();
+        TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -53,6 +57,13 @@ public class Main {
         HomeView homeView = new HomeView(homeViewModel, trendingCategorySelectViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
+        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+
+        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
+        views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
+
+        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel);
+        views.add(trendingDataView, trendingDataView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
