@@ -11,7 +11,7 @@ public class TrendingCategorySelectViewModel extends ViewModel {
 
     private TrendingCategorySelectState state = new TrendingCategorySelectState();
 
-    public TrendingCategorySelectViewModel(){super("Trending");}
+    public TrendingCategorySelectViewModel(){super("trending select");}
     public void setState(TrendingCategorySelectState state) {
         this.state = state;
     }
