@@ -2,6 +2,11 @@ package use_case.video_search;
 
 //import java.time.LocalDateTime;
 
+import entities.Video;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 public class VideoSearchInteractor implements VideoSearchInputBoundary {
 
     final VideoSearchDataAccessInterface videoSearchDataAccessObject;
@@ -18,18 +23,26 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
 
 
     @Override
-    public void execute(VideoSearchInputData videoSearchInputData) {
-        if (videoSearchDataAccessObject.idInvalid(videoSearchInputData.getVideoId())) {
+    public void execute(VideoSearchInputData videoSearchInputData) throws GeneralSecurityException, IOException {
+
+        if (videoSearchDataAccessObject.isInvalid(videoSearchInputData.getVideoId())) {
             videoPresenter.prepareFailView("Video ID does not exist.");
         } else {
+            Video video = videoSearchDataAccessObject.get(videoSearchInputData.getVideoId());
 
-//            LocalDateTime now = LocalDateTime.now();
+            VideoSearchOutputData videoSearchOutputData = new VideoSearchOutputData(video.getId(),
+                                                                                    video.getChannelName(),
+                                                                                    video.getTitle(),
+                                                                                    video.getDescription(),
+                                                                                    video.getVideoPublishDate(),
+                                                                                    video.getViewCount(),
+                                                                                    video.getLikeCount(),
+                                                                                    video.getCommentCount(),
+                                                                                false);
 
-            Video video = videoFactory.create(videoSearchInputData.getVideoId());
+            // TODO video search output add toString method
+            // videoSearchDataAccessObject.saveToCsv(videoSearchOutputData.toString());
 
-            videoSearchDataAccessObject.save(video);  // TODO this DAO or another that does the history stuff?
-
-            VideoSearchOutputData videoSearchOutputData = new VideoSearchOutputData(video.getName(), video.getStats(), false);
             videoPresenter.prepareSuccessView(videoSearchOutputData);
 
         }
