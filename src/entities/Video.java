@@ -1,22 +1,24 @@
 package entities;
 
+import com.google.api.client.util.DateTime;
+
+import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Video {
     private final String videoId;
     private final String channelName;
     private final String title;
     private final String description;
-    private final LocalDate videoPublishDate;
-    private final int viewCount;
-    private final int likeCount;
-    private final int commentCount;
+    private final DateTime videoPublishDate;
+    private final BigInteger viewCount;
+    private final BigInteger likeCount;
+    private final BigInteger commentCount;
 
 
     public Video(String videoId, String channelName, String title,
-                 String description, LocalDate videoPublishDate,
-                 int viewCount, int likeCount, int commentCount) {
+                 String description, DateTime videoPublishDate,
+                 BigInteger viewCount, BigInteger likeCount, BigInteger commentCount) {
         this.videoId = videoId;
         this.channelName = channelName;
         this.title = title;
@@ -43,19 +45,19 @@ public class Video {
         return this.description;
     }
 
-    public LocalDate getVideoPublishDate() {
+    public DateTime getVideoPublishDate() {
         return this.videoPublishDate;
     }
 
-    public int getViewCount() {
+    public BigInteger getViewCount() {
         return this.viewCount;
     }
 
-    public int getLikeCount() {
+    public BigInteger getLikeCount() {
         return this.likeCount;
     }
 
-    public int getCommentCount() {
+    public BigInteger getCommentCount() {
         return this.commentCount;
     }
 

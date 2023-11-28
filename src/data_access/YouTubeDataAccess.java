@@ -1,33 +1,29 @@
 package data_access;
-import com.fasterxml.jackson.databind.JsonNode;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
 
@@ -83,10 +79,20 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
         return myVideo;
     }
-    public static ArrayList<entities.Video> get_trending_default() throws GeneralSecurityException, IOException {
+    public ArrayList<entities.Video> get_trending_default() throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
         VideoListResponse response = request.setChart("mostPopular").execute();
+        return getVideos(response);
+    }
+    public ArrayList<entities.Video> get_trending_category(String category) throws GeneralSecurityException, IOException {
+        YouTube youtubeService = getService();
+        YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+        VideoListResponse response = request.setChart("mostPopular").setVideoCategoryId(category).execute();
+        return getVideos(response);
+    }
+
+    private static ArrayList<entities.Video> getVideos(VideoListResponse response) {
         ArrayList<entities.Video> videos = new ArrayList<>();
         for (int i = 0; i < 5; i ++){
             Video video = response.getItems().get(i);

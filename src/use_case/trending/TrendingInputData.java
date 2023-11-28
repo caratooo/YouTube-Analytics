@@ -1,11 +1,11 @@
 package use_case.trending;
 
 public class TrendingInputData {
-    final private Integer category;
+    final private String categoryInt;
 
-    public TrendingInputData(Integer category) {
-        this.category= category;
+    public TrendingInputData(String categoryInt) {
+        this.categoryInt= categoryInt;
     }
 
-    Integer getCategoryId() { return category; }
+    String getCategoryId() { return categoryInt; }
 }

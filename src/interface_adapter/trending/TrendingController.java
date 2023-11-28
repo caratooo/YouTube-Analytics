@@ -12,8 +12,8 @@ public class TrendingController {
     }
 
 
-    public void execute(Integer category) {
-        TrendingInputData trendingInputData = new TrendingInputData(category);
+    public void execute(String categoryInt) {
+        TrendingInputData trendingInputData = new TrendingInputData(categoryInt);
 
         trendingUseCaseInteractor.execute(trendingInputData);
     }

@@ -1,5 +1,11 @@
 package use_case.trending;
 
+import entities.Video;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+
 public class TrendingInteractor implements TrendingInputBoundary{
     final TrendingDataAccessInterface trendingDataAccessObject;
 
@@ -13,6 +19,26 @@ public class TrendingInteractor implements TrendingInputBoundary{
     }
     @Override
     public void execute(TrendingInputData trendingInputData) {
+        if (trendingInputData == null){
+            try {
+                ArrayList<Video> videos = trendingDataAccessObject.get_trending_default();
+            } catch (GeneralSecurityException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+        else{
+            // get trend by category
+            try {
+                ArrayList<Video> videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
+            } catch (GeneralSecurityException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
     }
 }
