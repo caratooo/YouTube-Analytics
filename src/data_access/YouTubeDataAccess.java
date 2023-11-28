@@ -19,6 +19,7 @@ import com.google.api.services.youtube.model.VideoStatistics;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 
 import java.io.IOException;
@@ -28,14 +29,7 @@ import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
-import java.lang.reflect.Type;
-import com.google.gson.reflect.TypeToken;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
+public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
 
     private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
@@ -79,16 +73,33 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
 
     public static entities.Video get_video(String videoId) throws GeneralSecurityException, IOException {
         VideoListResponse response = get_video_response(videoId);
-        String jsonString = response.toPrettyString();
         Video video = response.getItems().get(0);
         VideoSnippet snippet = video.getSnippet();
         VideoStatistics statistics = video.getStatistics();
 
-        entities.Video video = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
+        entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
                 snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
                 statistics.getLikeCount(), statistics.getCommentCount());
 
-        return video;
+        return myVideo;
+    }
+    public static ArrayList<entities.Video> get_trending_default(ArrayList<String> videoIds) throws GeneralSecurityException, IOException {
+        YouTube youtubeService = getService();
+        YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+        VideoListResponse response = request.setChart("mostPopular").execute();
+        ArrayList<entities.Video> videos = new ArrayList<>();
+        for (int i = 0; i < 5; i ++){
+            Video video = response.getItems().get(i);
+            VideoSnippet snippet = video.getSnippet();
+            String videoId = video.getId();
+            VideoStatistics statistics = video.getStatistics();
+            entities.Video thisVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
+                    snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
+                    statistics.getLikeCount(), statistics.getCommentCount());
+            videos.add(thisVideo);
+
+        }
+        return videos;
     }
 
 }
