@@ -1,15 +1,15 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import views.HomeView;
-import views.LoginView;
-import views.SignupView;
-import views.ViewManager;
+import interface_adapter.video_search.VideoSearchViewModel;
+import interface_adapter.video_stats.VideoStatsViewModel;
+import views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +37,8 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
+        VideoSearchViewModel videoSearchViewModel = new VideoSearchViewModel();
+        VideoStatsViewModel videoStatsViewModel = new VideoStatsViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -45,15 +47,28 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        YouTubeDataAccess youTubeDataAccess;
+        try {
+            youTubeDataAccess = new YouTubeDataAccess();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel);
+        HomeView homeView = new HomeView(homeViewModel, videoSearchViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
+        VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess);
+        views.add(videoSearchView, videoSearchView.viewName);
+
+        VideoStatsView videoStatsView = new VideoStatsView(videoStatsViewModel);
+        views.add(videoStatsView, videoStatsView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
