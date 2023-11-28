@@ -9,7 +9,7 @@ public interface VideoSearchDataAccessInterface {
 
     Video get(String videoId) throws GeneralSecurityException, IOException;
 
-//    boolean idInvalid(String identifier);
+    boolean isInvalid(String identifier) throws GeneralSecurityException, IOException;
 
 //    void save(Video video);  // TODO see VideoSearchInteractor 32
 
