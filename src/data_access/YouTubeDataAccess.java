@@ -30,10 +30,11 @@ import java.util.*;
 
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.servlet.ServletOutputStream;
 
 public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
 
@@ -91,5 +92,25 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
 
         return videoEn;
     }
+
+//    @Override
+//    public entities.Video get(String videoId) throws GeneralSecurityException, IOException {
+//        return null;
+//    }
+
+    public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
+        try {
+            getVideoResponse(videoId);
+            return false;
+        } catch (NullPointerException e) {
+            return true;
+        }
+
+    }
+
+//    public static void main(String[] args) throws GeneralSecurityException, IOException {
+//        System.out.println(isInvalid("123"));
+//    }
+
 
 }
