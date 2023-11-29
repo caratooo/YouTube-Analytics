@@ -1,4 +1,23 @@
 package use_case.history;
 
-public class HistoryInteractor {
+import java.util.Collections;
+import java.util.List;
+
+public class HistoryInteractor implements HistoryInputBoundary {
+    final HistoryDataAccessInterface historyDataAccessInterface;
+    final HistoryOutputBoundary historyPresenter;
+
+    public HistoryInteractor(HistoryDataAccessInterface historyDataAccessInterface,
+                             HistoryOutputBoundary historyPresenter) {
+        this.historyDataAccessInterface = historyDataAccessInterface;
+        this.historyPresenter = historyPresenter;
+    }
+
+    @Override
+    public void execute(HistoryInputData historyInputData) {
+        List<String> userHistory = historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier());
+
+        HistoryOutputData historyOutputData = new HistoryOutputData(historyInputData.getIdentifier(), userHistory);
+        historyPresenter.prepareSuccessView(historyOutputData);
+    }
 }
