@@ -4,7 +4,6 @@ public class VideoSearchState {
 
     private String videoId = "";
 
-    // TODO maybe add error if the DAO grabs nothing (would mean the ID is invalid)
     private String videoIdError = null;
 
     public VideoSearchState(VideoSearchState copy) {
@@ -13,12 +12,9 @@ public class VideoSearchState {
     }
 
     public VideoSearchState() {
-
     }
 
     public String getVideoId() { return videoId; }
-
-//    public String get
 
     public String getVideoIdError() { return videoIdError; }
 

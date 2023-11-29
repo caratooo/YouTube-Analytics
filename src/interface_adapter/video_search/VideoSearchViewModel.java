@@ -10,7 +10,6 @@ public class VideoSearchViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Video Search View";
     public static final String VIDEO_ID_LABEL = "Input a video ID";
     public static final String SEARCH_BUTTON_LABEL = "Search";
-
     public static final String BACK_BUTTON_LABEL = "Back to Home";
 
     private VideoSearchState state = new VideoSearchState();

@@ -41,10 +41,10 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
         JLabel title = new JLabel("Video Stats Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // TODO why is it displaying like that :,)
+
         JLabel videoIdInfo = new JLabel("Video ID: ");
         videoId = new JLabel();
-
-        // TODO for below, see issue #32
 
         JLabel videoChannelInfo = new JLabel("Channel: ");
         channelName = new JLabel();
@@ -92,7 +92,6 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 
     @Override
@@ -104,7 +103,7 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
         description.setText(state.getDescription());
         videoPublishDate.setText(state.getVideoPublishDate().toString());
         viewCount.setText(String.valueOf(state.getViewCount()));
-        likeCount.setText(String.valueOf(state.getTitle()));
-        commentCount.setText(String.valueOf(state.getTitle()));
+        likeCount.setText(String.valueOf(state.getLikeCount()));
+        commentCount.setText(String.valueOf(state.getCommentCount()));
     }
 }

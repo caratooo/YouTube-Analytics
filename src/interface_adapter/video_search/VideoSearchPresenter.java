@@ -45,7 +45,7 @@ public class VideoSearchPresenter implements VideoSearchOutputBoundary {
     @Override
     public void prepareFailView(String error) {
         VideoSearchState videoSearchState = videoSearchViewModel.getState();
-        videoSearchState.setVideoIdError(error);  // TODO see comments of VideoSearchState
+        videoSearchState.setVideoIdError(error);
         videoSearchViewModel.firePropertyChanged();
     }
 }
