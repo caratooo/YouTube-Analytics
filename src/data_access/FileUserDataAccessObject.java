@@ -9,11 +9,9 @@ import use_case.login.LoginDataAccessInterface;
 import use_case.signup.SignupDataAccessInterface;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
-public class FileUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface, HistoryDataAccessInterface, CompareDataAccessInterface, ChannelSearchDataAccessInterface {
+public class FileUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -92,5 +90,13 @@ public class FileUserDataAccessObject implements SignupDataAccessInterface, Logi
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
+    }
+
+    public boolean isEmpty() {
+        return accounts.isEmpty();
+    }
+
+    public Object[] getUsers() {
+        return accounts.keySet().toArray();
     }
 }
