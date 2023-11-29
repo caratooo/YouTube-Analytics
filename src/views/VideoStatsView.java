@@ -43,48 +43,48 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
 
         // TODO why is it displaying like that :,)
 
-        JLabel videoIdInfo = new JLabel("Video ID: ");
+//        JLabel videoIdInfo = new JLabel("Video ID: ");
         videoId = new JLabel();
 
-        JLabel videoChannelInfo = new JLabel("Channel: ");
+//        JLabel videoChannelInfo = new JLabel("Channel: ");
         channelName = new JLabel();
 
-        JLabel videoTitleInfo = new JLabel("Title: ");
+//        JLabel videoTitleInfo = new JLabel("Title: ");
         videoTitle = new JLabel();
 
-        JLabel videoDescriptionInfo = new JLabel("Title: ");
+//        JLabel videoDescriptionInfo = new JLabel("Title: ");
         description = new JLabel();
 
-        JLabel videoPublishDateInfo = new JLabel("Title: ");
+//        JLabel videoPublishDateInfo = new JLabel("Title: ");
         videoPublishDate = new JLabel();
 
-        JLabel viewCountInfo = new JLabel("Title: ");
+//        JLabel viewCountInfo = new JLabel("Title: ");
         viewCount = new JLabel();
 
-        JLabel likeCountInfo = new JLabel("Title: ");
+//        JLabel likeCountInfo = new JLabel("Title: ");
         likeCount = new JLabel();
 
-        JLabel commentCountInfo = new JLabel("Title: ");
+//        JLabel commentCountInfo = new JLabel("Title: ");
         commentCount = new JLabel();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(videoIdInfo);
+//        this.add(videoIdInfo);
         this.add(videoId);
-        this.add(videoChannelInfo);
+//        this.add(videoChannelInfo);
         this.add(channelName);
-        this.add(videoTitleInfo);
+//        this.add(videoTitleInfo);
         this.add(videoTitle);
-        this.add(videoDescriptionInfo);
+//        this.add(videoDescriptionInfo);
         this.add(description);
-        this.add(videoPublishDateInfo);
+//        this.add(videoPublishDateInfo);
         this.add(videoPublishDate);
-        this.add(viewCountInfo);
+//        this.add(viewCountInfo);
         this.add(viewCount);
-        this.add(likeCountInfo);
+//        this.add(likeCountInfo);
         this.add(likeCount);
-        this.add(commentCountInfo);
+//        this.add(commentCountInfo);
         this.add(commentCount);
 
     }
@@ -97,13 +97,13 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         VideoStatsState state = (VideoStatsState) evt.getNewValue();
-        videoId.setText(state.getVideoId());
-        channelName.setText(state.getChannelName());
-        videoTitle.setText(state.getTitle());
-        description.setText(state.getDescription());
-        videoPublishDate.setText(state.getVideoPublishDate().toString());
-        viewCount.setText(String.valueOf(state.getViewCount()));
-        likeCount.setText(String.valueOf(state.getLikeCount()));
-        commentCount.setText(String.valueOf(state.getCommentCount()));
+        videoId.setText("Video ID: " + state.getVideoId());
+        channelName.setText("Channel name: " + state.getChannelName());
+        videoTitle.setText("Video name: " + state.getTitle());
+        description.setText("Description: " + state.getDescription());
+        videoPublishDate.setText("Video publish date: " + state.getVideoPublishDate().toString());
+        viewCount.setText("View count: " + String.valueOf(state.getViewCount()));
+        likeCount.setText("Like count: " + String.valueOf(state.getLikeCount()));
+        commentCount.setText("Comment count: " + String.valueOf(state.getCommentCount()));
     }
 }
