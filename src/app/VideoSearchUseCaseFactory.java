@@ -5,7 +5,6 @@ import interface_adapter.home.HomeViewModel;
 import interface_adapter.video_search.VideoSearchController;
 import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchViewModel;
-import interface_adapter.video_stats.VideoStatsState;
 import interface_adapter.video_stats.VideoStatsViewModel;
 import use_case.video_search.VideoSearchDataAccessInterface;
 import use_case.video_search.VideoSearchInputBoundary;

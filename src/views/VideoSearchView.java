@@ -3,7 +3,6 @@ package views;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.video_search.VideoSearchController;
-import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchState;
 import interface_adapter.video_search.VideoSearchViewModel;
 

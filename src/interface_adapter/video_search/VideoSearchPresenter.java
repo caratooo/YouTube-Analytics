@@ -12,7 +12,7 @@ public class VideoSearchPresenter implements VideoSearchOutputBoundary {
 
     private final VideoStatsViewModel videoStatsViewModel;
 
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     public VideoSearchPresenter(VideoSearchViewModel videoSearchViewModel,
                                 VideoStatsViewModel videoStatsViewModel,

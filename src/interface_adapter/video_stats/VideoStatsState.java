@@ -77,8 +77,6 @@ public class VideoStatsState {
         this.likeCount = likeCount;
     }
 
-    public void setCommentCount(int likeCount) {
-        this.commentCount = commentCount;
-    }
+    public void setCommentCount(int commentCount) { this.commentCount = commentCount; }
 
 }
