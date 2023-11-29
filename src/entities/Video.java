@@ -11,14 +11,14 @@ public class Video {
     private final String title;
     private final String description;
     private final DateTime videoPublishDate;
-    private final BigInteger viewCount;
-    private final BigInteger likeCount;
-    private final BigInteger commentCount;
+    private final int viewCount;
+    private final int likeCount;
+    private final int commentCount;
 
 
     public Video(String videoId, String channelName, String title,
                  String description, DateTime videoPublishDate,
-                 BigInteger viewCount, BigInteger likeCount, BigInteger commentCount) {
+                 int viewCount, int likeCount, int commentCount) {
         this.videoId = videoId;
         this.channelName = channelName;
         this.title = title;
@@ -49,15 +49,15 @@ public class Video {
         return this.videoPublishDate;
     }
 
-    public BigInteger getViewCount() {
+    public int getViewCount() {
         return this.viewCount;
     }
 
-    public BigInteger getLikeCount() {
+    public int getLikeCount() {
         return this.likeCount;
     }
 
-    public BigInteger getCommentCount() {
+    public int getCommentCount() {
         return this.commentCount;
     }
 

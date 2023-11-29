@@ -82,8 +82,8 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         VideoStatistics statistics = video.getStatistics();
 
         entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
-                statistics.getLikeCount(), statistics.getCommentCount());
+                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
+                statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
 
         return myVideo;
     }
@@ -108,12 +108,16 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
             String videoId = video.getId();
             VideoStatistics statistics = video.getStatistics();
             entities.Video thisVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                    snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
-                    statistics.getLikeCount(), statistics.getCommentCount());
+                    snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
+                    statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
             videos.add(thisVideo);
 
         }
         return videos;
+    }
+
+    public static void main(String[] args) throws GeneralSecurityException, IOException {
+        get_video("hIuwvuYukGY");
     }
 
 }
