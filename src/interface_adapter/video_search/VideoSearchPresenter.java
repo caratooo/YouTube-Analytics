@@ -36,7 +36,7 @@ public class VideoSearchPresenter implements VideoSearchOutputBoundary {
         videoStatsState.setLikeCount(video.getLikeCount());
         videoStatsState.setCommentCount(video.getCommentCount());
         this.videoStatsViewModel.setState(videoStatsState);
-        this.videoStatsViewModel.firePropertyChanged();
+        videoStatsViewModel.firePropertyChanged();
 
         this.viewManagerModel.setActiveView(videoStatsViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
