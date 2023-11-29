@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class TrendingCategorySelectView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "trending select";
@@ -50,7 +52,13 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
                 String categoryInt = handleCategorySelection(selectedCategory);
                 System.out.println(categoryInt);
                 System.out.println(categoryInt == null);
-                controller.execute(categoryInt);
+                try {
+                    controller.execute(categoryInt);
+                } catch (GeneralSecurityException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

@@ -3,30 +3,126 @@ package interface_adapter.trending;
 import entities.Video;
 
 public class TrendingDataState {
-    // TODO put everything I want in the output
-    private Video topOne;
-    private Video topTwo;
-    private Video topThree;
+    private String topOneVideoId;
+    private String topOneTitle;
+
+    private String topOneDescription;
+    private int topOneViewCount;
+
+    private int topOneLikeCount;
+
+    private int topOneCommentCount;
+
+    private String topTwoVideoId;
+    private String topTwoTitle;
+
+    private String topTwoDescription;
+    private int topTwoViewCount;
+
+    private int topTwoLikeCount;
+
+    private int topTwoCommentCount;
+
+    private String topThreeVideoId;
+    private String topThreeTitle;
+
+    private String topThreeDescription;
+    private int topThreeViewCount;
+
+    private int topThreeLikeCount;
+
+    private int topThreeCommentCount;
 
     public TrendingDataState(TrendingDataState copy) {
-        topOne = copy.topOne;
-        topTwo = copy.topTwo;
-        topThree = copy.topThree;
+        topOneVideoId = copy.topOneVideoId;
+        topOneTitle = copy.topOneTitle;
+        topOneDescription = copy.topOneDescription;
+        topOneViewCount = copy.topOneViewCount;
+        topOneLikeCount = copy.topOneLikeCount;
+        topOneCommentCount = copy.topOneCommentCount;
+        topTwoVideoId = copy.topTwoVideoId;
+        topTwoTitle = copy.topTwoTitle;
+        topTwoDescription = copy.topTwoDescription;
+        topTwoViewCount = copy.topTwoViewCount;
+        topTwoLikeCount = copy.topTwoLikeCount;
+        topTwoCommentCount = copy.topTwoCommentCount;
+        topThreeVideoId = copy.topThreeVideoId;
+        topThreeTitle = copy.topThreeTitle;
+        topThreeDescription = copy.topThreeDescription;
+        topThreeViewCount = copy.topThreeViewCount;
+        topThreeLikeCount = copy.topThreeLikeCount;
+        topThreeCommentCount = copy.topThreeCommentCount;
+
     }
 
     public TrendingDataState() {
 
     }
 
-    public Video getTopOne() {
-        return topOne;
+    public String getTopOneVideoId() {
+        return topOneVideoId;
+    }
+    public String getTopOneTitle() {
+        return topOneTitle;
+    }
+    public String getTopOneDescription() {
+        return topOneDescription;
     }
 
-    public Video getTopTwo() {
-        return topTwo;
+    public int getTopOneViewCount() {
+        return topOneViewCount;
     }
 
-    public Video getTopThree() {
-        return topThree;
+    public int getTopOnelikeCount() {
+        return topOneLikeCount;
     }
+
+    public int getTopOneCommentCount() {
+        return topOneCommentCount;
+    }
+
+    public String getTopTwoVideoId() {
+        return topTwoVideoId;
+    }
+    public String getTopTwoTitle() {
+        return topTwoTitle;
+    }
+    public String getTopTwoDescription() {
+        return topTwoDescription;
+    }
+
+    public int getToptwoViewCount() {
+        return topTwoViewCount;
+    }
+
+    public int getTopTwolikeCount() {
+        return topTwoLikeCount;
+    }
+
+    public int getTopTwoCommentCount() {
+        return topTwoCommentCount;
+    }
+
+    public String getTopThreeVideoId() {
+        return topThreeVideoId;
+    }
+    public String getTopThreeTitle() {
+        return topThreeTitle;
+    }
+    public String getTopThreeDescription() {
+        return topThreeDescription;
+    }
+
+    public int getTopThreeViewCount() {
+        return topThreeViewCount;
+    }
+
+    public int getTopThreelikeCount() {
+        return topThreeLikeCount;
+    }
+
+    public int getTopThreeCommentCount() {
+        return topThreeCommentCount;
+    }
+
 }

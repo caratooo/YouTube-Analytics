@@ -22,7 +22,11 @@ public class Video {
         this.videoId = videoId;
         this.channelName = channelName;
         this.title = title;
-        this.description = description;
+        if (description.length() > 100) {
+            this.description = description.substring(0, 100) + "...";
+        } else {
+            this.description = description;
+        }
         this.videoPublishDate = videoPublishDate;
         this.viewCount = viewCount;
         this.likeCount = likeCount;

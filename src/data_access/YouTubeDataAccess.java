@@ -47,7 +47,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
      */
     public static Credential authorize(final NetHttpTransport httpTransport) throws IOException {
         // Load client secrets.
-        FileInputStream fis = new FileInputStream((".\\client_secret.json"));
+        FileInputStream fis = new FileInputStream(("./client_secret.json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(fis));
 //        InputStream in = YouTubeDataAccess.class.getResourceAsStream(CLIENT_SECRETS);
 //        GoogleClientSecrets clientSecrets =
@@ -62,7 +62,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     }
 
     public static YouTube getService() throws GeneralSecurityException, IOException {
-        final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+        final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();;
         Credential credential = authorize(httpTransport);
         return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
