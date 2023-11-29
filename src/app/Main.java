@@ -64,7 +64,7 @@ public class Main {
         HomeView homeView = new HomeView(homeViewModel, videoSearchViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
-        VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess);
+        VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel, homeViewModel, youTubeDataAccess);
         views.add(videoSearchView, videoSearchView.viewName);
 
         VideoStatsView videoStatsView = new VideoStatsView(videoStatsViewModel);
