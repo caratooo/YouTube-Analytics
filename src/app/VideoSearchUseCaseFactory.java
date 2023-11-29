@@ -1,6 +1,7 @@
 package app;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.home.HomeViewModel;
 import interface_adapter.video_search.VideoSearchController;
 import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchViewModel;
@@ -23,11 +24,12 @@ public class VideoSearchUseCaseFactory {
             ViewManagerModel viewManagerModel,
             VideoSearchViewModel videoSearchViewModel,
             VideoStatsViewModel videoStatsViewModel,
+            HomeViewModel homeViewModel,
             VideoSearchDataAccessInterface youtubeDataAccessObject) {
 
         try {
-            VideoSearchController videoSearchController = createLoginUseCase(viewManagerModel, videoSearchViewModel, videoStatsViewModel, youtubeDataAccessObject);
-            return new VideoSearchView(videoSearchController, videoSearchViewModel);
+            VideoSearchController videoSearchController = createVideoSearchUseCase(viewManagerModel, videoSearchViewModel, videoStatsViewModel, youtubeDataAccessObject);
+            return new VideoSearchView(videoSearchController, videoSearchViewModel, homeViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -35,7 +37,7 @@ public class VideoSearchUseCaseFactory {
         return null;
     }
 
-    private static VideoSearchController createLoginUseCase(
+    private static VideoSearchController createVideoSearchUseCase(
             ViewManagerModel viewManagerModel,
             VideoSearchViewModel videoSearchViewModel,
             VideoStatsViewModel videoStatsViewModel,
