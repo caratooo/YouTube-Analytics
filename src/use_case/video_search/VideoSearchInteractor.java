@@ -13,8 +13,6 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
 
     final VideoSearchOutputBoundary videoPresenter;
 
-    // TODO design pattern???? (see sign up's factory in SignupInteractor)
-
     public VideoSearchInteractor(VideoSearchDataAccessInterface videoSearchDataAccessInterface,
                                  VideoSearchOutputBoundary videoSearchOutputBoundary) {
         this.videoSearchDataAccessObject = videoSearchDataAccessInterface;
@@ -28,7 +26,7 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
         if (videoSearchDataAccessObject.isInvalid(videoSearchInputData.getVideoId())) {
             videoPresenter.prepareFailView("Video ID does not exist.");
         } else {
-            Video video = videoSearchDataAccessObject.get(videoSearchInputData.getVideoId());
+            Video video = videoSearchDataAccessObject.getVideo(videoSearchInputData.getVideoId());
 
             VideoSearchOutputData videoSearchOutputData = new VideoSearchOutputData(video.getId(),
                                                                                     video.getChannelName(),

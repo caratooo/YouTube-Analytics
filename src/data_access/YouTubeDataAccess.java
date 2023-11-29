@@ -70,7 +70,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
     }
 
     @Override
-    public entities.Video get(String videoId) throws GeneralSecurityException, IOException {
+    public entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
         VideoListResponse response = getVideoResponse(videoId);
         String jsonString = response.toPrettyString();
         Video video = response.getItems().get(0);
@@ -105,7 +105,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
 
     public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
         try {
-            get(videoId);
+            getVideo(videoId);
             return false;
         } catch (IndexOutOfBoundsException e) {
             return true;
