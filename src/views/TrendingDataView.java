@@ -57,6 +57,8 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         topThreeLikeCount = new JLabel();
         topThreeCommentCount = new JLabel();
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
         this.add(topOneVideoId);
         this.add(topOneTitle);
         this.add(topOneDescription);

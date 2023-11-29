@@ -59,6 +59,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+                trendingCategorySelectViewModel.setState(currState);
             }
         });
 
