@@ -17,6 +17,9 @@ public class TrendingPresenter implements TrendingOutputBoundary {
 
     @Override
     public void prepareDataView(TrendingOutputData data) {
+        TrendingDataState trendingDataState = trendingDataViewModel.getState();
+        trendingDataState.setTopOneVideoId(data.getTopOneVideoId());
+
         this.viewManagerModel.setActiveView(trendingDataViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
 

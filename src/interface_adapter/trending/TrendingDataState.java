@@ -62,6 +62,11 @@ public class TrendingDataState {
     public String getTopOneVideoId() {
         return topOneVideoId;
     }
+
+    public void setTopOneVideoId(String videoId) {
+        this.topOneVideoId = videoId;
+    }
+
     public String getTopOneTitle() {
         return topOneTitle;
     }
@@ -73,7 +78,7 @@ public class TrendingDataState {
         return topOneViewCount;
     }
 
-    public int getTopOnelikeCount() {
+    public int getTopOneLikeCount() {
         return topOneLikeCount;
     }
 
@@ -91,11 +96,11 @@ public class TrendingDataState {
         return topTwoDescription;
     }
 
-    public int getToptwoViewCount() {
+    public int getTopTwoViewCount() {
         return topTwoViewCount;
     }
 
-    public int getTopTwolikeCount() {
+    public int getTopTwoLikeCount() {
         return topTwoLikeCount;
     }
 
@@ -117,7 +122,7 @@ public class TrendingDataState {
         return topThreeViewCount;
     }
 
-    public int getTopThreelikeCount() {
+    public int getTopThreeLikeCount() {
         return topThreeLikeCount;
     }
 

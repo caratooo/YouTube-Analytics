@@ -89,6 +89,21 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         topOneTitle.setText("Top One Title:" + state.getTopOneTitle());
         topOneDescription.setText("Top One Description:" + state.getTopOneDescription());
         topOneViewCount.setText("Top One View Count:" + state.getTopOneViewCount());
+        topOneLikeCount.setText("Top One Like Count:" + state.getTopOneLikeCount());
+        topOneCommentCount.setText("Top One Comment Count:" + state.getTopOneCommentCount());
+        topTwoVideoId.setText("Top Two Video ID:" + state.getTopTwoVideoId());
+        topTwoTitle.setText("Top Two Title:" + state.getTopTwoTitle());
+        topTwoDescription.setText("Top Two Description:" + state.getTopTwoDescription());
+        topTwoViewCount.setText("Top Two View Count:" + state.getTopTwoViewCount());
+        topTwoLikeCount.setText("Top Two Like Count:" + state.getTopTwoLikeCount());
+        topTwoCommentCount.setText("Top Two Comment Count:" + state.getTopTwoCommentCount());
+        topThreeVideoId.setText("Top Three Video ID:" + state.getTopThreeVideoId());
+        topThreeTitle.setText("Top Three Title:" + state.getTopThreeTitle());
+        topThreeDescription.setText("Top Three Description:" + state.getTopThreeDescription());
+        topThreeViewCount.setText("Top Three View Count:" + state.getTopThreeViewCount());
+        topThreeLikeCount.setText("Top Three Like Count:" + state.getTopThreeLikeCount());
+        topThreeCommentCount.setText("Top Three Comment Count:" + state.getTopThreeCommentCount());
+
 
     }
 }

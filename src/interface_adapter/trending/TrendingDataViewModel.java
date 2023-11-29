@@ -11,6 +11,10 @@ public class TrendingDataViewModel extends ViewModel {
 
     public TrendingDataViewModel(){super("trending data");}
 
+    public TrendingDataState getState() { return state; }
+
+    public void setState(TrendingDataState state) { this.state = state; }
+
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public void firePropertyChanged() {
