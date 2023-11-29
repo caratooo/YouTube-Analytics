@@ -28,6 +28,19 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         JPanel buttons = new JPanel();
         home = new JButton(HistoryViewModel.HOME_BUTTON_LABEL);
         buttons.add(home);
+
+        JPanel history = new JPanel();
+
+        home.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+//                        if (e.getSource().equals(home)) {
+//
+//                        }
+                    }
+                }
+        );
     }
     @Override
     public void actionPerformed(ActionEvent e) {
