@@ -15,6 +15,8 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     private final HistoryViewModel historyViewModel;
     private final HistoryController historyController;
 
+    private final JButton home;
+
     public HistoryView(HistoryController historyController, HistoryViewModel historyViewModel) {
         this.historyController = historyController;
         this.historyViewModel = historyViewModel;
@@ -23,6 +25,9 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         JLabel title = new JLabel(HistoryViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JPanel buttons = new JPanel();
+        home = new JButton(HistoryViewModel.HOME_BUTTON_LABEL);
+        buttons.add(home);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
