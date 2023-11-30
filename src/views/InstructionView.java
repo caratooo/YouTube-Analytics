@@ -8,7 +8,7 @@ public class InstructionView extends JPanel{
         // Create a new JFrame for the search video view
         JFrame instructionFrame = new JFrame("Instructions");
         instructionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        instructionFrame.setSize(400, 300);
+        instructionFrame.setSize(500, 200);
 
         // Create a panel for the search video view
         JPanel instructionPanel = new JPanel(new GridLayout(0, 1));
@@ -16,10 +16,9 @@ public class InstructionView extends JPanel{
         // Sample instructions
         String[] instructions = {
                 "Search Video: Type in Youtube Video ID in the search bar to see its stats.",
-                "Search Channel: Type in Youtube Channel ID in the search bar to see its stats.",
-                "Trending: Search most popular videos in general or by categories.",
-                "Compare: Compare statistics between two videos.",
-                "History: Show 5 most recent search history."
+                "Trending: Search top three most popular videos in general or by categories.",
+                "Compare: Type in two Video ID and compare statistics between two videos.",
+                "History: Show 5 most recent search history in Search Video and/or Compare."
         };
 
         // Add instructions to the panel

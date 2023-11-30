@@ -1,22 +1,27 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import views.HomeView;
-import views.LoginView;
-import views.SignupView;
-import views.ViewManager;
+import interface_adapter.trending.TrendingCategorySelectViewModel;
+import interface_adapter.trending.TrendingDataViewModel;
+import use_case.trending.TrendingDataAccessInterface;
+import views.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+import static data_access.YouTubeDataAccess.get_video;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
+
         JFrame application = new JFrame("Youtube Analytics");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,6 +42,8 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
+        TrendingCategorySelectViewModel trendingCategorySelectViewModel =  new TrendingCategorySelectViewModel();
+        TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -48,12 +55,19 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel);
+        HomeView homeView = new HomeView(homeViewModel, trendingCategorySelectViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
+        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+
+        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess, homeViewModel);
+        views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
+
+        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
+        views.add(trendingDataView, trendingDataView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
