@@ -9,8 +9,9 @@ public class TrendingInputData {
 
     String getCategoryId() { return categoryInt; }
     String getCategoryStr(){
-        if(categoryInt.equals("0")){
-            return "General";
+
+        if(categoryInt.equals("15")){
+            return "News";
         }
         else if(categoryInt.equals("1")){
             return "Movies";
@@ -24,13 +25,12 @@ public class TrendingInputData {
         else if(categoryInt.equals("20")){
             return "Gaming";
         }
-        else if(categoryInt.equals("25")){
-            return "News";
-        }
         else {
-            return "Animals"; // selectedCategory.equals("15")
+            return "General"; // categoryInt.equals("0")
         }
     }
+
+
 
     Boolean equal(String compare){
         return categoryInt.equals(compare);

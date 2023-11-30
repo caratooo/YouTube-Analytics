@@ -20,8 +20,6 @@ public class TrendingInteractor implements TrendingInputBoundary {
 
     @Override
     public void execute(TrendingInputData trendingInputData) throws GeneralSecurityException, IOException {
-        System.out.println("trendingInputData:" + trendingInputData.getCategoryId());
-        System.out.println("general? " + (trendingInputData.equal("0")));
         ArrayList<Video> videos;
         if (trendingInputData.equal("0")) {
             videos = trendingDataAccessObject.get_trending_default();
