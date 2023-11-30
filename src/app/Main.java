@@ -66,7 +66,7 @@ public class Main {
         TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess, homeViewModel);
         views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
 
-        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel);
+        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
         views.add(trendingDataView, trendingDataView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);

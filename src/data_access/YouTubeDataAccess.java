@@ -5,7 +5,6 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -14,13 +13,11 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
-import interface_adapter.trending.TrendingDataViewModel;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
@@ -114,10 +111,6 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
         }
         return videos;
-    }
-
-    public static void main(String[] args) throws GeneralSecurityException, IOException {
-        get_video("hIuwvuYukGY");
     }
 
 }

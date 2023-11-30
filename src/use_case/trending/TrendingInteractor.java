@@ -24,7 +24,7 @@ public class TrendingInteractor implements TrendingInputBoundary {
         System.out.println("general? " + (trendingInputData.equal("0")));
         if (trendingInputData.equal("0")) {
             ArrayList<Video> videos = trendingDataAccessObject.get_trending_default();
-            System.out.println(videos);
+//            printInConsole(videos);
 
             TrendingOutputData trendingOutputData = new TrendingOutputData(videos.get(0).getId(), videos.get(0).getTitle(), videos.get(0).getDescription(), videos.get(0).getViewCount(),
                     videos.get(0).getLikeCount(), videos.get(0).getCommentCount(), videos.get(1).getId(), videos.get(1).getTitle(), videos.get(1).getDescription(), videos.get(1).getViewCount(),
@@ -44,7 +44,7 @@ public class TrendingInteractor implements TrendingInputBoundary {
         } else {
             // get trend by category
             ArrayList<Video> videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
-            System.out.println(videos);
+//            printInConsole(videos);
 
             TrendingOutputData trendingOutputData = new TrendingOutputData(videos.get(0).getId(), videos.get(0).getTitle(), videos.get(0).getDescription(), videos.get(0).getViewCount(),
                     videos.get(0).getLikeCount(), videos.get(0).getCommentCount(), videos.get(1).getId(), videos.get(1).getTitle(), videos.get(1).getDescription(), videos.get(1).getViewCount(),
@@ -63,7 +63,18 @@ public class TrendingInteractor implements TrendingInputBoundary {
 //            }
         }
 
-
-
     }
+
+//    private void printInConsole(ArrayList<Video> videos){
+//        System.out.println("1st view count: " + videos.get(0).getViewCount());
+//        System.out.println("1st like count: " + videos.get(0).getLikeCount());
+//        System.out.println("2nd view count: " + videos.get(1).getLikeCount());
+//        System.out.println("2nd like count: " + videos.get(1).getLikeCount());
+//        System.out.println("3rd view count: " + videos.get(2).getLikeCount());
+//        System.out.println("3rd like count: " + videos.get(2).getLikeCount());
+//        System.out.println("4th view count: " + videos.get(3).getLikeCount());
+//        System.out.println("4th like count: " + videos.get(3).getLikeCount());
+//        System.out.println("5th view count: " + videos.get(4).getLikeCount());
+//        System.out.println("5th like count: " + videos.get(4).getLikeCount());
+//    }
 }

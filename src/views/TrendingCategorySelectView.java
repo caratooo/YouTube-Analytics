@@ -31,7 +31,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         this.trendingCategorySelectViewModel.addPropertyChangeListener(this);
 
         // initialize Components
-        categoryComboBox = new JComboBox<>(new String[]{"General", "Music", "Animals","Sports", "Gaming", "News", "Movies", "Animation"});
+        categoryComboBox = new JComboBox<>(new String[]{"General", "Music", "Animals","Sports", "Gaming", "News", "Movies"});
         selectButton = new JButton("Select");
         homeButton = new JButton("home");
 
@@ -80,19 +80,18 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         System.out.println("Selected category: " + selectedCategory);
     //    youtube category:
     //            General
+    //            1 - Movies
     //            10 - Music
     //            15 - Animals
     //            17 - Sports
     //            20 - Gaming
     //            25 - News
-    //            30 - Movies
-    //            31 - Animation
 
         if(selectedCategory.equals("General")){
             return "0";
         }
-        else if(selectedCategory.equals("Music")){
-            return "10";
+        else if(selectedCategory.equals("Movies")){
+            return "1";
         }
         else if(selectedCategory.equals("Animals")){
             return "15";
@@ -106,13 +105,10 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         else if(selectedCategory.equals("News")){
             return "25";
         }
-        else if(selectedCategory.equals("Movies")){
-            return "30";
-        }
         else {
-            return "31";
+            System.out.println("reach");
+            return "15"; // selectedCategory.equals("Animals")
         }
-
     }
 
     @Override
