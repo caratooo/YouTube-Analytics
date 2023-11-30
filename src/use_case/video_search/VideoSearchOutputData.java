@@ -52,4 +52,15 @@ public class VideoSearchOutputData {
 
     public int getCommentCount() {return commentCount; }
 
-}
+    public String toString() {
+        return videoId + "," +
+                channelName + "," +
+                title + "," +
+                description + "," +
+                videoPublishDate.toString() + "," +
+                viewCount + "," +
+                likeCount + "," +
+                commentCount;
+    }
+
+    }
