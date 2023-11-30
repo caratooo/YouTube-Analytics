@@ -67,7 +67,7 @@ public class Main {
         VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel, homeViewModel, youTubeDataAccess);
         views.add(videoSearchView, videoSearchView.viewName);
 
-        VideoStatsView videoStatsView = new VideoStatsView(videoStatsViewModel);
+        VideoStatsView videoStatsView = new VideoStatsView(videoStatsViewModel, homeViewModel, viewManagerModel);
         views.add(videoStatsView, videoStatsView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);

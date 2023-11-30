@@ -8,6 +8,7 @@ import java.beans.PropertyChangeSupport;
 public class VideoStatsViewModel extends ViewModel {
 
     public final String TITLE_LABEL = "Video Stats View";
+    public static final String BACK_BUTTON_LABEL = "Back to Home";
 
     private VideoStatsState state = new VideoStatsState();
 
