@@ -1,7 +1,7 @@
 package interface_adapter.trending;
 
 public class TrendingCategorySelectState {
-    private Integer category = null;
+    private String category = "0";
 
     public TrendingCategorySelectState(TrendingCategorySelectState copy) {
         category = copy.category;
@@ -9,7 +9,7 @@ public class TrendingCategorySelectState {
 
     public TrendingCategorySelectState() {}
 
-    public Integer getCategoryId() { return category; }
+    public String getCategoryId() { return category; }
 
-    public void setCategoryId(Integer category) { this.category = category; }
+    public void setCategoryId(String category) { this.category = category; }
 }
