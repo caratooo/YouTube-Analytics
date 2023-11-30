@@ -93,8 +93,8 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         else if(selectedCategory.equals("Movies")){
             return "1";
         }
-        else if(selectedCategory.equals("Animals")){
-            return "15";
+        else if(selectedCategory.equals("Music")){
+            return "10";
         }
         else if(selectedCategory.equals("Sports")){
             return "17";
@@ -106,7 +106,6 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
             return "25";
         }
         else {
-            System.out.println("reach");
             return "15"; // selectedCategory.equals("Animals")
         }
     }
