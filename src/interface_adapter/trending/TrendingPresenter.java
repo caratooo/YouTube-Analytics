@@ -3,6 +3,7 @@ package interface_adapter.trending;
 import interface_adapter.ViewManagerModel;
 import use_case.trending.TrendingOutputBoundary;
 import use_case.trending.TrendingOutputData;
+import views.TrendingCategorySelectView;
 
 public class TrendingPresenter implements TrendingOutputBoundary {
     private final TrendingCategorySelectViewModel trendingCategorySelectViewModel;
