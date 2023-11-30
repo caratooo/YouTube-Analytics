@@ -68,7 +68,7 @@ public class TrendingOutputData {
         return topOneViewCount;
     }
 
-    public int getTopOnelikeCount() {
+    public int getTopOneLikeCount() {
         return topOneLikeCount;
     }
 
@@ -86,11 +86,11 @@ public class TrendingOutputData {
         return topTwoDescription;
     }
 
-    public int getToptwoViewCount() {
+    public int getTopTwoViewCount() {
         return topTwoViewCount;
     }
 
-    public int getTopTwolikeCount() {
+    public int getTopTwoLikeCount() {
         return topTwoLikeCount;
     }
 
@@ -112,7 +112,7 @@ public class TrendingOutputData {
         return topThreeViewCount;
     }
 
-    public int getTopThreelikeCount() {
+    public int getTopThreeLikeCount() {
         return topThreeLikeCount;
     }
 
