@@ -37,16 +37,4 @@ public class TrendingInteractor implements TrendingInputBoundary {
 
     }
 
-//    private void printInConsole(ArrayList<Video> videos){
-//        System.out.println("1st view count: " + videos.get(0).getViewCount());
-//        System.out.println("1st like count: " + videos.get(0).getLikeCount());
-//        System.out.println("2nd view count: " + videos.get(1).getLikeCount());
-//        System.out.println("2nd like count: " + videos.get(1).getLikeCount());
-//        System.out.println("3rd view count: " + videos.get(2).getLikeCount());
-//        System.out.println("3rd like count: " + videos.get(2).getLikeCount());
-//        System.out.println("4th view count: " + videos.get(3).getLikeCount());
-//        System.out.println("4th like count: " + videos.get(3).getLikeCount());
-//        System.out.println("5th view count: " + videos.get(4).getLikeCount());
-//        System.out.println("5th like count: " + videos.get(4).getLikeCount());
-//    }
 }

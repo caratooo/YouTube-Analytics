@@ -10,10 +10,7 @@ public class TrendingInputData {
     String getCategoryId() { return categoryInt; }
     String getCategoryStr(){
 
-        if(categoryInt.equals("15")){
-            return "News";
-        }
-        else if(categoryInt.equals("1")){
+        if(categoryInt.equals("1")){
             return "Movies";
         }
         else if(categoryInt.equals("10")){
