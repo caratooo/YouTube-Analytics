@@ -17,26 +17,33 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
     private final TrendingDataViewModel trendingDataViewModel;
     private JButton homeButton;
 
+    JLabel category;
     JLabel topOne;
     JLabel topOneVideoId;
+    JLabel topOneChannelName;
     JLabel topOneTitle;
     JLabel topOneDescription;
+    JLabel topOneVideoPublishDate;
     JLabel topOneViewCount;
     JLabel topOneLikeCount;
     JLabel topOneCommentCount;
 
     JLabel topTwo;
     JLabel topTwoVideoId;
+    JLabel topTwoChannelName;
     JLabel topTwoTitle;
     JLabel topTwoDescription;
+    JLabel topTwoVideoPublishDate;
     JLabel topTwoViewCount;
     JLabel topTwoLikeCount;
     JLabel topTwoCommentCount;
 
     JLabel topThree;
     JLabel topThreeVideoId;
+    JLabel topThreeChannelName;
     JLabel topThreeTitle;
     JLabel topThreeDescription;
+    JLabel topThreeVideoPublishDate;
     JLabel topThreeViewCount;
     JLabel topThreeLikeCount;
     JLabel topThreeCommentCount;
@@ -49,31 +56,42 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         //initialize components
         homeButton = new JButton("home");
 
+        category = new JLabel();
+
         topOne = new JLabel("Top One");
         topOneVideoId = new JLabel();
+        topOneChannelName = new JLabel();
         topOneTitle = new JLabel();
         topOneDescription = new JLabel();
+        topOneVideoPublishDate = new JLabel();
         topOneViewCount = new JLabel();
         topOneLikeCount = new JLabel();
         topOneCommentCount = new JLabel();
 
         topTwo = new JLabel("Top Two");
         topTwoVideoId = new JLabel();
+        topTwoChannelName = new JLabel();
         topTwoTitle = new JLabel();
         topTwoDescription = new JLabel();
+        topTwoVideoPublishDate = new JLabel();
         topTwoViewCount = new JLabel();
         topTwoLikeCount = new JLabel();
         topTwoCommentCount = new JLabel();
 
         topThree = new JLabel("Top Three");
         topThreeVideoId = new JLabel();
+        topThreeChannelName = new JLabel();
         topThreeTitle = new JLabel();
         topThreeDescription = new JLabel();
+        topThreeVideoPublishDate = new JLabel();
         topThreeViewCount = new JLabel();
         topThreeLikeCount = new JLabel();
         topThreeCommentCount = new JLabel();
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        JPanel panelTitle = new JPanel();
+        panelTitle.add(category);
+        this.add(panelTitle);
 
         // Top 1
         JPanel panelOneWrapper = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -85,8 +103,10 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
 
         panelOneTitle.add(topOne);
         panelOne.add(topOneVideoId);
+        panelOne.add(topOneChannelName);
         panelOne.add(topOneTitle);
         panelOne.add(topOneDescription);
+        panelOne.add(topOneVideoPublishDate);
         panelOne.add(topOneViewCount);
         panelOne.add(topOneLikeCount);
         panelOne.add(topOneCommentCount);
@@ -111,8 +131,10 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
 
         panelTwoTitle.add(topTwo);
         panelTwo.add(topTwoVideoId);
+        panelTwo.add(topTwoChannelName);
         panelTwo.add(topTwoTitle);
         panelTwo.add(topTwoDescription);
+        panelTwo.add(topTwoVideoPublishDate);
         panelTwo.add(topTwoViewCount);
         panelTwo.add(topTwoLikeCount);
         panelTwo.add(topTwoCommentCount);
@@ -133,8 +155,10 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
 
         panelThreeTitle.add(topThree);
         panelThree.add(topThreeVideoId);
+        panelThree.add(topThreeChannelName);
         panelThree.add(topThreeTitle);
         panelThree.add(topThreeDescription);
+        panelThree.add(topThreeVideoPublishDate);
         panelThree.add(topThreeViewCount);
         panelThree.add(topThreeLikeCount);
         panelThree.add(topThreeCommentCount);
@@ -146,10 +170,13 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         panelThree.setBackground(new Color(217, 218, 219));
         panelThreeFlow.setBackground(new Color(217, 218, 219));
         panelThreeWrapper.setBackground(new Color(217, 218, 219));
+
         this.add(panelThreeTitle);
         this.add(panelThreeWrapper);
 
-        this.add(homeButton);
+        JPanel panelHome = new JPanel();
+        panelHome.add(homeButton);
+        this.add(panelHome);
 
         homeButton.addActionListener(new ActionListener() {
             @Override
@@ -168,26 +195,34 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         TrendingDataState state = (TrendingDataState) evt.getNewValue();
+
+        category.setText(state.getCategory() + " Trending");
         // Top One
         topOneVideoId.setText("Video ID: " + state.getTopOneVideoId());
+        topOneChannelName.setText("Channel Name: " + state.getTopOneChannelName());
         topOneTitle.setText("Title: " + state.getTopOneTitle());
         topOneDescription.setText("Description: " + state.getTopOneDescription());
+        topOneVideoPublishDate.setText("Publish date: " + state.getTopOneVideoPublishDate());
         topOneViewCount.setText("View Count: " + state.getTopOneViewCount());
         topOneLikeCount.setText("Like Count: " + state.getTopOneLikeCount());
         topOneCommentCount.setText("Comment Count: " + state.getTopOneCommentCount());
 
         // Top Two
         topTwoVideoId.setText("Video ID: " + state.getTopTwoVideoId());
+        topTwoChannelName.setText("Channel Name: " + state.getTopTwoChannelName());
         topTwoTitle.setText("Title: " + state.getTopTwoTitle());
         topTwoDescription.setText("Description: " + state.getTopTwoDescription());
+        topTwoVideoPublishDate.setText("Publish date: " + state.getTopTwoVideoPublishDate());
         topTwoViewCount.setText("View Count: " + state.getTopTwoViewCount());
         topTwoLikeCount.setText("Like Count: " + state.getTopTwoLikeCount());
         topTwoCommentCount.setText("Comment Count: " + state.getTopTwoCommentCount());
 
         // Top Three
         topThreeVideoId.setText("Video ID: " + state.getTopThreeVideoId());
+        topThreeChannelName.setText("Channel Name: " + state.getTopThreeChannelName());
         topThreeTitle.setText("Title: " + state.getTopThreeTitle());
         topThreeDescription.setText("Description: " + state.getTopThreeDescription());
+        topThreeVideoPublishDate.setText("Publish date: " + state.getTopThreeVideoPublishDate());
         topThreeViewCount.setText("View Count: " + state.getTopThreeViewCount());
         topThreeLikeCount.setText("Like Count: " + state.getTopThreeLikeCount());
         topThreeCommentCount.setText("Comment Count: " + state.getTopThreeCommentCount());

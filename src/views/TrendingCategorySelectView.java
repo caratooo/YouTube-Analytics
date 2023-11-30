@@ -36,12 +36,13 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         homeButton = new JButton("home");
 
         // layout Components
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(categoryComboBox);
-        add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space between components
-        add(selectButton);
-        add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space
-        add(homeButton);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(categoryComboBox);
+        JPanel boxPanel = new JPanel();
+        boxPanel.add(selectButton);
+        // this.add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space
+        boxPanel.add(homeButton);
+        this.add(boxPanel);
 
         // add Event Listeners
         selectButton.addActionListener(new ActionListener() {
