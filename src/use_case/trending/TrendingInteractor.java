@@ -22,46 +22,20 @@ public class TrendingInteractor implements TrendingInputBoundary {
     public void execute(TrendingInputData trendingInputData) throws GeneralSecurityException, IOException {
         System.out.println("trendingInputData:" + trendingInputData.getCategoryId());
         System.out.println("general? " + (trendingInputData.equal("0")));
+        ArrayList<Video> videos;
         if (trendingInputData.equal("0")) {
-            ArrayList<Video> videos = trendingDataAccessObject.get_trending_default();
-//            printInConsole(videos);
+            videos = trendingDataAccessObject.get_trending_default();
 
-            TrendingOutputData trendingOutputData = new TrendingOutputData(videos.get(0).getId(), videos.get(0).getTitle(), videos.get(0).getDescription(), videos.get(0).getViewCount(),
-                    videos.get(0).getLikeCount(), videos.get(0).getCommentCount(), videos.get(1).getId(), videos.get(1).getTitle(), videos.get(1).getDescription(), videos.get(1).getViewCount(),
-                    videos.get(1).getLikeCount(), videos.get(1).getCommentCount(), videos.get(2).getId(), videos.get(0).getTitle(), videos.get(2).getDescription(), videos.get(2).getViewCount(),
-                    videos.get(2).getLikeCount(), videos.get(2).getCommentCount());
-
-            trendingPresenter.prepareDataView(trendingOutputData);
-//            try {
-//                ArrayList<Video> videos = trendingDataAccessObject.get_trending_default();
-//                System.out.println(videos);
-//                TrendingOutputData trendingOutputData = output(videos);
-//            } catch (GeneralSecurityException e) {
-//                throw new RuntimeException(e);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
         } else {
             // get trend by category
-            ArrayList<Video> videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
-//            printInConsole(videos);
-
-            TrendingOutputData trendingOutputData = new TrendingOutputData(videos.get(0).getId(), videos.get(0).getTitle(), videos.get(0).getDescription(), videos.get(0).getViewCount(),
-                    videos.get(0).getLikeCount(), videos.get(0).getCommentCount(), videos.get(1).getId(), videos.get(1).getTitle(), videos.get(1).getDescription(), videos.get(1).getViewCount(),
-                    videos.get(1).getLikeCount(), videos.get(1).getCommentCount(), videos.get(2).getId(), videos.get(0).getTitle(), videos.get(2).getDescription(), videos.get(2).getViewCount(),
-                    videos.get(2).getLikeCount(), videos.get(2).getCommentCount());
-
-            trendingPresenter.prepareDataView(trendingOutputData);
-//            try {
-//                ArrayList<Video> videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
-//                System.out.println(videos);
-//                TrendingOutputData trendingOutputData = output(videos);
-//            } catch (GeneralSecurityException e) {
-//                throw new RuntimeException(e);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
+            videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
         }
+        TrendingOutputData trendingOutputData = new TrendingOutputData(trendingInputData.getCategoryStr(),videos.get(0).getId(), videos.get(0).getChannelName(),videos.get(0).getTitle(), videos.get(0).getDescription(), videos.get(0).getVideoPublishDate(),videos.get(0).getViewCount(),
+                videos.get(0).getLikeCount(), videos.get(0).getCommentCount(), videos.get(1).getId(), videos.get(1).getChannelName(),videos.get(1).getTitle(), videos.get(1).getDescription(), videos.get(1).getVideoPublishDate(),videos.get(1).getViewCount(),
+                videos.get(1).getLikeCount(), videos.get(1).getCommentCount(), videos.get(2).getId(),  videos.get(2).getChannelName(),videos.get(2).getTitle(), videos.get(2).getDescription(), videos.get(2).getVideoPublishDate(), videos.get(2).getViewCount(),
+                videos.get(2).getLikeCount(), videos.get(2).getCommentCount());
+
+        trendingPresenter.prepareDataView(trendingOutputData);
 
     }
 
