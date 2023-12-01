@@ -31,6 +31,11 @@ public class CompareInputView extends JPanel implements ActionListener, Property
         JLabel title = new JLabel(CompareSearchViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        LabelTextPanel videoIdInfoOne = new LabelTextPanel(
+                new JLabel(CompareSearchViewModel.VIDEO_ID_LABEL), videoInputField);
+        LabelTextPanel videoIdInfoTwo = new LabelTextPanel(
+                new JLabel(CompareSearchViewModel.VIDEO_ID_LABEL), videoInputField);
+
         JPanel buttons = new JPanel();
 
         search = new JButton(CompareSearchViewModel.SEARCH_BUTTON_LABEL);
