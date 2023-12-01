@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class CompareInputView extends JPanel implements ActionListener, PropertyChangeListener{
+public class CompareSearchView extends JPanel implements ActionListener, PropertyChangeListener{
 
     public final String viewName = "compare";
 
@@ -24,7 +24,7 @@ public class CompareInputView extends JPanel implements ActionListener, Property
 
     private final JButton back;
 
-    public CompareInputView(CompareSearchViewModel compareSearchViewModel, CompareSearchController compareSearchController) {
+    public CompareSearchView(CompareSearchViewModel compareSearchViewModel, CompareSearchController compareSearchController) {
         this.compareSearchViewModel = compareSearchViewModel;
         this.compareSearchController = compareSearchController;
         compareSearchViewModel.addPropertyChangeListener(this);
