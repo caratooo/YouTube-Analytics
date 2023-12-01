@@ -1,31 +1,69 @@
 package entities;
 
+import com.google.api.client.util.DateTime;
+
+import java.math.BigInteger;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Video {
     private final String videoId;
-    private final Channel channel;
+    private final String channelName;
     private final String title;
     private final String description;
-    private final LocalDate videoPublishDate;
-    private final ArrayList<String> categories;
+    private final DateTime videoPublishDate;
     private final int viewCount;
     private final int likeCount;
-    private final int faouvriteCount;
     private final int commentCount;
 
 
-    public Video(String videoId, Channel channel, String title, String description, LocalDate videoPublishDate, ArrayList<String> categories, int viewCount, int likeCount, int faouvriteCount, int commentCount) {
+    public Video(String videoId, String channelName, String title,
+                 String description, DateTime videoPublishDate,
+                 int viewCount, int likeCount, int commentCount) {
         this.videoId = videoId;
-        this.channel = channel;
+        this.channelName = channelName;
         this.title = title;
-        this.description = description;
+        if (description.length() > 100) {
+            this.description = description.substring(0, 100) + "...";
+        } else {
+            this.description = description;
+        }
         this.videoPublishDate = videoPublishDate;
-        this.categories = categories;
         this.viewCount = viewCount;
         this.likeCount = likeCount;
-        this.faouvriteCount = faouvriteCount;
         this.commentCount = commentCount;
     }
+
+    public String getId() {
+        return this.videoId;
+    }
+
+    public String getChannelName() {
+        return this.channelName;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public DateTime getVideoPublishDate() {
+        return this.videoPublishDate;
+    }
+
+    public int getViewCount() {
+        return this.viewCount;
+    }
+
+    public int getLikeCount() {
+        return this.likeCount;
+    }
+
+    public int getCommentCount() {
+        return this.commentCount;
+    }
+
+
 }
