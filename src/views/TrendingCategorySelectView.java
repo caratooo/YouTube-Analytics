@@ -79,13 +79,6 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
 
     private String handleCategorySelection(String selectedCategory) {
         System.out.println("Selected category: " + selectedCategory);
-    //    youtube category:
-    //            General
-    //            1 - Movies
-    //            10 - Music
-    //            15 - Animals
-    //            17 - Sports
-    //            20 - Gaming
 
         if(selectedCategory.equals("General")){
             return "0";
