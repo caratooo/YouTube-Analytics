@@ -1,9 +1,10 @@
 package views;
 
-import interface_adapter.compare.CompareController;
-import interface_adapter.compare.CompareViewModel;
+import interface_adapter.compare_search.CompareSearchController;
+import interface_adapter.compare_search.CompareSearchViewModel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -13,19 +14,32 @@ public class CompareInputView extends JPanel implements ActionListener, Property
 
     public final String viewName = "compare";
 
-    private final CompareViewModel compareViewModel;
+    private final CompareSearchViewModel compareSearchViewModel;
 
     private final JTextField videoInputField = new JTextField(15);
 
-    private final CompareController compareController;
+    private final CompareSearchController compareSearchController;
 
     private final JButton search;
 
     private final JButton back;
 
-    public CompareInputView(CompareViewModel compareViewModel, CompareController compareController) {
-        this.compareViewModel = compareViewModel;
-        this.compareController = compareController;
+    public CompareInputView(CompareSearchViewModel compareSearchViewModel, CompareSearchController compareSearchController) {
+        this.compareSearchViewModel = compareSearchViewModel;
+        this.compareSearchController = compareSearchController;
+        compareSearchViewModel.addPropertyChangeListener(this);
+        JLabel title = new JLabel(CompareSearchViewModel.TITLE_LABEL);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel buttons = new JPanel();
+
+        search = new JButton(CompareSearchViewModel.SEARCH_BUTTON_LABEL);
+        buttons.add(search);
+
+        back = new JButton(CompareSearchViewModel.BACK_BUTTON_LABEL);
+        buttons.add(back);
+
+
     }
 
 
