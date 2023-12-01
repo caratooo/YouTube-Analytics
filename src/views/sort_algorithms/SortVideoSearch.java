@@ -26,13 +26,13 @@ public class SortVideoSearch implements SortSearchQuery {
         JPanel right = new JPanel(flowlayout);
 
         for (int i = 0; i < 7; i++) {
-            JLabel new_stat = new JLabel(String.format("%s: %s", statLabels.get(i), stats.get(i)));
+            JLabel newStat = new JLabel(String.format("%s: %s", statLabels.get(i), stats.get(i)));
             if (i < 3) {
-                left.add(new_stat);
+                left.add(newStat);
             } else if (i < 6) {
-                centre.add(new_stat);
+                centre.add(newStat);
             } else {
-                right.add(new_stat);
+                right.add(newStat);
             }
         }
 
