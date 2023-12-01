@@ -30,19 +30,27 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         JLabel title = new JLabel(HomeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel buttons = new JPanel();
+        JPanel buttonsTop = new JPanel();
         searchVideo = new JButton(HomeViewModel.SEARCHVIDEO_BUTTON_LABEL);
-        buttons.add(searchVideo);
+        searchVideo.setPreferredSize(new Dimension(200, 100));
+        buttonsTop.add(searchVideo);
         searchChannel = new JButton(HomeViewModel.SEARCHCHANNEL_BUTTON_LABEL);
-        buttons.add(searchChannel);
+        searchChannel.setPreferredSize(new Dimension(200, 100));
+        buttonsTop.add(searchChannel);
         trending = new JButton(HomeViewModel.TRENDING_BUTTON_LABEL);
-        buttons.add(trending);
+        trending.setPreferredSize(new Dimension(200, 100));
+        buttonsTop.add(trending);
+
+        JPanel buttonsBottom = new JPanel();
         compare = new JButton(HomeViewModel.COMPARE_BUTTON_LABEL);
-        buttons.add(compare);
+        compare.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(compare);
         history = new JButton(HomeViewModel.HISTORY_BUTTON_LABEL);
-        buttons.add(history);
+        history.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(history);
         instruction = new JButton(HomeViewModel.INSTRUCTION_BUTTON_LABEL);
-        buttons.add(instruction);
+        instruction.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(instruction);
 
         searchVideo.addActionListener(
 //                 This creates an anonymous subclass of ActionListener and instantiates it.
@@ -113,7 +121,11 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
-        this.add(buttons);
+        this.add(Box.createRigidArea(new Dimension(1200, 100)));
+        this.add(buttonsTop);
+        this.add(Box.createRigidArea(new Dimension(1200, 100)));
+        this.add(buttonsBottom);
+        this.add(Box.createRigidArea(new Dimension(1200, 200)));
     }
 
     @Override

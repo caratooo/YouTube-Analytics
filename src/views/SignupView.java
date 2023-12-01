@@ -45,8 +45,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
+        signUp.setPreferredSize(new Dimension(200, 100));
         buttons.add(signUp);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
+        cancel.setPreferredSize(new Dimension(200, 100));
         buttons.add(cancel);
 
         signUp.addActionListener(
@@ -146,6 +148,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(Box.createRigidArea(new Dimension(1200, 50)));
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
