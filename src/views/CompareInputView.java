@@ -44,6 +44,19 @@ public class CompareInputView extends JPanel implements ActionListener, Property
         back = new JButton(CompareSearchViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
 
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
     }
 
