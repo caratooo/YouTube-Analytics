@@ -17,9 +17,9 @@ public class SortVideoSearch implements SortSearchQuery {
 
         List<String> stats = List.of(data.split(","));
 
-        JPanel pLabel = new JPanel();
+        JPanel panelLabel = new JPanel();
         JLabel label = new JLabel(String.format("Search %s: Video (%s)", number, stats.get(0)));
-        pLabel.add(label);
+        panelLabel.add(label);
 
         JPanel left = new JPanel(flowlayout);
         JPanel centre = new JPanel(flowlayout);
@@ -37,14 +37,14 @@ public class SortVideoSearch implements SortSearchQuery {
         }
 
         if (number % 2 != 0) {
-            pLabel.setBackground(grey);
+            panelLabel.setBackground(grey);
             left.setBackground(grey);
             centre.setBackground(grey);
             right.setBackground(grey);
             main.setBackground(grey);
         }
 
-        main.add(pLabel);
+        main.add(panelLabel);
         main.add(left);
         main.add(centre);
         main.add(right);
