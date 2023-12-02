@@ -70,7 +70,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
             String data = query[1];
             SortSearchQuery sorter = sorter(queryType);
 
-            JPanel queryPanel = sorter.sort(data, i);
+            JPanel queryPanel = sorter.sort(data, i + 1);
             history.add(queryPanel);
         }
     }
