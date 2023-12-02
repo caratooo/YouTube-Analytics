@@ -48,6 +48,7 @@ public class SortCompare implements SortSearchQuery {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
         JLabel mainLabel = new JLabel(String.format("Video %s", num_video));
+        mainLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         main.add(mainLabel);
 
         JPanel video = new JPanel();
