@@ -1,5 +1,6 @@
 package use_case.compare_videos;
 
+import entities.Video;
 import interface_adapter.compare_search.CompareSearchPresenter;
 
 import java.io.IOException;
@@ -16,6 +17,30 @@ public class CompareSearchInteractor implements CompareSearchInputBoundary {
 
     @Override
     public void execute(CompareSearchInputData compareSearchInputData) throws GeneralSecurityException, IOException {
+        if (compareSearchDataAccessObject.isInvalidTwo(compareSearchInputData.getVideoOneId(), compareSearchInputData.getVideoTwoId())){
+            compareSearchPresenter.prepareFailView("Video ID does not exist");
+        }else{
+            Video videoOne = compareSearchDataAccessObject.getVideo(compareSearchInputData.getVideoOneId());
+            Video videoTwo = compareSearchDataAccessObject.getVideo(compareSearchInputData.getVideoTwoId());
+            CompareSearchOutputData compareSearchOutputData = new CompareSearchOutputData(videoOne.getId(),
+                    videoOne.getChannelName(),
+                    videoOne.getTitle(),
+                    videoOne.getDescription(),
+                    videoOne.getVideoPublishDate(),
+                    videoOne.getViewCount().intValue(),
+                    videoOne.getLikeCount().intValue(),
+                    videoOne.getCommentCount().intValue(),
+                    videoTwo.getId(),
+                    videoTwo.getChannelName(),
+                    videoTwo.getTitle(),
+                    videoTwo.getDescription(),
+                    videoTwo.getVideoPublishDate(),
+                    videoTwo.getViewCount().intValue(),
+                    videoTwo.getLikeCount().intValue(),
+                    videoTwo.getCommentCount().intValue(),
+                    false);
 
+            compareSearchPresenter.prepareSuccessView(compareSearchOutputData);
+        }
     }
 }
