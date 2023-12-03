@@ -14,6 +14,10 @@ public class CompareSearchViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private CompareSearchState state = new CompareSearchState();
 
+    public CompareSearchState getState() {
+        return state;
+    }
+
     public void setState(CompareSearchState state) { this.state = state; }
     public CompareSearchViewModel() {
         super("compare");
