@@ -7,9 +7,9 @@ import java.security.GeneralSecurityException;
 
 public class CompareSearchInteractor implements CompareSearchInputBoundary {
     final CompareSearchDataAccessInterface videoSearchDataAccessObject;
-    final CompareSearchPresenter compareSearchPresenter;
+    final CompareSearchOutputBoundary compareSearchPresenter;
 
-    public CompareSearchInteractor(CompareSearchDataAccessInterface videoSearchDataAccessObject, CompareSearchPresenter compareSearchPresenter) {
+    public CompareSearchInteractor(CompareSearchDataAccessInterface videoSearchDataAccessObject, CompareSearchOutputBoundary compareSearchPresenter) {
         this.videoSearchDataAccessObject = videoSearchDataAccessObject;
         this.compareSearchPresenter = compareSearchPresenter;
     }
