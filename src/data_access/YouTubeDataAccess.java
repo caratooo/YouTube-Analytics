@@ -119,4 +119,18 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
     }
 
+    public boolean isInvalidTwo(String videoIdOne, String videoIdTwo){
+        try{
+            YouTube youtubeService = getService();
+            YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+            request.setId(videoIdOne).execute();
+            request.setId(videoIdTwo).execute();
+            return false;
+        }catch (IndexOutOfBoundsException e) {
+            return true;
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
