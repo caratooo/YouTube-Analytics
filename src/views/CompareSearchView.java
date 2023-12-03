@@ -131,6 +131,9 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        CompareSearchState state = (CompareSearchState) evt.getNewValue();
+        if (state.getVideoIdError() != null) {
+            JOptionPane.showMessageDialog(this, state.getVideoIdError());
+        }
     }
 }
