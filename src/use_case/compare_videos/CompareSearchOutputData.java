@@ -119,5 +119,24 @@ public class CompareSearchOutputData{
 
     private boolean useCaseFailed;
 
+    public String toString(){
+        return videoIdOne + "," +
+                channelNameOne + "," +
+                titleOne + "," +
+                descriptionOne + "," +
+                videoPublishDateOne.toString() + "," +
+                viewCountOne + "," +
+                likeCountOne + "," +
+                commentCountOne + "," +
+                videoIdTwo + "," +
+                channelNameTwo + "," +
+                titleTwo + "," +
+                descriptionTwo + "," +
+                videoPublishDateTwo.toString() + "," +
+                viewCountTwo + "," +
+                likeCountTwo + "," +
+                commentCountTwo;
+    }
+
 
 }
