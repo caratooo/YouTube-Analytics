@@ -12,7 +12,7 @@ public class SortVideoSearch implements SortSearchQuery {
     private static final List<String> statLabels = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8");
 
     @Override
-    public JPanel sort(String data, Integer number) {
+    public JPanel sort(String data, Integer number, JButton button) {
         JPanel main = new JPanel(flowlayout);
 
         List<String> stats = List.of(data.split(","));

@@ -1,7 +1,11 @@
 package views.sort_algorithms;
 
+import interface_adapter.compare.CompareController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +18,7 @@ public class SortCompare implements SortSearchQuery {
     );
 
     @Override
-    public JPanel sort(String data, Integer number) {
+    public JPanel sort(String data, Integer number, JButton button) {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 
@@ -36,8 +40,20 @@ public class SortCompare implements SortSearchQuery {
             main.setBackground(grey);
         }
 
+//        button.addActionListener(
+//                new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        if (e.getSource().equals(button)) {
+//
+//                        }
+//                    }
+//                }
+//        );
+
         videos.add(video1);
         videos.add(video2);
+        videos.add(button);
         main.add(panelLabel);
         main.add(videos);
 
