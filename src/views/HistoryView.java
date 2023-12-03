@@ -23,6 +23,21 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     private final HistoryController historyController;
 
     private final JButton home;
+    private final JButton view1 = new JButton("View");
+    private final JButton view2 = new JButton("View");
+    private final JButton view3 = new JButton("View");
+    private final JButton view4 = new JButton("View");
+    private final JButton view5 = new JButton("View");
+    private final JButton[] buttons = new JButton[]{
+            view1, view2, view3, view4, view5
+    };
+    private Map<Integer, String> buttonMap = Map.ofEntries(
+            Map.entry(1, ""),
+            Map.entry(2, ""),
+            Map.entry(3, ""),
+            Map.entry(4, ""),
+            Map.entry(5, "")
+    );
     private JPanel history = new JPanel();
 
     public HistoryView(HistoryController historyController, HistoryViewModel historyViewModel) {
