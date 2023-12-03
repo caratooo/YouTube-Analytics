@@ -1,6 +1,7 @@
 package views;
 
 import interface_adapter.compare_search.CompareSearchController;
+import interface_adapter.compare_search.CompareSearchState;
 import interface_adapter.compare_search.CompareSearchViewModel;
 
 import javax.swing.*;
@@ -9,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class CompareSearchView extends JPanel implements ActionListener, PropertyChangeListener{
 
@@ -54,7 +57,15 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(search)) {
+                    CompareSearchState currState = compareSearchViewModel.getState();
 
+                    try {
+                        compareSearchController.execute(currState.getVideoOneId(),currState.getVideoTwoId());
+                    } catch (GeneralSecurityException | IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
         });
 
