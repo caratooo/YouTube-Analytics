@@ -103,7 +103,9 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
             try {
                 userHistory.get(userHistory.size() - i - 1);
             } catch (IndexOutOfBoundsException ignored) {
-                break;
+                for (int i2 = historyPanels[5 - i + 1].getComponentCount() - 1; i2 > -1; i2--) {
+                    historyPanels[5 - i + 1].remove(i2);
+                }
             }
 
             // get the most recent queries which are at the back of the list
@@ -133,6 +135,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
             if (historyPanels[i + 1].getComponentCount() >= 1) {
                 historyPanels[i + 1].remove(historyPanels[i + 1].getComponentCount() - 1);
             }
+
             historyPanels[i + 1].add(queryPanel);
         }
     }
