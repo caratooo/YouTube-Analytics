@@ -16,6 +16,7 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
+import use_case.compare_videos.CompareSearchDataAccessInterface;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 
@@ -26,7 +27,7 @@ import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
-public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
+public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface, CompareSearchDataAccessInterface {
 
     private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
@@ -68,7 +69,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         return request.setId(videoId).execute();
     }
 
-    public static entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
+    public entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
         VideoListResponse response = getVideoResponse(videoId);
         Video video = response.getItems().get(0);
         VideoSnippet snippet = video.getSnippet();
