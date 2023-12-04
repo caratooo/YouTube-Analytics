@@ -120,7 +120,8 @@ public class CompareSearchOutputData{
     private boolean useCaseFailed;
 
     public String toString(){
-        return videoIdOne + "," +
+        return "compare" + "," +
+                videoIdOne + "," +
                 channelNameOne + "," +
                 titleOne + "," +
                 descriptionOne + "," +
