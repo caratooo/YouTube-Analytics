@@ -53,7 +53,8 @@ public class VideoSearchOutputData {
     public int getCommentCount() {return commentCount; }
 
     public String toString() {
-        return videoId + "," +
+        return "videoSearch" + "," +
+                videoId + "," +
                 channelName + "," +
                 title + "," +
                 description + "," +
