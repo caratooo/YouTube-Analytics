@@ -103,8 +103,8 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
             try {
                 userHistory.get(userHistory.size() - i - 1);
             } catch (IndexOutOfBoundsException ignored) {
-                for (int i2 = historyPanels[5 - i + 1].getComponentCount() - 1; i2 > -1; i2--) {
-                    historyPanels[5 - i + 1].remove(i2);
+                for (int i2 = historyPanels[i].getComponentCount() - 1; i2 > -1; i2--) {
+                    historyPanels[i].remove(i2);
                 }
             }
 
