@@ -15,6 +15,10 @@ public class ViewManagerModel {
 
     public void setActiveView(String activeView) {
         this.activeViewName = activeView;
+
+//        String oldView = this.activeViewName;
+//        this.activeViewName = activeView;
+//        support.firePropertyChange("view", oldView, this.activeViewName);
     }
 
     // This is what the Signup Presenter will call to let the ViewModel know

@@ -6,17 +6,18 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import views.HomeView;
-import views.LoginView;
-import views.SignupView;
-import views.ViewManager;
+
+import views.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
+
         JFrame application = new JFrame("Youtube Analytics");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,10 +49,10 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel);
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
 

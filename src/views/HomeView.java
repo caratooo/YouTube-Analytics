@@ -1,6 +1,10 @@
 package views;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,38 +13,55 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import static views.InstructionsView.openInstructionsPanel;
+
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
+    private final SignupViewModel signupViewModel;
+
+    private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
-    final JButton searchChannel;
     final JButton trending;
     final JButton compare;
     final JButton history;
-    final JButton instruction;
+    final JButton instructions;
+
+    final JButton logout;
 
 
-    public HomeView(HomeViewModel homeViewModel) {
+
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
+        this.signupViewModel = signupViewModel;
+        this.viewManagerModel = viewManagerModel;
         homeViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(HomeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel buttons = new JPanel();
+        JPanel buttonsTop = new JPanel();
         searchVideo = new JButton(HomeViewModel.SEARCHVIDEO_BUTTON_LABEL);
-        buttons.add(searchVideo);
-        searchChannel = new JButton(HomeViewModel.SEARCHCHANNEL_BUTTON_LABEL);
-        buttons.add(searchChannel);
+        searchVideo.setPreferredSize(new Dimension(200, 100));
+        buttonsTop.add(searchVideo);
         trending = new JButton(HomeViewModel.TRENDING_BUTTON_LABEL);
-        buttons.add(trending);
+        trending.setPreferredSize(new Dimension(200, 100));
+        buttonsTop.add(trending);
         compare = new JButton(HomeViewModel.COMPARE_BUTTON_LABEL);
-        buttons.add(compare);
+        compare.setPreferredSize(new Dimension(200, 100));
+        buttonsTop.add(compare);
+
+        JPanel buttonsBottom = new JPanel();
         history = new JButton(HomeViewModel.HISTORY_BUTTON_LABEL);
-        buttons.add(history);
-        instruction = new JButton(HomeViewModel.INSTRUCTION_BUTTON_LABEL);
-        buttons.add(instruction);
+        history.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(history);
+        instructions = new JButton(HomeViewModel.INSTRUCTIONS_BUTTON_LABEL);
+        instructions.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(instructions);
+        logout = new JButton(HomeViewModel.LOGOUT_BUTTON_LABEL);
+        logout.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(logout);
 
         searchVideo.addActionListener(
 //                 This creates an anonymous subclass of ActionListener and instantiates it.
@@ -53,23 +74,11 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        searchChannel.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(searchChannel)) {
-                            new ChannelSearchView();
-                        }
-                    }
-                }
-        );
-
         trending.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
-                            new TrendingView();
+
                         }
                     }
                 }
@@ -97,12 +106,23 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        instruction.addActionListener(
+        instructions.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(instruction)) {
-                            openInstructionPanel();
+                        if (evt.getSource().equals(instructions)) {
+                            openInstructionsPanel();
+                        }
+                    }
+                }
+        );
+        logout.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logout)) {
+                            viewManagerModel.setActiveView(signupViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
@@ -111,39 +131,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(title);
-        this.add(buttons);
+        this.add(Box.createRigidArea(new Dimension(1200, 100)));
+        this.add(buttonsTop);
+        this.add(Box.createRigidArea(new Dimension(1200, 100)));
+        this.add(buttonsBottom);
+        this.add(Box.createRigidArea(new Dimension(1200, 200)));
     }
-
-    private static void openInstructionPanel() {
-        // Create a new JFrame for the search video view
-        JFrame instructionFrame = new JFrame("Instructions");
-        instructionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        instructionFrame.setSize(400, 300);
-
-        // Create a panel for the search video view
-        JPanel instructionPanel = new JPanel(new GridLayout(0, 1));
-
-        // Sample instructions
-        String[] instructions = {
-                "Search Video: Type in Youtube Video ID in the search bar to see its stats.",
-                "Search Channel: Type in Youtube Channel ID in the search bar to see its stats.",
-                "Trending: Search most popular videos in general or by categories.",
-                "Compare: Compare statistics between two videos.",
-                "History: Show 5 most recent search history."
-        };
-
-        // Add instructions to the panel
-        for (String instruction : instructions) {
-            JLabel instructionLabel = new JLabel(instruction);
-            instructionPanel.add(instructionLabel);
-        }
-        // Set the search panel as the content pane of the search frame
-        instructionFrame.setContentPane(instructionPanel);
-
-        // Display the search frame
-        instructionFrame.setVisible(true);
-    }
-
     @Override
     public void actionPerformed(ActionEvent e)  {
         System.out.println("Click " + e.getActionCommand());
