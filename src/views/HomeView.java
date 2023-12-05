@@ -145,7 +145,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(buttonsTop);
         this.add(Box.createRigidArea(new Dimension(1200, 100)));
         this.add(buttonsBottom);
-        this.add(Box.createRigidArea(new Dimension(1200, 200)));
+        this.add(Box.createRigidArea(new Dimension(1200, 250)));
     }
     @Override
     public void actionPerformed(ActionEvent e)  {
