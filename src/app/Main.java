@@ -1,7 +1,6 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
-import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
@@ -14,6 +13,8 @@ import views.*;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 
 public class Main {
     public static void main(String[] args){
@@ -54,7 +55,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, trendingCategorySelectViewModel, viewManagerModel);
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
         YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
