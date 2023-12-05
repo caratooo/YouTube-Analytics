@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import static views.InstructionView.openInstructionPanel;
+import static views.InstructionsView.openInstructionsPanel;
 
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
@@ -25,7 +25,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton trending;
     final JButton compare;
     final JButton history;
-    final JButton instruction;
+    final JButton instructions;
 
     final JButton logout;
 
@@ -55,9 +55,9 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         history = new JButton(HomeViewModel.HISTORY_BUTTON_LABEL);
         history.setPreferredSize(new Dimension(200, 100));
         buttonsBottom.add(history);
-        instruction = new JButton(HomeViewModel.INSTRUCTION_BUTTON_LABEL);
-        instruction.setPreferredSize(new Dimension(200, 100));
-        buttonsBottom.add(instruction);
+        instructions = new JButton(HomeViewModel.INSTRUCTIONS_BUTTON_LABEL);
+        instructions.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(instructions);
         logout = new JButton(HomeViewModel.LOGOUT_BUTTON_LABEL);
         logout.setPreferredSize(new Dimension(200, 100));
         buttonsBottom.add(logout);
@@ -105,12 +105,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        instruction.addActionListener(
+        instructions.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(instruction)) {
-                            openInstructionPanel();
+                        if (evt.getSource().equals(instructions)) {
+                            openInstructionsPanel();
                         }
                     }
                 }

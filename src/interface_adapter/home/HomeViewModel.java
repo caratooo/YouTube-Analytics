@@ -11,7 +11,7 @@ public class HomeViewModel extends ViewModel{
     public static final String TRENDING_BUTTON_LABEL = "Trending";
     public static final String COMPARE_BUTTON_LABEL = "Compare";
     public static final String HISTORY_BUTTON_LABEL = "History";
-    public static final String INSTRUCTION_BUTTON_LABEL = "Instruction";
+    public static final String INSTRUCTIONS_BUTTON_LABEL = "Instructions";
 
     public static final String LOGOUT_BUTTON_LABEL = "Log Out";
     private HomeState state = new HomeState();

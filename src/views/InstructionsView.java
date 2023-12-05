@@ -3,16 +3,16 @@ package views;
 import javax.swing.*;
 import java.awt.*;
 
-public class InstructionView extends JPanel{
-    public static void openInstructionPanel() {
+public class InstructionsView extends JPanel{
+    public static void openInstructionsPanel() {
         // Create a new JFrame for the search video view
-        JFrame instructionFrame = new JFrame("Instructions");
-        instructionFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        instructionFrame.setSize(500, 250);
+        JFrame instructionsFrame = new JFrame("Instructions");
+        instructionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        instructionsFrame.setSize(500, 250);
 
         // Create a panel for the search video view
-        JPanel instructionPanel = new JPanel();
-        instructionPanel.setLayout(new BoxLayout(instructionPanel, BoxLayout.Y_AXIS));
+        JPanel instructionsPanel = new JPanel();
+        instructionsPanel.setLayout(new BoxLayout(instructionsPanel, BoxLayout.Y_AXIS));
 
         // Sample instructions
         String[] instructions = {
@@ -25,15 +25,15 @@ public class InstructionView extends JPanel{
         // Add instructions to the panel
         for (String instruction : instructions) {
             JLabel instructionLabel = new JLabel(instruction);
-            instructionPanel.add(instructionLabel);
+            instructionsPanel.add(instructionLabel);
 
-            instructionPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+            instructionsPanel.add(Box.createRigidArea(new Dimension(0, 40)));
         }
         // Set the search panel as the content pane of the search frame
-        instructionFrame.setContentPane(instructionPanel);
+        instructionsFrame.setContentPane(instructionsPanel);
 
         // Display the search frame
-        instructionFrame.setVisible(true);
+        instructionsFrame.setVisible(true);
     }
 
 }
