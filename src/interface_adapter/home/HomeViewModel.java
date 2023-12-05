@@ -8,7 +8,6 @@ import java.beans.PropertyChangeSupport;
 public class HomeViewModel extends ViewModel{
     public static final String TITLE_LABEL = "Home";
     public static final String SEARCHVIDEO_BUTTON_LABEL = "Search Video";
-    public static final String SEARCHCHANNEL_BUTTON_LABEL = "Search Channel";
     public static final String TRENDING_BUTTON_LABEL = "Trending";
     public static final String COMPARE_BUTTON_LABEL = "Compare";
     public static final String HISTORY_BUTTON_LABEL = "History";

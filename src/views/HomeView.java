@@ -22,7 +22,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
-    final JButton searchChannel;
     final JButton trending;
     final JButton compare;
     final JButton history;
@@ -45,9 +44,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         searchVideo = new JButton(HomeViewModel.SEARCHVIDEO_BUTTON_LABEL);
         searchVideo.setPreferredSize(new Dimension(200, 100));
         buttonsTop.add(searchVideo);
-        searchChannel = new JButton(HomeViewModel.SEARCHCHANNEL_BUTTON_LABEL);
-        searchChannel.setPreferredSize(new Dimension(200, 100));
-        buttonsTop.add(searchChannel);
         trending = new JButton(HomeViewModel.TRENDING_BUTTON_LABEL);
         trending.setPreferredSize(new Dimension(200, 100));
         buttonsTop.add(trending);
@@ -72,17 +68,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(searchVideo)) {
                             new VideoSearchView();
-                        }
-                    }
-                }
-        );
-
-        searchChannel.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(searchChannel)) {
-                            new ChannelSearchView();
                         }
                     }
                 }
