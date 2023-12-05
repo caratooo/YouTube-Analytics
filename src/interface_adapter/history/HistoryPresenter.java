@@ -18,9 +18,10 @@ public class HistoryPresenter implements HistoryOutputBoundary {
     @Override
     public void prepareSuccessView(HistoryOutputData historyOutputData) {
         HistoryState historyState = historyViewModel.getState();
-        historyState.setUsername(historyState.getUsername());
-        historyState.setUserHistory(historyState.getUserHistory());
+        historyState.setUsername(historyOutputData.getUsername());
+        historyState.setUserHistory(historyOutputData.getUserHistory());
         historyViewModel.setState(historyState);
+        historyViewModel.firePropertyChanged();
 
         viewManagerModel.setActiveView(historyViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
