@@ -11,40 +11,53 @@ import java.util.List;
 
 public class SortCompare implements SortSearchQuery {
     private static final Color grey = new Color(227, 227, 227);
-    private static final FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER);
+    private static final FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER, 25, 5);
     private static final List<String> statLabels = Arrays.asList(
-            "0", "1", "2", "3", "4", "5", "6", "7", "8",
-            "0", "1", "2", "3", "4", "5", "6", "7", "8"
+            "Video ID", "Channel Name", "Title", "Description", "Date Published", "View Count", "Like Count", "Comment Count",
+            "Video ID", "Channel Name", "Title", "Description", "Date Published", "View Count", "Like Count", "Comment Count"
     );
 
     @Override
     public JPanel sort(String data, Integer number, JButton button) {
         JPanel main = new JPanel();
-        main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
+        main.setLayout(new BoxLayout(main, BoxLayout.LINE_AXIS));
+        main.setBorder(BorderFactory.createEmptyBorder(0, 113, 0, 0));
+
+        JPanel mainStats = new JPanel();
+        mainStats.setLayout(new BoxLayout(mainStats, BoxLayout.Y_AXIS));
 
         List<String> stats = List.of(data.split(","));
         List<String> video1Stats = stats.subList(0, stats.size() / 2);
         List<String> video2Stats = stats.subList(stats.size() / 2, stats.size());
 
         JPanel panelLabel = new JPanel();
-        JLabel label = new JLabel(String.format("Search %s: Compare (%s, %s)", number, "Video 1", "Video 2"));
+        JLabel label = new JLabel("Compare");
         panelLabel.add(label);
 
-        JPanel videos = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 40));
+        buttonPanel.add(button);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel videos = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 3));
         JPanel video1 = sort_video(video1Stats, 1, number);
         JPanel video2 = sort_video(video2Stats, 2, number);
 
         if (number % 2 != 0) {
             panelLabel.setBackground(grey);
             videos.setBackground(grey);
+            mainStats.setBackground(grey);
+            buttonPanel.setBackground(grey);
             main.setBackground(grey);
         }
 
         videos.add(video1);
         videos.add(video2);
-        videos.add(button);
-        main.add(panelLabel);
-        main.add(videos);
+        mainStats.add(panelLabel);
+        mainStats.add(videos);
+        main.add(mainStats);
+        main.add(buttonPanel);
 
         return main;
     }
@@ -52,7 +65,7 @@ public class SortCompare implements SortSearchQuery {
     public JPanel sort_video(List<String> data, Integer num_video, Integer number) {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
-        JLabel mainLabel = new JLabel(String.format("Video %s", num_video));
+        JLabel mainLabel = new JLabel(String.format("Video %s (%s)", num_video, data.get(0)));
         mainLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         main.add(mainLabel);
 
@@ -64,9 +77,11 @@ public class SortCompare implements SortSearchQuery {
         JPanel right = new JPanel();
         right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
 
-        for (int i = 0; i < data.size(); i++) {
+        for (int i = 1; i < data.size(); i++) {
             JLabel newStat = new JLabel(String.format("%s: %s", statLabels.get(i), data.get(i)));
-            if (i < 4) {
+            if (i == 3) {
+                continue;
+            } else if (i < 5) {
                 left.add(newStat);
             } else {
                 right.add(newStat);
