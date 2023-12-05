@@ -5,7 +5,7 @@ import java.util.List;
 
 public class HistoryState {
     private String username = "";
-    private List<String> userHistory = new ArrayList<>();
+    private List<String> userHistory = null;
 
     public HistoryState() {
     }
