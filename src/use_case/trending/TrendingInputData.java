@@ -7,8 +7,8 @@ public class TrendingInputData {
         this.categoryInt= categoryInt;
     }
 
-    String getCategoryId() { return categoryInt; }
-    String getCategoryStr(){
+    public String getCategoryId() { return categoryInt; }
+    public String getCategoryStr(){
 
         if(categoryInt.equals("1")){
             return "Movies";
@@ -29,7 +29,7 @@ public class TrendingInputData {
 
 
 
-    Boolean equal(String compare){
+    public Boolean equal(String compare){
         return categoryInt.equals(compare);
     }
 }

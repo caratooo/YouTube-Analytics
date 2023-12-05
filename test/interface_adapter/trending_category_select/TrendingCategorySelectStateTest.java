@@ -5,26 +5,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrendingCategorySelectStateTest {
+
+    TrendingCategorySelectState trendingCategorySelectState = new TrendingCategorySelectState();
+
     @Test
-    public void testDefaultConstructor() {
-        TrendingCategorySelectState state = new TrendingCategorySelectState();
-        assertEquals("0", state.getCategoryId(), "Default category should be '0'");
+    void setGetCategoryId() {
+        assertEquals(trendingCategorySelectState.getCategoryId(), "0");
+        trendingCategorySelectState.setCategoryId("17");
+        assertEquals(trendingCategorySelectState.getCategoryId(), "17");
     }
 
     @Test
-    public void testCopyConstructor() {
-        TrendingCategorySelectState original = new TrendingCategorySelectState();
-        original.setCategoryId("5");
-
-        TrendingCategorySelectState copy = new TrendingCategorySelectState(original);
-        assertEquals("5", copy.getCategoryId(), "Copied state should have same category ID as original");
-    }
-
-    @Test
-    public void testSetAndGetCategoryId() {
-        TrendingCategorySelectState state = new TrendingCategorySelectState();
-        state.setCategoryId("10");
-        assertEquals("10", state.getCategoryId(), "Category ID should be updated to '10'");
+    void copyTest() {
+        trendingCategorySelectState.setCategoryId("17");
+        TrendingCategorySelectState trendingCategorySelectStateCopy = new TrendingCategorySelectState(trendingCategorySelectState);
+        assertEquals(trendingCategorySelectStateCopy.getCategoryId(), trendingCategorySelectState.getCategoryId());
     }
 
 }
+
+

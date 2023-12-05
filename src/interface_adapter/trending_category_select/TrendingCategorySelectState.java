@@ -1,7 +1,7 @@
 package interface_adapter.trending_category_select;
 
 public class TrendingCategorySelectState {
-    private String category = "0"; // defult is 0
+    private String category = "0"; // default is 0
 
     public TrendingCategorySelectState(TrendingCategorySelectState copy) {
         category = copy.category;
