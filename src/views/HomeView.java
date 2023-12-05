@@ -2,10 +2,8 @@ package views;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +18,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
     private final SignupViewModel signupViewModel;
-    private final TrendingCategorySelectViewModel trendingCategorySelectViewModel;
     private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
@@ -33,7 +30,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;

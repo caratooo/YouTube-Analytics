@@ -196,7 +196,7 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
     public void propertyChange(PropertyChangeEvent evt) {
         TrendingDataState state = (TrendingDataState) evt.getNewValue();
 
-        category.setText("Trending  in " + state.getCategory());
+        category.setText("Trending in " + state.getCategory());
         // Top One
         topOneVideoId.setText("Video ID: " + state.getTopOneVideoId());
         topOneChannelName.setText("Channel Name: " + state.getTopOneChannelName());

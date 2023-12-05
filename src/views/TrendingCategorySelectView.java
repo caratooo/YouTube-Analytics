@@ -2,12 +2,11 @@ package views;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending.TrendingCategorySelectState;
-import interface_adapter.trending.TrendingCategorySelectViewModel;
-import interface_adapter.trending.TrendingController;
+import interface_adapter.trending_category_select.TrendingCategorySelectState;
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
+import interface_adapter.trending_category_select.TrendingController;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -31,17 +30,18 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         this.trendingCategorySelectViewModel.addPropertyChangeListener(this);
 
         // initialize Components
-        categoryComboBox = new JComboBox<>(new String[]{"General", "Music", "Animals","Sports", "Gaming", "News", "Movies"});
+        categoryComboBox = new JComboBox<>(new String[]{"General", "Music","Sports", "Gaming", "News", "Movies"});
         selectButton = new JButton("Select");
         homeButton = new JButton("home");
 
         // layout Components
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(categoryComboBox);
-        add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space between components
-        add(selectButton);
-        add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space
-        add(homeButton);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(categoryComboBox);
+        JPanel boxPanel = new JPanel();
+        boxPanel.add(selectButton);
+        // this.add(Box.createRigidArea(new Dimension(0, 5))); // Adds some space
+        boxPanel.add(homeButton);
+        this.add(boxPanel);
 
         // add Event Listeners
         selectButton.addActionListener(new ActionListener() {
@@ -78,14 +78,6 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
 
     private String handleCategorySelection(String selectedCategory) {
         System.out.println("Selected category: " + selectedCategory);
-    //    youtube category:
-    //            General
-    //            1 - Movies
-    //            10 - Music
-    //            15 - Animals
-    //            17 - Sports
-    //            20 - Gaming
-    //            25 - News
 
         if(selectedCategory.equals("General")){
             return "0";
@@ -93,21 +85,14 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         else if(selectedCategory.equals("Movies")){
             return "1";
         }
-        else if(selectedCategory.equals("Animals")){
-            return "15";
+        else if(selectedCategory.equals("Music")){
+            return "10";
         }
         else if(selectedCategory.equals("Sports")){
             return "17";
         }
-        else if(selectedCategory.equals("Gaming")){
-            return "20";
-        }
-        else if(selectedCategory.equals("News")){
-            return "25";
-        }
         else {
-            System.out.println("reach");
-            return "15"; // selectedCategory.equals("Animals")
+            return "20"; // selectedCategory.equals("Gaming")
         }
     }
 
