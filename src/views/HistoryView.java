@@ -3,8 +3,10 @@ package views;
 import interface_adapter.SearchController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.history.HistoryController;
+import interface_adapter.history.HistoryState;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.signup.SignupState;
 import views.sort_algorithms.SortCompare;
 import views.sort_algorithms.SortSearchQuery;
 import views.sort_algorithms.SortVideoSearch;
@@ -101,62 +103,61 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         this.add(buttons);
     }
 
-    private void createHistory() {
-        System.out.println("are we here?");
-
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        List<String> userHistory = historyViewModel.getState().getUserHistory();
+        HistoryState state = (HistoryState) evt.getNewValue();
+        if (state.getUserHistoryError() != null) {
+            JOptionPane.showMessageDialog(this, state.getUserHistoryError());
+        } else {
+            List<String> userHistory = historyViewModel.getState().getUserHistory();
 
-        for (int i = 0; i < 5; i++) {
-            try {
-                userHistory.get(userHistory.size() - i - 1);
-            } catch (IndexOutOfBoundsException ignored) {
-                for (int i2 = historyPanels[i].getComponentCount() - 1; i2 > -1; i2--) {
-                    historyPanels[i].remove(i2);
+            for (int i = 0; i < 5; i++) {
+                try {
+                    userHistory.get(userHistory.size() - i - 1);
+                } catch (IndexOutOfBoundsException ignored) {
+                    for (int i2 = historyPanels[i].getComponentCount() - 1; i2 > -1; i2--) {
+                        historyPanels[i].remove(i2);
+                    }
+
+                    JPanel emptyPanel = createEmptyPanel(i + 1);
+                    historyPanels[i].add(emptyPanel);
+
+                    continue;
                 }
 
-                JPanel emptyPanel = createEmptyPanel(i + 1);
-                historyPanels[i].add(emptyPanel);
+                // get the most recent queries which are at the back of the list
+                currentViewHistory.put(i + 1, userHistory.get(userHistory.size() - i - 1));
+                String[] query = userHistory.get(userHistory.size() - i - 1).split(",", 2);
+                String queryType = query[0];
+                String data = query[1];
+                SortSearchQuery sorter = sorter(queryType);
 
-                continue;
-            }
+                JButton button = buttonList[i];
 
-            // get the most recent queries which are at the back of the list
-            currentViewHistory.put(i + 1, userHistory.get(userHistory.size() - i - 1));
-            String[] query = userHistory.get(userHistory.size() - i - 1).split(",", 2);
-            String queryType = query[0];
-            String data = query[1];
-            SortSearchQuery sorter = sorter(queryType);
+                JPanel queryPanel = sorter.sort(data, i + 1, button);
+                buttonMap.put(i + 1, queryType);
 
-            JButton button = buttonList[i];
-
-            JPanel queryPanel = sorter.sort(data, i + 1, button);
-            buttonMap.put(i + 1, queryType);
-
-            button.addActionListener(
-                    new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (e.getSource().equals(button)) {
-
-                                searchControllerMap.get(queryType).callExecute(data);
+                button.addActionListener(
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (e.getSource().equals(button)) {
+                                    searchControllerMap.get(queryType).callExecute(data);
+                                }
                             }
                         }
-                    }
-            );
+                );
 
-            if (historyPanels[i].getComponentCount() >= 1) {
-                historyPanels[i].remove(historyPanels[i].getComponentCount() - 1);
+                if (historyPanels[i].getComponentCount() >= 1) {
+                    historyPanels[i].remove(historyPanels[i].getComponentCount() - 1);
+                }
+
+                historyPanels[i].add(queryPanel);
             }
-
-            historyPanels[i].add(queryPanel);
         }
     }
 
