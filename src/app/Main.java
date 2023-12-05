@@ -1,8 +1,10 @@
 package app;
 
+import data_access.FileHistoryDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -11,12 +13,13 @@ import views.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
         JFrame application = new JFrame("Youtube Analytics");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -38,11 +41,19 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
+        HistoryViewModel historyViewModel = new HistoryViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        FileHistoryDataAccessObject historyDataAccessObject;
+        try {
+            historyDataAccessObject = new FileHistoryDataAccessObject(userDataAccessObject);
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
@@ -52,8 +63,14 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel, viewManagerModel);
+        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel);
+        views.add(historyView, historyView.viewName);
+
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel, viewManagerModel,
+                HistoryUseCaseFactory.createUserHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject),
+                loginViewModel);
         views.add(homeView, homeView.viewName);
+
 
 
         viewManagerModel.setActiveView(signupView.viewName);

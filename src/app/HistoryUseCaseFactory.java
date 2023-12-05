@@ -1,10 +1,14 @@
 package app;
 
+import interface_adapter.SearchController;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.compare.CompareController;
 import interface_adapter.compare.CompareViewModel;
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
+import interface_adapter.home.HomeViewModel;
+import interface_adapter.video_search.VideoSearchController;
 import interface_adapter.video_search.VideoSearchViewModel;
 import use_case.history.HistoryDataAccessInterface;
 import use_case.history.HistoryInputBoundary;
@@ -22,13 +26,17 @@ public class HistoryUseCaseFactory {
     public static HistoryView create(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
-            HistoryDataAccessInterface historyDataAccessInterface) {
+            HistoryDataAccessInterface historyDataAccessInterface,
+            HomeViewModel homeViewModel) {
 
         try {
             HistoryController historyController = createUserHistoryUseCase(
                     viewManagerModel, historyViewModel, historyDataAccessInterface
             );
-//            return new HistoryView(historyController, historyViewModel);
+            SearchController compareController = new CompareController();
+            SearchController videoSearchController = new VideoSearchController();
+
+            return new HistoryView(historyController, historyViewModel, compareController, videoSearchController, homeViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -36,7 +44,7 @@ public class HistoryUseCaseFactory {
         return null;
     }
 
-    private static HistoryController createUserHistoryUseCase(
+    public static HistoryController createUserHistoryUseCase(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
             HistoryDataAccessInterface historyDataAccessInterface) throws IOException {
