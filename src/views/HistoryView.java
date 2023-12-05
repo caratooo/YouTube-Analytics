@@ -1,8 +1,10 @@
 package views;
 
 import interface_adapter.SearchController;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryViewModel;
+import interface_adapter.home.HomeViewModel;
 import views.sort_algorithms.SortCompare;
 import views.sort_algorithms.SortSearchQuery;
 import views.sort_algorithms.SortVideoSearch;
@@ -27,7 +29,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     private final JButton view3 = new JButton("View");
     private final JButton view4 = new JButton("View");
     private final JButton view5 = new JButton("View");
-    private final JButton[] buttons = new JButton[]{view1, view2, view3, view4, view5};
+    private final JButton[] buttonList = new JButton[]{view1, view2, view3, view4, view5};
     private Map<Integer, String> buttonMap = new HashMap<>(Map.ofEntries(
             Map.entry(1, ""),
             Map.entry(2, ""),
@@ -52,7 +54,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
             Map.entry(5, "")
     ));
 
-    public HistoryView(HistoryController historyController, HistoryViewModel historyViewModel, SearchController compareController, SearchController videoSearchController) {
+    public HistoryView(HistoryController historyController, HistoryViewModel historyViewModel, SearchController compareController, SearchController videoSearchController, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
         this.historyController = historyController;
         this.historyViewModel = historyViewModel;
         historyViewModel.addPropertyChangeListener(this);
@@ -60,37 +62,50 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         searchControllerMap.put("compare", compareController);
         searchControllerMap.put("videoSearch", videoSearchController);
 
+        JLabel paddingTop = new JLabel(" ");
         JLabel title = new JLabel(HistoryViewModel.TITLE_LABEL);
+        JLabel paddingBot = new JLabel(" ");
+        paddingTop.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        paddingBot.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel buttons = new JPanel();
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 20));
         home = new JButton(HistoryViewModel.HOME_BUTTON_LABEL);
         buttons.add(home);
-
-        history.setLayout(new BoxLayout(history, BoxLayout.Y_AXIS));
 
         home.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-//                        if (e.getSource().equals(home)) {
-//
-//                        }
+                        if (e.getSource().equals(home)) {
+                            viewManagerModel.setActiveView(homeViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+                        }
                     }
                 }
         );
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        this.add(paddingTop);
         this.add(title);
-        this.add(buttons);
-        this.add(history);
+        this.add(paddingBot);
 
-        for (int i = 1; i < 6; i++) {
+        history.setLayout(new BoxLayout(history, BoxLayout.Y_AXIS));
+        for (int i = 0; i < 5; i++) {
             history.add(historyPanels[i]);
             historyPanels[i].setLayout(new BoxLayout(historyPanels[i], BoxLayout.Y_AXIS));
         }
+
+        this.add(history);
+        this.add(buttons);
     }
+
+    private void createHistory() {
+        System.out.println("are we here?");
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
@@ -106,6 +121,11 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                 for (int i2 = historyPanels[i].getComponentCount() - 1; i2 > -1; i2--) {
                     historyPanels[i].remove(i2);
                 }
+
+                JPanel emptyPanel = createEmptyPanel(i + 1);
+                historyPanels[i].add(emptyPanel);
+
+                continue;
             }
 
             // get the most recent queries which are at the back of the list
@@ -115,7 +135,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
             String data = query[1];
             SortSearchQuery sorter = sorter(queryType);
 
-            JButton button = buttons[i];
+            JButton button = buttonList[i];
 
             JPanel queryPanel = sorter.sort(data, i + 1, button);
             buttonMap.put(i + 1, queryType);
@@ -132,12 +152,32 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                     }
             );
 
-            if (historyPanels[i + 1].getComponentCount() >= 1) {
-                historyPanels[i + 1].remove(historyPanels[i + 1].getComponentCount() - 1);
+            if (historyPanels[i].getComponentCount() >= 1) {
+                historyPanels[i].remove(historyPanels[i].getComponentCount() - 1);
             }
 
-            historyPanels[i + 1].add(queryPanel);
+            historyPanels[i].add(queryPanel);
         }
+    }
+
+    private JPanel createEmptyPanel(Integer number) {
+        JPanel main = new JPanel();
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
+
+        JLabel label = new JLabel("");
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        if (number % 2 != 0) {
+            panel.setBackground(new Color(227, 227, 227));
+            main.setBackground(new Color(227, 227, 227));
+        }
+
+        panel.add(label);
+        main.add(panel);
+
+        return main;
     }
 
     private SortSearchQuery sorter(String queryType) {
