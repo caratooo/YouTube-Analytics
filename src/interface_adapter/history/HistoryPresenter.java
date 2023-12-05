@@ -2,6 +2,7 @@ package interface_adapter.history;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.compare.CompareViewModel;
+import interface_adapter.signup.SignupState;
 import interface_adapter.video_search.VideoSearchViewModel;
 import use_case.history.HistoryOutputBoundary;
 import use_case.history.HistoryOutputData;
@@ -25,5 +26,13 @@ public class HistoryPresenter implements HistoryOutputBoundary {
 
         viewManagerModel.setActiveView(historyViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareFailView(String error) {
+        HistoryState historyState = historyViewModel.getState();
+        historyState.setUserHistoryError(error);
+        historyViewModel.firePropertyChanged();
+        historyState.setUserHistoryError(null);
     }
 }
