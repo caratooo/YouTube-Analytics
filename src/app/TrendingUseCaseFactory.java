@@ -1,25 +1,15 @@
 package app;
 
-import entities.CommonUserFactory;
-import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.login.LoginController;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.trending.TrendingCategorySelectViewModel;
-import interface_adapter.trending.TrendingController;
-import interface_adapter.trending.TrendingDataViewModel;
-import interface_adapter.trending.TrendingPresenter;
-import use_case.login.LoginDataAccessInterface;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
+import interface_adapter.trending_category_select.TrendingController;
+import interface_adapter.trending_data.TrendingDataViewModel;
+import interface_adapter.trending_category_select.TrendingPresenter;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.trending.TrendingInputBoundary;
 import use_case.trending.TrendingInteractor;
 import use_case.trending.TrendingOutputBoundary;
-import views.LoginView;
 import views.TrendingCategorySelectView;
 
 import javax.swing.*;

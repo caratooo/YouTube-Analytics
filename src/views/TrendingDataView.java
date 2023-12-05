@@ -2,8 +2,8 @@ package views;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending.TrendingDataState;
-import interface_adapter.trending.TrendingDataViewModel;
+import interface_adapter.trending_data.TrendingDataState;
+import interface_adapter.trending_data.TrendingDataViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -196,7 +196,7 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
     public void propertyChange(PropertyChangeEvent evt) {
         TrendingDataState state = (TrendingDataState) evt.getNewValue();
 
-        category.setText(state.getCategory() + " Trending");
+        category.setText("Trending  in " + state.getCategory());
         // Top One
         topOneVideoId.setText("Video ID: " + state.getTopOneVideoId());
         topOneChannelName.setText("Channel Name: " + state.getTopOneChannelName());

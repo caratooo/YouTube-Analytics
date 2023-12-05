@@ -1,6 +1,7 @@
-package interface_adapter.trending;
+package interface_adapter.trending_data;
 
 import interface_adapter.ViewModel;
+import interface_adapter.trending_data.TrendingDataState;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -2,12 +2,11 @@ package views;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.trending.TrendingCategorySelectState;
-import interface_adapter.trending.TrendingCategorySelectViewModel;
-import interface_adapter.trending.TrendingController;
+import interface_adapter.trending_category_select.TrendingCategorySelectState;
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
+import interface_adapter.trending_category_select.TrendingController;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;

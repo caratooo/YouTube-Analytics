@@ -1,7 +1,6 @@
-package interface_adapter.trending;
+package interface_adapter.trending_data;
 
 import com.google.api.client.util.DateTime;
-import entities.Video;
 
 public class TrendingDataState {
     private String category = "0";

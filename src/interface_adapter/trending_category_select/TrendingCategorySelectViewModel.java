@@ -1,4 +1,4 @@
-package interface_adapter.trending;
+package interface_adapter.trending_category_select;
 
 import interface_adapter.ViewModel;
 

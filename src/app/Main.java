@@ -7,17 +7,13 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.trending.TrendingCategorySelectViewModel;
-import interface_adapter.trending.TrendingDataViewModel;
-import use_case.trending.TrendingDataAccessInterface;
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
+import interface_adapter.trending_data.TrendingDataViewModel;
 import views.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-
-import static data_access.YouTubeDataAccess.get_video;
 
 public class Main {
     public static void main(String[] args){

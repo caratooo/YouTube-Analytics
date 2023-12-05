@@ -1,21 +1,8 @@
 package views;
 
-import app.TrendingUseCaseFactory;
-import data_access.FileUserDataAccessObject;
-import data_access.YouTubeDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.login.LoginPresenter;
-import interface_adapter.trending.TrendingCategorySelectViewModel;
-import interface_adapter.trending.TrendingController;
-import interface_adapter.trending.TrendingDataViewModel;
-import interface_adapter.trending.TrendingPresenter;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
-import use_case.trending.TrendingInputBoundary;
-import use_case.trending.TrendingInteractor;
-import use_case.trending.TrendingOutputBoundary;
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;

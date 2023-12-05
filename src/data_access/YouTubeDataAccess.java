@@ -78,9 +78,33 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         VideoSnippet snippet = video.getSnippet();
         VideoStatistics statistics = video.getStatistics();
 
+        int commentCount;
+        int likeCount;
+        int viewCount;
+        if (statistics.getCommentCount() == null){
+            commentCount =  statistics.getCommentCount().intValue();
+        }
+        else{
+            commentCount = Integer.parseInt(null);
+        }
+
+        if (statistics.getLikeCount() == null){
+            likeCount =  statistics.getLikeCount().intValue();
+        }
+        else{
+            likeCount = Integer.parseInt(null);
+        }
+
+        if (statistics.getViewCount() == null){
+            viewCount =  statistics.getViewCount().intValue();
+        }
+        else{
+            viewCount = Integer.parseInt(null);
+        }
+
+
         entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
-                statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
+                snippet.getDescription(), snippet.getPublishedAt(), viewCount, likeCount, commentCount);
 
         return myVideo;
     }
@@ -104,9 +128,35 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
             VideoSnippet snippet = video.getSnippet();
             String videoId = video.getId();
             VideoStatistics statistics = video.getStatistics();
+
+            int commentCount;
+            int likeCount;
+            int viewCount;
+
+            // if the count is null, count is set to be 0
+            if (statistics.getCommentCount() != null){
+                commentCount =  statistics.getCommentCount().intValue();
+            }
+            else{
+                commentCount = 0;
+            }
+
+            if (statistics.getLikeCount() != null){
+                likeCount =  statistics.getLikeCount().intValue();
+            }
+            else{
+                likeCount = 0;
+            }
+
+            if (statistics.getViewCount() != null){
+                viewCount =  statistics.getViewCount().intValue();
+            }
+            else{
+                viewCount = 0;
+            }
+
             entities.Video thisVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                    snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
-                    statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
+                    snippet.getDescription(), snippet.getPublishedAt(), viewCount, likeCount, commentCount);
             videos.add(thisVideo);
 
         }

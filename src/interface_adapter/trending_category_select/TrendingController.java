@@ -1,4 +1,4 @@
-package interface_adapter.trending;
+package interface_adapter.trending_category_select;
 
 import use_case.trending.TrendingInputBoundary;
 import use_case.trending.TrendingInputData;

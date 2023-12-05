@@ -1,9 +1,10 @@
-package interface_adapter.trending;
+package interface_adapter.trending_category_select;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.trending_data.TrendingDataState;
+import interface_adapter.trending_data.TrendingDataViewModel;
 import use_case.trending.TrendingOutputBoundary;
 import use_case.trending.TrendingOutputData;
-import views.TrendingCategorySelectView;
 
 public class TrendingPresenter implements TrendingOutputBoundary {
     private final TrendingCategorySelectViewModel trendingCategorySelectViewModel;
