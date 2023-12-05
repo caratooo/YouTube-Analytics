@@ -8,16 +8,12 @@ import use_case.history.HistoryOutputData;
 
 public class HistoryPresenter implements HistoryOutputBoundary {
     private final HistoryViewModel historyViewModel;
-    private final CompareViewModel compareViewModel;
-    private final VideoSearchViewModel videoSearchViewModel;
     private ViewManagerModel viewManagerModel;
 
 
-    public HistoryPresenter(HistoryViewModel historyViewModel, ViewManagerModel viewManagerModel, CompareViewModel compareViewModel, VideoSearchViewModel videoSearchViewModel) {
+    public HistoryPresenter(HistoryViewModel historyViewModel, ViewManagerModel viewManagerModel) {
         this.historyViewModel = historyViewModel;
         this.viewManagerModel = viewManagerModel;
-        this.compareViewModel = compareViewModel;
-        this.videoSearchViewModel = videoSearchViewModel;
     }
     @Override
     public void prepareSuccessView(HistoryOutputData historyOutputData) {
