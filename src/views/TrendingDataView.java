@@ -176,6 +176,7 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
 
         JPanel panelHome = new JPanel();
         panelHome.add(homeButton);
+        homeButton.setPreferredSize(new Dimension(200, 100));
         this.add(panelHome);
 
         homeButton.addActionListener(new ActionListener() {

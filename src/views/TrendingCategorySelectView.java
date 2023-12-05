@@ -7,6 +7,7 @@ import interface_adapter.trending_category_select.TrendingCategorySelectViewMode
 import interface_adapter.trending_category_select.TrendingController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -32,7 +33,9 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         // initialize Components
         categoryComboBox = new JComboBox<>(new String[]{"General", "Music","Sports", "Gaming", "News", "Movies"});
         selectButton = new JButton("Select");
+        selectButton.setPreferredSize(new Dimension(200, 100));
         homeButton = new JButton("home");
+        homeButton.setPreferredSize(new Dimension(200, 100));
 
         // layout Components
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

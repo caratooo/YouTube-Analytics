@@ -1,6 +1,5 @@
 package views;
 
-import data_access.YouTubeDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.trending_data.TrendingDataState;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import use_case.trending.TrendingDataAccessInterface;
 
 import java.beans.PropertyChangeEvent;
 
@@ -28,19 +26,6 @@ class TrendingDataViewTest {
         MockitoAnnotations.initMocks(this);
         trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
     }
-    @Test
-    void initialize() {
-//        TrendingDataAccessInterface youtubeRepository = new VideoSearchDataAccessObject();
-        TrendingDataAccessInterface youtubeRepository = new YouTubeDataAccess();
-
-        TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
-        ViewManagerModel viewManagerModel = new ViewManagerModel();
-
-        HomeViewModel homeViewModel = new HomeViewModel();
-
-        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
-
-    }
 
     @Test
     void testPropertyChange() {
@@ -54,6 +39,20 @@ class TrendingDataViewTest {
         PropertyChangeEvent evt = new PropertyChangeEvent(trendingDataViewModel, "state", null, mockState);
         trendingDataView.propertyChange(evt);
     }
+
+    //    @Test
+//    void initialize() {
+////        TrendingDataAccessInterface youtubeRepository = new VideoSearchDataAccessObject();
+//        TrendingDataAccessInterface youtubeRepository = new YouTubeDataAccess();
+//
+//        TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
+//        ViewManagerModel viewManagerModel = new ViewManagerModel();
+//
+//        HomeViewModel homeViewModel = new HomeViewModel();
+//
+//        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
+//
+//    }
 
 
 }
