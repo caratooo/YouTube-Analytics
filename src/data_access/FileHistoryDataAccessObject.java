@@ -6,8 +6,8 @@ import java.io.*;
 import java.util.*;
 
 public class FileHistoryDataAccessObject implements HistoryDataAccessInterface {
-    private final Map<String, File> csvFileHistories = new HashMap<>();
-    private final Map<String, List<String>> usersHistories = new HashMap<>();
+    private Map<String, File> csvFileHistories = new HashMap<>();
+    private Map<String, List<String>> usersHistories = new HashMap<>();
     private final Map<String, String[]> headersHistories = new HashMap<>();
     private final Map<String, Integer> headers = new LinkedHashMap<>();
 
@@ -27,22 +27,27 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface {
             Object[] users = userDataAccessObject.getUsers();
 
             for (Object user : users) {
-                String csvPath = String.format("%sHistory.csv", user);
-                File userFile = new File(csvPath);
-                csvFileHistories.put((String) user, userFile);
-
-                BufferedReader reader = new BufferedReader(new FileReader(userFile));
                 try {
-                    String row = reader.readLine();
-                    usersHistories.put((String) user, new ArrayList<>());
-                    List<String> userHistory = usersHistories.get(user);
+                    String csvPath = String.format("%sHistory.csv", user);
+                    File userFile = new File(csvPath);
 
-                    while ((row = reader.readLine()) != null) {
-                        userHistory.add(row);
+                    BufferedReader reader = new BufferedReader(new FileReader(userFile));
+                    try {
+                        csvFileHistories.put((String) user, userFile);
+
+                        String row = reader.readLine();
+                        usersHistories.put((String) user, new ArrayList<>());
+                        List<String> userHistory = usersHistories.get(user);
+
+                        while ((row = reader.readLine()) != null) {
+                            userHistory.add(row);
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (FileNotFoundException ignored) {
+                    continue;
                 }
             }
         }
