@@ -22,15 +22,13 @@ public class HistoryUseCaseFactory {
     public static HistoryView create(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
-            CompareViewModel compareViewModel,
-            VideoSearchViewModel videoSearchViewModel,
             HistoryDataAccessInterface historyDataAccessInterface) {
 
         try {
             HistoryController historyController = createUserHistoryUseCase(
-                    viewManagerModel, historyViewModel, compareViewModel, videoSearchViewModel, historyDataAccessInterface
+                    viewManagerModel, historyViewModel, historyDataAccessInterface
             );
-            return new HistoryView(historyController, historyViewModel);
+//            return new HistoryView(historyController, historyViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -41,11 +39,9 @@ public class HistoryUseCaseFactory {
     private static HistoryController createUserHistoryUseCase(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
-            CompareViewModel compareViewModel,
-            VideoSearchViewModel videoSearchViewModel,
             HistoryDataAccessInterface historyDataAccessInterface) throws IOException {
 
-        HistoryOutputBoundary historyOutputBoundary = new HistoryPresenter(historyViewModel, viewManagerModel, compareViewModel, videoSearchViewModel);
+        HistoryOutputBoundary historyOutputBoundary = new HistoryPresenter(historyViewModel, viewManagerModel);
 
         HistoryInputBoundary historyInteractor = new HistoryInteractor(historyDataAccessInterface, historyOutputBoundary);
 
