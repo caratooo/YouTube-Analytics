@@ -16,9 +16,12 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface {
         headers.put("output", 1);
 
         headersHistories.put("videoSearch",
-                new String[]{"1", "2", "3", "4", "5", "6", "7"});
+                new String[]{"videoId", "channelName", "title", "description", "videoPublishDate", "viewCount", "likeCount", "commentCount"});
         headersHistories.put("compare",
-                new String[]{"1", "2", "3", "4", "5", "6", "7"});
+                new String[]{
+                        "videoId1", "channelName1", "title1", "description1", "videoPublishDate1", "viewCount1", "likeCount1", "commentCount1",
+                        "videoId2", "channelName2", "title2", "description2", "videoPublishDate2", "viewCount2", "likeCount2", "commentCount2"
+                });
 
         if (!userDataAccessObject.isEmpty()) {
             Object[] users = userDataAccessObject.getUsers();
