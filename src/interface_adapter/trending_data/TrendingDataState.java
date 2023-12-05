@@ -77,24 +77,18 @@ public class TrendingDataState {
     public String getTopOneVideoId() {
         return topOneVideoId;
     }
-
     public void setTopOneVideoId(String videoId) {
         this.topOneVideoId = videoId;
     }
-
-
     public String getTopOneChannelName() {
         return topOneChannelName;
     }
-
     public void setTopOneChannelName(String name){
         this.topOneChannelName = name;
     }
-
     public String getTopOneTitle() {
         return topOneTitle;
     }
-
     public void setTopOneTitle(String title) {
         this.topOneTitle = title;
     }
@@ -103,12 +97,12 @@ public class TrendingDataState {
         return topOneDescription;
     }
 
-    public DateTime getTopOneVideoPublishDate(){return topOneVideoPublishDate;}
-    public void setTopOneVideoPublishDate(DateTime time){this.topOneVideoPublishDate = time;}
-
     public void setTopOneDescription(String description) {
         this.topOneDescription = description;
     }
+
+    public DateTime getTopOneVideoPublishDate(){return topOneVideoPublishDate;}
+    public void setTopOneVideoPublishDate(DateTime time){this.topOneVideoPublishDate = time;}
 
     public int getTopOneViewCount() {
         return topOneViewCount;
