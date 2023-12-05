@@ -27,23 +27,20 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface {
             Object[] users = userDataAccessObject.getUsers();
 
             for (Object user : users) {
-                if (!doesUserFileExist((String)user)) {
-                    continue;
-                }
-
-                String csvPath = String.format("./%sHistory.csv", user);
+                String csvPath = String.format("%sHistory.csv", user);
                 File userFile = new File(csvPath);
                 csvFileHistories.put((String) user, userFile);
 
                 BufferedReader reader = new BufferedReader(new FileReader(userFile));
                 try {
-                    String row;
+                    String row = reader.readLine();
                     usersHistories.put((String) user, new ArrayList<>());
                     List<String> userHistory = usersHistories.get(user);
 
                     while ((row = reader.readLine()) != null) {
                         userHistory.add(row);
                     }
+
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
