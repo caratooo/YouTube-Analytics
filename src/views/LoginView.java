@@ -53,6 +53,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         cancel.setPreferredSize(new Dimension(200, 100));
         buttons.add(cancel);
 
+
         logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
@@ -72,8 +73,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancel)) {
+                            // reset password state to be "" empty string
+                            LoginState currentState = loginViewModel.getState();
+                            currentState.setPassword("");
+                            passwordInputField.setText("");
+
                             viewManagerModel.setActiveView(signupViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
+
                         }
                     }
                 }
@@ -140,5 +147,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
     }
+
 
 }

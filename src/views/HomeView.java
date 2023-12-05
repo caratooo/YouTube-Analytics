@@ -3,6 +3,7 @@ package views;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupViewModel;
 
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ import static views.InstructionsView.openInstructionsPanel;
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
-    private final LoginViewModel loginViewModel;
+    private final SignupViewModel signupViewModel;
 
     private final ViewManagerModel viewManagerModel;
 
@@ -31,9 +32,9 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
-        this.loginViewModel = loginViewModel;
+        this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
         homeViewModel.addPropertyChangeListener(this);
 
@@ -120,7 +121,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logout)) {
-                            viewManagerModel.setActiveView(loginViewModel.getViewName());
+                            viewManagerModel.setActiveView(signupViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
                     }

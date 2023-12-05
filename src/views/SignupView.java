@@ -73,8 +73,17 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancel)) {
+                            // reset password state to be "" empty string
+                            SignupState currentState = signupViewModel.getState();
+                            currentState.setPassword("");
+                            currentState.setRepeatPassword("");
+                            passwordInputField.setText("");
+                            repeatPasswordInputField.setText("");
+
+
                             viewManagerModel.setActiveView(loginViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
+
                         }
                     }
                 }
