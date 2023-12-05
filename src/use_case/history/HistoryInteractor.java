@@ -15,9 +15,15 @@ public class HistoryInteractor implements HistoryInputBoundary {
 
     @Override
     public void execute(HistoryInputData historyInputData) {
-        List<String> userHistory = historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier());
+        if (!historyDataAccessInterface.doesUserFileExist(historyInputData.getIdentifier())) {
+            historyPresenter.prepareFailView("No history to view");
+        } else {
+            System.out.println(historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier()).size());
 
-        HistoryOutputData historyOutputData = new HistoryOutputData(historyInputData.getIdentifier(), userHistory);
-        historyPresenter.prepareSuccessView(historyOutputData);
+            List<String> userHistory = historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier());
+            HistoryOutputData historyOutputData = new HistoryOutputData(historyInputData.getIdentifier(), userHistory);
+
+            historyPresenter.prepareSuccessView(historyOutputData);
+        }
     }
 }
