@@ -7,7 +7,7 @@ public class HistoryInputData {
         this.identifier = identifier;
     }
 
-    String getIdentifier() {
+    public String getIdentifier() {
         return identifier;
     }
 }
