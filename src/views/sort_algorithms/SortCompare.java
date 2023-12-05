@@ -40,17 +40,6 @@ public class SortCompare implements SortSearchQuery {
             main.setBackground(grey);
         }
 
-//        button.addActionListener(
-//                new ActionListener() {
-//                    @Override
-//                    public void actionPerformed(ActionEvent e) {
-//                        if (e.getSource().equals(button)) {
-//
-//                        }
-//                    }
-//                }
-//        );
-
         videos.add(video1);
         videos.add(video2);
         videos.add(button);
