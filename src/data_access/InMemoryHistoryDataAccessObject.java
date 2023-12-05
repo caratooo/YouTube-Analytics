@@ -18,4 +18,9 @@ public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterfa
     public List<String> getUserHistory(String identifier) {
         return usersHistories.get(identifier);
     }
+
+    @Override
+    public boolean doesUserFileExist(String identifier) {
+        return true;
+    }
 }
