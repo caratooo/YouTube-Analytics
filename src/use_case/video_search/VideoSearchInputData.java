@@ -8,6 +8,6 @@ public class VideoSearchInputData {
         this.videoId = videoId;
     }
 
-    String getVideoId() { return videoId; }
+    public String getVideoId() { return videoId; }
 
 }
