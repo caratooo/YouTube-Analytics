@@ -2,6 +2,7 @@ package views;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.login.LoginViewModel;
 
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ import static views.InstructionView.openInstructionPanel;
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
+    private final LoginViewModel loginViewModel;
 
     private final ViewManagerModel viewManagerModel;
 
@@ -26,10 +28,13 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton history;
     final JButton instruction;
 
+    final JButton logout;
 
 
-    public HomeView(HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
+
+    public HomeView(HomeViewModel homeViewModel, LoginViewModel loginViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
+        this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
         homeViewModel.addPropertyChangeListener(this);
 
@@ -46,17 +51,20 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         trending = new JButton(HomeViewModel.TRENDING_BUTTON_LABEL);
         trending.setPreferredSize(new Dimension(200, 100));
         buttonsTop.add(trending);
-
-        JPanel buttonsBottom = new JPanel();
         compare = new JButton(HomeViewModel.COMPARE_BUTTON_LABEL);
         compare.setPreferredSize(new Dimension(200, 100));
-        buttonsBottom.add(compare);
+        buttonsTop.add(compare);
+
+        JPanel buttonsBottom = new JPanel();
         history = new JButton(HomeViewModel.HISTORY_BUTTON_LABEL);
         history.setPreferredSize(new Dimension(200, 100));
         buttonsBottom.add(history);
         instruction = new JButton(HomeViewModel.INSTRUCTION_BUTTON_LABEL);
         instruction.setPreferredSize(new Dimension(200, 100));
         buttonsBottom.add(instruction);
+        logout = new JButton(HomeViewModel.LOGOUT_BUTTON_LABEL);
+        logout.setPreferredSize(new Dimension(200, 100));
+        buttonsBottom.add(logout);
 
         searchVideo.addActionListener(
 //                 This creates an anonymous subclass of ActionListener and instantiates it.
@@ -118,6 +126,17 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(instruction)) {
                             openInstructionPanel();
+                        }
+                    }
+                }
+        );
+        logout.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(logout)) {
+                            viewManagerModel.setActiveView(loginViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }

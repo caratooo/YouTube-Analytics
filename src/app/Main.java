@@ -52,7 +52,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, viewManagerModel);
+        HomeView homeView = new HomeView(homeViewModel, loginViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
 
