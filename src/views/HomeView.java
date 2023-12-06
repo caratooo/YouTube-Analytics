@@ -5,6 +5,7 @@ import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.video_search.VideoSearchState;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -75,6 +76,10 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(searchVideo)) {
+                            VideoSearchState state = videoSearchViewModel.getState();
+                            state.setUsername(loginViewModel.getState().getUsername());
+                            videoSearchViewModel.setState(state);
+
                             viewManagerModel.setActiveView(videoSearchViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }

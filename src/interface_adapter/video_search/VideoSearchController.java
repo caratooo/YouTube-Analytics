@@ -16,12 +16,12 @@ public class VideoSearchController implements SearchController {
     }
 
     @Override
-    public void callExecute(String data) {
-        execute(data.split(",")[1]);
+    public void callExecute(String data, String username) throws GeneralSecurityException, IOException {
+        execute(data.split(",")[0], username);
     }
 
-    public void execute(String videoId) throws GeneralSecurityException, IOException {
-        VideoSearchInputData videoSearchInputData = new VideoSearchInputData(videoId);
+    public void execute(String videoId, String username) throws GeneralSecurityException, IOException {
+        VideoSearchInputData videoSearchInputData = new VideoSearchInputData(videoId, username);
 
         videoUseCaseInteractor.execute(videoSearchInputData);
     }

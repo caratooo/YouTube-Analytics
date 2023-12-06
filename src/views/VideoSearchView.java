@@ -58,8 +58,9 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
                         if (e.getSource().equals(search)) {
                             VideoSearchState currState = videoSearchViewModel.getState();
 
+
                             try {
-                                videoSearchController.execute(currState.getVideoId());
+                                videoSearchController.execute(currState.getVideoId(), currState.getUsername());
                             } catch (GeneralSecurityException ex) {
                                 throw new RuntimeException(ex);
                             } catch (IOException ex) {
