@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class CompareStatsView extends JPanel implements ActionListener, PropertyChangeListener{
 
-    public final String viewName = "compare video stats";
+    public final String viewName = "compare stats";
 
     private final CompareStatsViewModel compareStatsViewModel;
     JLabel videoIdOne;
@@ -57,14 +57,14 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
 
         ArrayList<JLabel> labelsOne = new ArrayList<>();
         ArrayList<JLabel> labelsTwo = new ArrayList<>();
-        JLabel videoIdOne = new JLabel();
-        JLabel channelNameOne = new JLabel();
-        JLabel videoTitleOne = new JLabel();
-        JLabel descriptionOne = new JLabel();
-        JLabel videoPublishDateOne = new JLabel();
-        JLabel viewCountOne = new JLabel();
-        JLabel likeCountOne = new JLabel();
-        JLabel commentCountOne = new JLabel();
+        videoIdOne = new JLabel();
+        channelNameOne = new JLabel();
+        videoTitleOne = new JLabel();
+        descriptionOne = new JLabel();
+        videoPublishDateOne = new JLabel();
+        viewCountOne = new JLabel();
+        likeCountOne = new JLabel();
+        commentCountOne = new JLabel();
         labelsOne.add(videoIdOne);
         labelsOne.add(channelNameOne);
         labelsOne.add(videoTitleOne);
@@ -73,14 +73,14 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
         labelsOne.add(viewCountOne);
         labelsOne.add(likeCountOne);
         labelsOne.add(commentCountOne);
-        JLabel videoIdTwo = new JLabel();
-        JLabel channelNameTwo = new JLabel();
-        JLabel videoTitleTwo = new JLabel();
-        JLabel descriptionTwo = new JLabel();
-        JLabel videoPublishDateTwo = new JLabel();
-        JLabel viewCountTwo = new JLabel();
-        JLabel likeCountTwo = new JLabel();
-        JLabel commentCountTwo = new JLabel();
+        videoIdTwo = new JLabel();
+        channelNameTwo = new JLabel();
+        videoTitleTwo = new JLabel();
+        descriptionTwo = new JLabel();
+        videoPublishDateTwo = new JLabel();
+        viewCountTwo = new JLabel();
+        likeCountTwo = new JLabel();
+        commentCountTwo = new JLabel();
         labelsTwo.add(videoIdTwo);
         labelsTwo.add(channelNameTwo);
         labelsTwo.add(videoTitleTwo);
@@ -126,7 +126,9 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        CompareStatsState state = (CompareStatsState) evt.getNewValue();
+//        CompareStatsState state = (CompareStatsState) evt.getNewValue();
+        CompareStatsState state = compareStatsViewModel.getState();
+        System.out.println(state.getVideoIdOne());
         videoIdOne.setText("Video ID: " + state.getVideoIdOne());
         channelNameOne.setText("Channel name: " + state.getChannelNameOne());
         videoTitleOne.setText("Video name: " + state.getTitleOne());
