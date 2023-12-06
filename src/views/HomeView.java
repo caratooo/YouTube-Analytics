@@ -4,9 +4,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.compare_search.CompareSearchViewModel;
 import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 import static views.InstructionsView.openInstructionsPanel;
 
@@ -35,7 +33,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel, CompareSearchViewModel compareSearchViewModel, CompareStatsViewModel compareStatsViewModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel, CompareSearchViewModel compareSearchViewModel, CompareStatsViewModel compareStatsViewModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -77,12 +75,23 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-
         trending.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
+                            viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+//                            JFrame trendingFrame = new JFrame("Trending Category Select");
+//
+//                            TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
+//                            YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+//                            TrendingCategorySelectView trendingCategorySelectView = TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
+//                            trendingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                            trendingFrame.getContentPane().add(trendingCategorySelectView);
+//                            trendingFrame.pack();
+//                            trendingFrame.setLocationRelativeTo(null); // Center the frame on the screen
+//                            trendingFrame.setVisible(true);
 
                         }
                     }
@@ -142,7 +151,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(buttonsTop);
         this.add(Box.createRigidArea(new Dimension(1200, 100)));
         this.add(buttonsBottom);
-        this.add(Box.createRigidArea(new Dimension(1200, 200)));
+        this.add(Box.createRigidArea(new Dimension(1200, 250)));
     }
     @Override
     public void actionPerformed(ActionEvent e)  {
