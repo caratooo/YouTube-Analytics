@@ -66,7 +66,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel,viewManagerModel);
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel,viewManagerModel, compareSearchViewModel, compareStatsViewModel);
         CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youTubeDataAccess);
         views.add(compareSearchView, compareSearchView.viewName);
 
