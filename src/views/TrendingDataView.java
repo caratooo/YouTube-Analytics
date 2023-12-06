@@ -54,7 +54,7 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         this.trendingDataViewModel.addPropertyChangeListener(this);
 
         //initialize components
-        homeButton = new JButton("home");
+        homeButton = new JButton("Home");
 
         category = new JLabel();
 

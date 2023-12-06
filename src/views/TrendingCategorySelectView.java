@@ -34,7 +34,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         categoryComboBox = new JComboBox<>(new String[]{"General", "Music","Sports", "Gaming", "News", "Movies"});
         selectButton = new JButton("Select");
         selectButton.setPreferredSize(new Dimension(200, 100));
-        homeButton = new JButton("home");
+        homeButton = new JButton("Home");
         homeButton.setPreferredSize(new Dimension(200, 100));
 
         // layout Components
@@ -79,7 +79,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
 
 
 
-    String handleCategorySelection(String selectedCategory) {
+    public String handleCategorySelection(String selectedCategory) {
         if(selectedCategory.equals("General")){
             return "0";
         }
