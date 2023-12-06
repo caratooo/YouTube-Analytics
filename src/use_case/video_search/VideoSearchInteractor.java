@@ -11,11 +11,15 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
 
     final VideoSearchDataAccessInterface videoSearchDataAccessObject;
 
+    final VideoSearchUserDataAccessInterface videoSearchUserDataAccessInterface;
+
     final VideoSearchOutputBoundary videoPresenter;
 
     public VideoSearchInteractor(VideoSearchDataAccessInterface videoSearchDataAccessInterface,
+                                 VideoSearchUserDataAccessInterface videoSearchUserDataAccessInterface,
                                  VideoSearchOutputBoundary videoSearchOutputBoundary) {
         this.videoSearchDataAccessObject = videoSearchDataAccessInterface;
+        this.videoSearchUserDataAccessInterface = videoSearchUserDataAccessInterface;
         this.videoPresenter = videoSearchOutputBoundary;
     }
 
@@ -39,7 +43,7 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
                                                                                 false);
 
             // TODO video search output add toString method
-            // videoSearchDataAccessObject.saveToCsv(videoSearchOutputData.toString());
+             videoSearchUserDataAccessInterface.saveUserHistory(videoSearchInputData.getUsername(), videoSearchOutputData.toString());
 
             videoPresenter.prepareSuccessView(videoSearchOutputData);
 

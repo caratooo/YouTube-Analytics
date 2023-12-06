@@ -6,10 +6,7 @@ import interface_adapter.video_search.VideoSearchController;
 import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
-import use_case.video_search.VideoSearchDataAccessInterface;
-import use_case.video_search.VideoSearchInputBoundary;
-import use_case.video_search.VideoSearchInteractor;
-import use_case.video_search.VideoSearchOutputBoundary;
+import use_case.video_search.*;
 import views.VideoSearchView;
 
 import javax.swing.*;
@@ -24,10 +21,11 @@ public class VideoSearchUseCaseFactory {
             VideoSearchViewModel videoSearchViewModel,
             VideoStatsViewModel videoStatsViewModel,
             HomeViewModel homeViewModel,
-            VideoSearchDataAccessInterface youtubeDataAccessObject) {
+            VideoSearchDataAccessInterface youtubeDataAccessObject,
+            VideoSearchUserDataAccessInterface userDataAccessInterface) {
 
         try {
-            VideoSearchController videoSearchController = createVideoSearchUseCase(viewManagerModel, videoSearchViewModel, videoStatsViewModel, youtubeDataAccessObject);
+            VideoSearchController videoSearchController = createVideoSearchUseCase(viewManagerModel, videoSearchViewModel, videoStatsViewModel, userDataAccessInterface, youtubeDataAccessObject);
             return new VideoSearchView(videoSearchController, videoSearchViewModel, homeViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -40,17 +38,16 @@ public class VideoSearchUseCaseFactory {
             ViewManagerModel viewManagerModel,
             VideoSearchViewModel videoSearchViewModel,
             VideoStatsViewModel videoStatsViewModel,
+            VideoSearchUserDataAccessInterface userDataAccessInterface,
             VideoSearchDataAccessInterface youtubeDataAccessObject) throws IOException {
 
         VideoSearchOutputBoundary videoSearchOutputBoundary = new VideoSearchPresenter(videoSearchViewModel, videoStatsViewModel, viewManagerModel);
 
-        VideoSearchInputBoundary videoSearchInteractor = new VideoSearchInteractor(youtubeDataAccessObject, videoSearchOutputBoundary);
+        VideoSearchInputBoundary videoSearchInteractor = new VideoSearchInteractor(youtubeDataAccessObject, userDataAccessInterface, videoSearchOutputBoundary);
 
         return new VideoSearchController(videoSearchInteractor);
 
     }
-
-
 
 
 }
