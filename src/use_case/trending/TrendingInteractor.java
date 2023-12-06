@@ -22,10 +22,10 @@ public class TrendingInteractor implements TrendingInputBoundary {
     public void execute(TrendingInputData trendingInputData) throws GeneralSecurityException, IOException {
         ArrayList<Video> videos;
         if (trendingInputData.equal("0")) {
-            videos = trendingDataAccessObject.get_trending_default();
+            videos = trendingDataAccessObject.getTrendingDefault();
         } else {
             // get trend by category
-            videos = trendingDataAccessObject.get_trending_category(trendingInputData.getCategoryId());
+            videos = trendingDataAccessObject.getTrendingCategory(trendingInputData.getCategoryId());
         }
 
         TrendingOutputData trendingOutputData = new TrendingOutputData(trendingInputData.getCategoryStr(),videos.get(0).getId(), videos.get(0).getChannelName(),videos.get(0).getTitle(), videos.get(0).getDescription(), videos.get(0).getVideoPublishDate(),videos.get(0).getViewCount(),
