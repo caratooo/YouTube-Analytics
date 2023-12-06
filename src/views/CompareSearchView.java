@@ -119,6 +119,13 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
                 }
         );
 
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        this.add(title);
+        this.add(videoIdInfoOne);
+        this.add(videoIdInfoTwo);
+        this.add(buttons);
+
 
     }
 
