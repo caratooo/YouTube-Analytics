@@ -1,6 +1,8 @@
 package views;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.compare_search.CompareSearchViewModel;
+import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
@@ -81,16 +83,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                         if (evt.getSource().equals(trending)) {
                             viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
-//                            JFrame trendingFrame = new JFrame("Trending Category Select");
-//
-//                            TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
-//                            YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
-//                            TrendingCategorySelectView trendingCategorySelectView = TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
-//                            trendingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//                            trendingFrame.getContentPane().add(trendingCategorySelectView);
-//                            trendingFrame.pack();
-//                            trendingFrame.setLocationRelativeTo(null); // Center the frame on the screen
-//                            trendingFrame.setVisible(true);
 
                         }
                     }
@@ -102,7 +94,8 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(compare)) {
-                            new CompareView();
+                            viewManagerModel.setActiveView(compareSearchViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
@@ -113,7 +106,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(history)) {
-                            new HistoryView();
+                            historyController.execute(loginViewModel.getState().getUsername());
                         }
                     }
                 }
