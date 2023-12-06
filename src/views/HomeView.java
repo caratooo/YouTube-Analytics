@@ -1,5 +1,11 @@
 package views;
 
+import app.CompareVideoUseCaseFactory;
+import data_access.YouTubeDataAccess;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.compare_search.CompareSearchState;
+import interface_adapter.compare_search.CompareSearchViewModel;
+import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.home.HomeViewModel;
 
 import javax.swing.*;
@@ -8,11 +14,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
-
+    private ViewManagerModel viewManagerModel;
     final JButton searchVideo;
     final JButton searchChannel;
     final JButton trending;
@@ -21,8 +28,9 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton instruction;
 
 
-    public HomeView(HomeViewModel homeViewModel) {
+    public HomeView(HomeViewModel homeViewModel, CompareSearchViewModel compareSearchViewModel, CompareStatsViewModel compareStatsViewModel, ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
+        this.viewManagerModel = viewManagerModel;
         homeViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(HomeViewModel.TITLE_LABEL);
@@ -80,7 +88,18 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(compare)) {
-                            new CompareView();
+                            viewManagerModel.setActiveView(compareSearchViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+                            JFrame compareFrame = new JFrame("Compare Videos Search");
+
+                            CompareSearchViewModel compareSearchViewModel = new CompareSearchViewModel();
+                            YouTubeDataAccess youtubeDataAccess = new YouTubeDataAccess();
+                            CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youtubeDataAccess);
+                            compareFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                            compareFrame.getContentPane().add(compareSearchView);
+                            compareFrame.pack();
+                            compareFrame.setLocationRelativeTo(null); // Center the frame on the screen
+                            compareFrame.setVisible(true);
                         }
                     }
                 }
