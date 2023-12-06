@@ -3,7 +3,6 @@ package app;
 import interface_adapter.SearchController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.compare.CompareController;
-import interface_adapter.compare.CompareViewModel;
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;

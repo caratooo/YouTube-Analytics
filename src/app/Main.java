@@ -8,8 +8,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.compare_search.CompareSearchViewModel;
 import interface_adapter.compare_stats.CompareStatsViewModel;
-import interface_adapter.compare_search.CompareSearchViewModel;
-import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -81,17 +79,11 @@ public class Main {
 
         HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel);
         views.add(historyView, historyView.viewName);
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel,viewManagerModel, compareSearchViewModel, compareStatsViewModel);
         CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youTubeDataAccess);
         views.add(compareSearchView, compareSearchView.viewName);
 
         CompareStatsView compareStatsView = new CompareStatsView(compareStatsViewModel, homeViewModel, viewManagerModel);
         views.add(compareStatsView, compareStatsView.viewName);
-
-
-        views.add(homeView, homeView.viewName);
-
-        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
 
         TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess, homeViewModel);
         views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
@@ -101,7 +93,7 @@ public class Main {
 
         HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel, viewManagerModel,
                 HistoryUseCaseFactory.createUserHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject),
-                loginViewModel);
+                loginViewModel, compareSearchViewModel, compareStatsViewModel);
         views.add(homeView, homeView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
