@@ -16,6 +16,7 @@ import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
+import use_case.trending.TrendingDataAccessInterface;
 import use_case.compare_videos.CompareSearchDataAccessInterface;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
@@ -27,14 +28,16 @@ import java.lang.reflect.Type;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
+
 public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface, CompareSearchDataAccessInterface {
 
-    private static final String CLIENT_SECRETS= "client_secret.json";
+    private static final String CLIENT_SECRETS = "client_secret.json";
     private static final Collection<String> SCOPES =
             Arrays.asList("https://www.googleapis.com/auth/youtube.readonly");
 
     private static final String APPLICATION_NAME = "API code samples";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+
     /**
      * Create an authorized Credential object.
      *
@@ -63,11 +66,13 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
                 .build();
     }
 
-    public static VideoListResponse getVideoResponse(String videoId) throws GeneralSecurityException, IOException {
+
+    public VideoListResponse getVideoResponse(String videoId) throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
         return request.setId(videoId).execute();
     }
+
 
     public entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
         VideoListResponse response = getVideoResponse(videoId);
@@ -76,18 +81,20 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         VideoStatistics statistics = video.getStatistics();
 
         entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
-                statistics.getLikeCount(), statistics.getCommentCount());
+                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
+                statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
 
         return myVideo;
     }
-    public static ArrayList<entities.Video> getTrendingDefault() throws GeneralSecurityException, IOException {
+
+    public ArrayList<entities.Video> getTrendingDefault() throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
         VideoListResponse response = request.setChart("mostPopular").execute();
         return getVideos(response);
     }
-    public static ArrayList<entities.Video> getTrendingCategory(String category) throws GeneralSecurityException, IOException {
+
+    public ArrayList<entities.Video> getTrendingCategory(String category) throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
         VideoListResponse response = request.setChart("mostPopular").setVideoCategoryId(category).execute();
@@ -96,42 +103,31 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
     private static ArrayList<entities.Video> getVideos(VideoListResponse response) {
         ArrayList<entities.Video> videos = new ArrayList<>();
-        for (int i = 0; i < 5; i ++){
+        for (int i = 0; i < 5; i++) {
             Video video = response.getItems().get(i);
             VideoSnippet snippet = video.getSnippet();
             String videoId = video.getId();
             VideoStatistics statistics = video.getStatistics();
             entities.Video thisVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                    snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount(),
-                    statistics.getLikeCount(), statistics.getCommentCount());
+                    snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
+                    statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
             videos.add(thisVideo);
 
         }
         return videos;
     }
 
-    public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
+    public boolean isInvalidTwo(String videoIdOne, String videoIdTwo) {
         try {
-            getVideo(videoId);
-            return false;
-        } catch (IndexOutOfBoundsException e) {
-            return true;
-        }
-
-    }
-
-    public boolean isInvalidTwo(String videoIdOne, String videoIdTwo){
-        try{
             YouTube youtubeService = getService();
             YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
             request.setId(videoIdOne).execute();
             request.setId(videoIdTwo).execute();
             return false;
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             return true;
         } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException(e);
         }
     }
-
 }
