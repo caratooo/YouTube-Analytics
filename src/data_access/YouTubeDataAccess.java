@@ -9,21 +9,26 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.google.api.services.youtube.model.VideoSnippet;
 import com.google.api.services.youtube.model.VideoStatistics;
+import use_case.trending.TrendingDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.*;
 import java.security.GeneralSecurityException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
-public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
+public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
 
-//    private static final String CLIENT_SECRETS= "client_secret.json";
+    //    private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
             Arrays.asList("https://www.googleapis.com/auth/youtube.readonly");
 
@@ -41,7 +46,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
      */
     public static Credential authorize(final NetHttpTransport httpTransport) throws IOException {
         // Load client secrets.
-        FileInputStream fis = new FileInputStream(new File(".\\client_secret.json"));
+        FileInputStream fis = new FileInputStream(("./client_secret.json"));
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(fis));
 //        InputStream in = YouTubeDataAccess.class.getResourceAsStream(CLIENT_SECRETS);
 //        GoogleClientSecrets clientSecrets =
@@ -56,7 +61,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
     }
 
     public static YouTube getService() throws GeneralSecurityException, IOException {
-        final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+        final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();
         Credential credential = authorize(httpTransport);
         return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
@@ -69,39 +74,96 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
         return request.setId(videoId).execute();
     }
 
-    @Override
     public entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
         VideoListResponse response = getVideoResponse(videoId);
-        String jsonString = response.toPrettyString();
         Video video = response.getItems().get(0);
         VideoSnippet snippet = video.getSnippet();
         VideoStatistics statistics = video.getStatistics();
 
-        entities.Video videoEn = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
-                statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
+        int commentCount;
+        int likeCount;
+        int viewCount;
+        if (statistics.getCommentCount() == null){
+            commentCount =  statistics.getCommentCount().intValue();
+        }
+        else{
+            commentCount = Integer.parseInt(null);
+        }
 
-        return videoEn;
+        if (statistics.getLikeCount() == null){
+            likeCount =  statistics.getLikeCount().intValue();
+        }
+        else{
+            likeCount = Integer.parseInt(null);
+        }
+
+        if (statistics.getViewCount() == null){
+            viewCount =  statistics.getViewCount().intValue();
+        }
+        else{
+            viewCount = Integer.parseInt(null);
+        }
+
+
+        entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
+                snippet.getDescription(), snippet.getPublishedAt(), viewCount, likeCount, commentCount);
+
+        return myVideo;
+    }
+    public ArrayList<entities.Video> getTrendingDefault() throws GeneralSecurityException, IOException {
+        YouTube youtubeService = getService();
+        YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+        VideoListResponse response = request.setChart("mostPopular").execute();
+        return getVideos(response);
+    }
+    public ArrayList<entities.Video> getTrendingCategory(String category) throws GeneralSecurityException, IOException {
+        YouTube youtubeService = getService();
+        YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
+        VideoListResponse response = request.setChart("mostPopular").setVideoCategoryId(category).execute();
+        return getVideos(response);
     }
 
-//    public static entities.Video getYuh(String videoId) throws GeneralSecurityException, IOException {
-//        VideoListResponse response = getVideoResponse(videoId);
-//        String jsonString = response.toPrettyString();
-//        Video video = response.getItems().get(0);
-//        VideoSnippet snippet = video.getSnippet();
-//        VideoStatistics statistics = video.getStatistics();
-//
-//        entities.Video videoEn = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
-//                snippet.getDescription(), snippet.getPublishedAt(), statistics.getViewCount().intValue(),
-//                statistics.getLikeCount().intValue(), statistics.getCommentCount().intValue());
-//
-//        return videoEn;
-//    }
-//
-//    @Override
-//    public entities.Video get(String videoId) throws GeneralSecurityException, IOException {
-//        return null;
-//    }
+    private static ArrayList<entities.Video> getVideos(VideoListResponse response) {
+        ArrayList<entities.Video> videos = new ArrayList<>();
+        for (int i = 0; i < 5; i ++){
+            Video video = response.getItems().get(i);
+            VideoSnippet snippet = video.getSnippet();
+            String videoId = video.getId();
+            VideoStatistics statistics = video.getStatistics();
+
+            int commentCount;
+            int likeCount;
+            int viewCount;
+
+            // if the count is null, count is set to be 0
+            if (statistics.getCommentCount() != null){
+                commentCount =  statistics.getCommentCount().intValue();
+            }
+            else{
+                commentCount = 0;
+            }
+
+            if (statistics.getLikeCount() != null){
+                likeCount =  statistics.getLikeCount().intValue();
+            }
+            else{
+                likeCount = 0;
+            }
+
+            if (statistics.getViewCount() != null){
+                viewCount =  statistics.getViewCount().intValue();
+            }
+            else{
+                viewCount = 0;
+            }
+
+            entities.Video thisVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
+                    snippet.getDescription(), snippet.getPublishedAt(), viewCount, likeCount, commentCount);
+            videos.add(thisVideo);
+
+        }
+        return videos;
+    }
 
     public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
         try {
@@ -110,7 +172,6 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface {
         } catch (IndexOutOfBoundsException e) {
             return true;
         }
-
     }
 
     @Override

@@ -21,7 +21,7 @@ public class Video {
         this.title = title;
 
         if (description.length() > 100) {
-            this.description = description.substring(0, 100);
+            this.description = description.substring(0, 100) + "...";
         } else {
             this.description = description;
         }
