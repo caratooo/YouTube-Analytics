@@ -27,6 +27,32 @@ public class HistoryInteractorTest {
                 assertEquals("alex", historyOutputData.getUsername());
                 assertEquals(alexHistory, historyOutputData.getUserHistory());
             }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("failure is unexpected");
+            }
+        };
+
+        HistoryInputBoundary interactor = new HistoryInteractor(userRepository, successPresenter);
+        interactor.execute(inputData);
+    }
+
+    @Test
+    void failureTest() {
+        HistoryInputData inputData = new HistoryInputData("alex1");
+        HistoryDataAccessInterface userRepository = new InMemoryHistoryDataAccessObject();
+
+        HistoryOutputBoundary successPresenter = new HistoryOutputBoundary() {
+            @Override
+            public void prepareSuccessView(HistoryOutputData historyOutputData) {
+                fail("failure is unexpected");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("No history to view", error);
+            }
         };
 
         HistoryInputBoundary interactor = new HistoryInteractor(userRepository, successPresenter);

@@ -7,8 +7,7 @@ import use_case.history.HistoryOutputData;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HistoryViewModelTest{
     HistoryViewModel historyViewModel;
@@ -31,6 +30,11 @@ public class HistoryViewModelTest{
                 historyState.setUsername(historyOutputData.getUsername());
                 historyState.setUserHistory(historyOutputData.getUserHistory());
                 historyViewModel.setState(historyState);
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("failure is unexpected");
             }
         };
 

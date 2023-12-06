@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterface {
+    private Map<String, String> csvFileHistories = new HashMap<>(Map.ofEntries(
+            Map.entry("alex", "csvFile")
+    ));
     private final Map<String, List<String>> usersHistories = new HashMap<>(Map.ofEntries(
             Map.entry("alex", Arrays.asList(
                     "videoSearch,videoId1,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount",
@@ -21,6 +24,6 @@ public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterfa
 
     @Override
     public boolean doesUserFileExist(String identifier) {
-        return true;
+        return csvFileHistories.containsKey(identifier);
     }
 }
