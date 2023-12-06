@@ -1,6 +1,5 @@
 package use_case.history;
 
-import java.util.Collections;
 import java.util.List;
 
 public class HistoryInteractor implements HistoryInputBoundary {
