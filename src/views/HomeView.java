@@ -1,7 +1,10 @@
 package views;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.history.HistoryController;
+import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -31,10 +34,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton logout;
 
 
+
     public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel,
                     TrendingCategorySelectViewModel trendingCategorySelectViewModel,
                     VideoSearchViewModel videoSearchViewModel, VideoStatsViewModel videoStatsViewModel,
-                    ViewManagerModel viewManagerModel) {
+                    ViewManagerModel viewManagerModel, HistoryController historyController,
+                    LoginViewModel loginViewModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -104,7 +109,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(history)) {
-                            new HistoryView();
+                            historyController.execute(loginViewModel.getState().getUsername());
                         }
                     }
                 }
