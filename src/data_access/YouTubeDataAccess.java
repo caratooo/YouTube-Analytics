@@ -177,8 +177,4 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
             throw new RuntimeException(e);
         }
     }
-    public static void main(String[] args){
-        YouTubeDataAccess data = new YouTubeDataAccess();
-        data.isInvalidTwo("123", "123");
-    }
 }
