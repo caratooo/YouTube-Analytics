@@ -27,17 +27,17 @@ public class CompareSearchInteractor implements CompareSearchInputBoundary {
                     videoOne.getTitle(),
                     videoOne.getDescription(),
                     videoOne.getVideoPublishDate(),
-                    videoOne.getViewCount().intValue(),
-                    videoOne.getLikeCount().intValue(),
-                    videoOne.getCommentCount().intValue(),
+                    videoOne.getViewCount(),
+                    videoOne.getLikeCount(),
+                    videoOne.getCommentCount(),
                     videoTwo.getId(),
                     videoTwo.getChannelName(),
                     videoTwo.getTitle(),
                     videoTwo.getDescription(),
                     videoTwo.getVideoPublishDate(),
-                    videoTwo.getViewCount().intValue(),
-                    videoTwo.getLikeCount().intValue(),
-                    videoTwo.getCommentCount().intValue(),
+                    videoTwo.getViewCount(),
+                    videoTwo.getLikeCount(),
+                    videoTwo.getCommentCount(),
                     false);
 
             compareSearchPresenter.prepareSuccessView(compareSearchOutputData);
