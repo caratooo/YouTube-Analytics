@@ -1,15 +1,16 @@
 package app;
 
-import data_access.FileUserDataAccessObject;
+import data_access.FileUserSearchDataAccessObject;
+import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.compare_search.CompareSearchViewModel;
+import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-import views.HomeView;
-import views.LoginView;
-import views.SignupView;
-import views.ViewManager;
+import interface_adapter.video_search.VideoSearchViewModel;
+import views.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,13 +38,20 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
+        CompareSearchViewModel compareSearchViewModel = new CompareSearchViewModel();
+        CompareStatsViewModel compareStatsViewModel = new CompareStatsViewModel();
 
-        FileUserDataAccessObject userDataAccessObject;
+
+        FileUserSearchDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
+            userDataAccessObject = new FileUserSearchDataAccessObject("./users.csv", new CommonUserFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        YouTubeDataAccess youTubeDataAccess;
+        youTubeDataAccess = new YouTubeDataAccess();
+
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
@@ -51,9 +59,14 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel);
-        views.add(homeView, homeView.viewName);
+        CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youTubeDataAccess);
+        views.add(compareSearchView, compareSearchView.viewName);
 
+        CompareStatsView compareStatsView = new CompareStatsView(compareStatsViewModel, homeViewModel, viewManagerModel);
+        views.add(compareStatsView);
+
+        HomeView homeView = new HomeView(homeViewModel, compareSearchViewModel,compareStatsViewModel, viewManagerModel);
+        views.add(homeView, homeView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
