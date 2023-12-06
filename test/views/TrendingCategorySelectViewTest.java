@@ -12,6 +12,7 @@ import use_case.trending.TrendingDataAccessInterface;
 import use_case.trending.TrendingInputData;
 import use_case.trending.TrendingInteractor;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,7 +36,7 @@ class TrendingCategorySelectViewTest {
 //    }
 
     @Test
-    void initialize() {
+    void initialize() throws IOException {
 //        TrendingDataAccessInterface youtubeRepository = new VideoSearchDataAccessObject();
         TrendingDataAccessInterface youtubeRepository = new YouTubeDataAccess();
 

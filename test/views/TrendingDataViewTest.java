@@ -7,6 +7,8 @@ import interface_adapter.trending_data.TrendingDataViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.trending.TrendingDataAccessInterface;
 
+import java.io.IOException;
+
 class TrendingDataViewTest {
 //    @Mock
 //    private TrendingDataViewModel trendingDataViewModel;
@@ -37,7 +39,7 @@ class TrendingDataViewTest {
 //    }
 
         @Test
-    void initialize() {
+    void initialize() throws IOException {
 //        TrendingDataAccessInterface youtubeRepository = new VideoSearchDataAccessObject();
         TrendingDataAccessInterface youtubeRepository = new YouTubeDataAccess();
 

@@ -78,7 +78,7 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel);
+        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, historyDataAccessObject);
         views.add(historyView, historyView.viewName);
 
         TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, youTubeDataAccess, homeViewModel);
@@ -87,11 +87,18 @@ public class Main {
         TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
         views.add(trendingDataView, trendingDataView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel, viewManagerModel,
-                videoSearchViewModel, videoStatsViewModel,
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel,
+                trendingCategorySelectViewModel,
+                videoSearchViewModel, videoStatsViewModel, viewManagerModel,
                 HistoryUseCaseFactory.createUserHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject),
                 loginViewModel);
         views.add(homeView, homeView.viewName);
+
+        VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel, homeViewModel, youTubeDataAccess, historyDataAccessObject);
+        views.add(videoSearchView, videoSearchView.viewName);
+
+        VideoStatsView videoStatsView = new VideoStatsView(videoStatsViewModel, homeViewModel, viewManagerModel);
+        views.add(videoStatsView, videoStatsView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
