@@ -2,16 +2,13 @@ package data_access;
 
 import entities.User;
 import entities.UserFactory;
-import use_case.channel_search.ChannelSearchDataAccessInterface;
-import use_case.compare_videos.CompareDataAccessInterface;
-import use_case.history.HistoryDataAccessInterface;
 import use_case.login.LoginDataAccessInterface;
 import use_case.signup.SignupDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface, HistoryDataAccessInterface, ChannelSearchDataAccessInterface {
+public class FileUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
