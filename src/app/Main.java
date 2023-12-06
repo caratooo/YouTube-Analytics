@@ -21,7 +21,7 @@ import java.security.GeneralSecurityException;
 
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
         JFrame application = new JFrame("Youtube Analytics");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

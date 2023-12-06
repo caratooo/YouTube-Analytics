@@ -18,8 +18,6 @@ public class HistoryInteractor implements HistoryInputBoundary {
         if (!historyDataAccessInterface.doesUserFileExist(historyInputData.getIdentifier())) {
             historyPresenter.prepareFailView("No history to view");
         } else {
-            System.out.println(historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier()).size());
-
             List<String> userHistory = historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier());
             HistoryOutputData historyOutputData = new HistoryOutputData(historyInputData.getIdentifier(), userHistory);
 
