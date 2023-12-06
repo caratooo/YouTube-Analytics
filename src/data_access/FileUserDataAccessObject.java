@@ -3,7 +3,7 @@ package data_access;
 import entities.User;
 import entities.UserFactory;
 import use_case.channel_search.ChannelSearchDataAccessInterface;
-import use_case.compare_videos.CompareDataAccessInterface;
+import use_case.compare_videos.CompareSearchDataAccessInterface;
 import use_case.history.HistoryDataAccessInterface;
 import use_case.login.LoginDataAccessInterface;
 import use_case.signup.SignupDataAccessInterface;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class FileUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface, HistoryDataAccessInterface, CompareDataAccessInterface, ChannelSearchDataAccessInterface {
+public class FileUserSearchDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface, HistoryDataAccessInterface, ChannelSearchDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -22,7 +22,7 @@ public class FileUserDataAccessObject implements SignupDataAccessInterface, Logi
 
     private UserFactory userFactory;
 
-    public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
+    public FileUserSearchDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
 
         csvFile = new File(csvPath);

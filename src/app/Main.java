@@ -1,6 +1,6 @@
 package app;
 
-import data_access.FileUserSearchDataAccessObject;
+import data_access.FileUserDataAccessObject;
 import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -11,12 +11,10 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 
 import views.*;
-import interface_adapter.video_search.VideoSearchViewModel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 
 public class Main {
@@ -62,14 +60,13 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel, viewManagerModel);
         CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youTubeDataAccess);
         views.add(compareSearchView, compareSearchView.viewName);
 
         CompareStatsView compareStatsView = new CompareStatsView(compareStatsViewModel, homeViewModel, viewManagerModel);
-        views.add(compareStatsView);
+        views.add(compareStatsView, compareStatsView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, compareSearchViewModel,compareStatsViewModel, viewManagerModel);
+        HomeView homeView = new HomeView(homeViewModel,signupViewModel, viewManagerModel, compareSearchViewModel,compareStatsViewModel);
         views.add(homeView, homeView.viewName);
 
 
