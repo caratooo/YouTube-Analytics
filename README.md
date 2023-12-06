@@ -17,8 +17,6 @@ Information about the users will be stored in .txt files, and there will be an a
 **Use Cases:**
 - Video Lookup:
   Returns meaningful insights about the video in the form of quantifiable metrics such as like counts, view counts, like-to-view ratio, and etc.
-- Channel Lookup:
-    Returns meaningful insights about the channel in the form of quantifiable metrics such as total video posted, total views, subscriber count, and etc.
 - Video Comparison:
     Shows a side-by-side comparison of each of the metrics that were returned in the Video Lookup use case; quantifies the difference in each metric through both net difference and percentage difference.
 - Trending Lookup:
