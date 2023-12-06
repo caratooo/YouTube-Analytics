@@ -26,4 +26,9 @@ public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterfa
     public boolean doesUserFileExist(String identifier) {
         return csvFileHistories.containsKey(identifier);
     }
+
+    @Override
+    public boolean doesUserHistoryExist(String identifier) {
+        return false;
+    }
 }

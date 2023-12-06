@@ -14,7 +14,7 @@ public class HistoryInteractor implements HistoryInputBoundary {
 
     @Override
     public void execute(HistoryInputData historyInputData) {
-        if (!historyDataAccessInterface.doesUserFileExist(historyInputData.getIdentifier())) {
+        if (!historyDataAccessInterface.doesUserHistoryExist(historyInputData.getIdentifier())) {
             historyPresenter.prepareFailView("No history to view");
         } else {
             List<String> userHistory = historyDataAccessInterface.getUserHistory(historyInputData.getIdentifier());
