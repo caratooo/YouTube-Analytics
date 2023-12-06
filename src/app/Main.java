@@ -68,7 +68,7 @@ public class Main {
         HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel, videoSearchViewModel, videoStatsViewModel, viewManagerModel);
         views.add(homeView, homeView.viewName);
 
-        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess, homeViewModel);
+        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, youTubeDataAccess, homeViewModel);
         views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
 
         TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);

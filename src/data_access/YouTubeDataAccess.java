@@ -5,7 +5,6 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -20,7 +19,6 @@ import use_case.video_search.VideoSearchDataAccessInterface;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,27 +81,28 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         int commentCount;
         int likeCount;
         int viewCount;
-        if (statistics.getCommentCount() == null){
+
+        // if the count is null, count is set to be 0
+        if (statistics.getCommentCount() != null){
             commentCount =  statistics.getCommentCount().intValue();
         }
         else{
-            commentCount = Integer.parseInt(null);
+            commentCount = 0;
         }
 
-        if (statistics.getLikeCount() == null){
+        if (statistics.getLikeCount() != null){
             likeCount =  statistics.getLikeCount().intValue();
         }
         else{
-            likeCount = Integer.parseInt(null);
+            likeCount = 0;
         }
 
-        if (statistics.getViewCount() == null){
+        if (statistics.getViewCount() != null){
             viewCount =  statistics.getViewCount().intValue();
         }
         else{
-            viewCount = Integer.parseInt(null);
+            viewCount = 0;
         }
-
 
         entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
                 snippet.getDescription(), snippet.getPublishedAt(), viewCount, likeCount, commentCount);

@@ -1,10 +1,7 @@
 package views;
 
-import app.VideoSearchUseCaseFactory;
-import data_access.YouTubeDataAccess;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.signup.SignupState;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -16,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 
 import static views.InstructionsView.openInstructionsPanel;
 
@@ -35,7 +31,10 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     final JButton logout;
 
 
-    public HomeView(HomeViewModel homeViewModel, VideoSearchViewModel videoSearchViewModel, ViewManagerModel viewManagerModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel,
+                    TrendingCategorySelectViewModel trendingCategorySelectViewModel,
+                    VideoSearchViewModel videoSearchViewModel, VideoStatsViewModel videoStatsViewModel,
+                    ViewManagerModel viewManagerModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -73,13 +72,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                         if (evt.getSource().equals(searchVideo)) {
                             viewManagerModel.setActiveView(videoSearchViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
-//                            VideoSearchViewModel currentState = videoSearchViewModel.getState();
-//
-//                            signupController.execute(
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword(),
-//                                    currentState.getRepeatPassword()
-//                            );
                         }
                     }
                 }
@@ -91,17 +83,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                         if (evt.getSource().equals(trending)) {
                             viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
-//                            JFrame trendingFrame = new JFrame("Trending Category Select");
-//
-//                            TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
-//                            YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
-//                            TrendingCategorySelectView trendingCategorySelectView = TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
-//                            trendingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//                            trendingFrame.getContentPane().add(trendingCategorySelectView);
-//                            trendingFrame.pack();
-//                            trendingFrame.setLocationRelativeTo(null); // Center the frame on the screen
-//                            trendingFrame.setVisible(true);
-
                         }
                     }
                 }
