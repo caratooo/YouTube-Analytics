@@ -1,9 +1,11 @@
 package app;
 
+import data_access.FileHistoryDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.history.HistoryViewModel;
 import interface_adapter.compare_search.CompareSearchViewModel;
 import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.compare_search.CompareSearchViewModel;
@@ -17,11 +19,12 @@ import views.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
         JFrame application = new JFrame("Youtube Analytics");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -45,6 +48,7 @@ public class Main {
         HomeViewModel homeViewModel = new HomeViewModel();
         TrendingCategorySelectViewModel trendingCategorySelectViewModel =  new TrendingCategorySelectViewModel();
         TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
+        HistoryViewModel historyViewModel = new HistoryViewModel();
         CompareSearchViewModel compareSearchViewModel = new CompareSearchViewModel();
         CompareStatsViewModel compareStatsViewModel = new CompareStatsViewModel();
 
@@ -56,6 +60,15 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        FileHistoryDataAccessObject historyDataAccessObject;
+        try {
+            historyDataAccessObject = new FileHistoryDataAccessObject(userDataAccessObject);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+
         YouTubeDataAccess youTubeDataAccess;
         youTubeDataAccess = new YouTubeDataAccess();
 
@@ -66,6 +79,8 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
+        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel);
+        views.add(historyView, historyView.viewName);
         HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel,viewManagerModel, compareSearchViewModel, compareStatsViewModel);
         CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youTubeDataAccess);
         views.add(compareSearchView, compareSearchView.viewName);
@@ -83,6 +98,11 @@ public class Main {
 
         TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
         views.add(trendingDataView, trendingDataView.viewName);
+
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel, viewManagerModel,
+                HistoryUseCaseFactory.createUserHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject),
+                loginViewModel);
+        views.add(homeView, homeView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

@@ -1,9 +1,10 @@
 package views;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.compare_search.CompareSearchViewModel;
-import interface_adapter.compare_stats.CompareStatsViewModel;
+import interface_adapter.history.HistoryController;
+import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
@@ -20,7 +21,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
     private final SignupViewModel signupViewModel;
-
     private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
@@ -33,7 +33,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel, CompareSearchViewModel compareSearchViewModel, CompareStatsViewModel compareStatsViewModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel, HistoryController historyController, LoginViewModel loginViewModel, CompareSearchViewModel compareSearchViewModel, CompareStatsViewModel compareStatsViewModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -76,7 +76,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         );
 
         trending.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
@@ -103,9 +102,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(compare)) {
-                            viewManagerModel.setActiveView(compareSearchViewModel.getViewName());
-                            viewManagerModel.firePropertyChanged();
-
+                            new CompareView();
                         }
                     }
                 }
