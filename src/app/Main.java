@@ -1,18 +1,19 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
+import interface_adapter.trending_data.TrendingDataViewModel;
 import views.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
 
 
 public class Main {
@@ -38,6 +39,8 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomeViewModel homeViewModel = new HomeViewModel();
+        TrendingCategorySelectViewModel trendingCategorySelectViewModel =  new TrendingCategorySelectViewModel();
+        TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -52,9 +55,16 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel, viewManagerModel);
+        HomeView homeView = new HomeView(homeViewModel, signupViewModel, trendingCategorySelectViewModel,viewManagerModel);
         views.add(homeView, homeView.viewName);
 
+        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+
+        TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess, homeViewModel);
+        views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
+
+        TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
+        views.add(trendingDataView, trendingDataView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
