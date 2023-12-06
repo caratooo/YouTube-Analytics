@@ -77,16 +77,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 }
         );
 
-        searchChannel.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(searchChannel)) {
-                            new ChannelSearchView();
-                        }
-                    }
-                }
-        );
 
         trending.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -106,16 +96,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                         if (evt.getSource().equals(compare)) {
                             viewManagerModel.setActiveView(compareSearchViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
-                            JFrame compareFrame = new JFrame("Compare Videos Search");
 
-                            CompareSearchViewModel compareSearchViewModel = new CompareSearchViewModel();
-                            YouTubeDataAccess youtubeDataAccess = new YouTubeDataAccess();
-                            CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, youtubeDataAccess);
-                            compareFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                            compareFrame.getContentPane().add(compareSearchView);
-                            compareFrame.pack();
-                            compareFrame.setLocationRelativeTo(null); // Center the frame on the screen
-                            compareFrame.setVisible(true);
                         }
                     }
                 }
