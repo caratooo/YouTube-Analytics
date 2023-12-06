@@ -1,12 +1,13 @@
 package data_access;
 
 import entities.User;
+import use_case.login.LoginDataAccessInterface;
 import use_case.signup.SignupDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestingUserDataAccessObject implements SignupDataAccessInterface {
+public class TestingUserDataAccessObject implements SignupDataAccessInterface, LoginDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -25,5 +26,10 @@ public class TestingUserDataAccessObject implements SignupDataAccessInterface {
     @Override
     public void save(User user) {
         users.put(user.getName(), user);
+    }
+
+    @Override
+    public User get(String username) {
+        return users.get(username);
     }
 }
