@@ -6,7 +6,7 @@ import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
-
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,6 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
     private final SignupViewModel signupViewModel;
-
     private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
@@ -34,7 +33,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel, HistoryController historyController, LoginViewModel loginViewModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel, HistoryController historyController, LoginViewModel loginViewModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -80,6 +79,18 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(trending)) {
+                            viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
+//                            JFrame trendingFrame = new JFrame("Trending Category Select");
+//
+//                            TrendingDataViewModel trendingDataViewModel = new TrendingDataViewModel();
+//                            YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
+//                            TrendingCategorySelectView trendingCategorySelectView = TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, trendingDataAccess);
+//                            trendingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                            trendingFrame.getContentPane().add(trendingCategorySelectView);
+//                            trendingFrame.pack();
+//                            trendingFrame.setLocationRelativeTo(null); // Center the frame on the screen
+//                            trendingFrame.setVisible(true);
 
                         }
                     }
@@ -137,7 +148,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
         this.add(buttonsTop);
         this.add(Box.createRigidArea(new Dimension(1200, 100)));
         this.add(buttonsBottom);
-        this.add(Box.createRigidArea(new Dimension(1200, 200)));
+        this.add(Box.createRigidArea(new Dimension(1200, 250)));
     }
     @Override
     public void actionPerformed(ActionEvent e)  {
