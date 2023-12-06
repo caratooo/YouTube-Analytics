@@ -173,13 +173,4 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         }
     }
 
-    @Override
-    public void saveHistory(String listOfData) { }
-
-//    public static void main(String[] args) throws GeneralSecurityException, IOException {
-////        System.out.println(getYuh("123"));
-//        System.out.println(isInvalid("123"));
-//    }
-
-
 }

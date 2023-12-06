@@ -11,6 +11,4 @@ public interface VideoSearchDataAccessInterface {
 
     boolean isInvalid(String identifier) throws GeneralSecurityException, IOException;
 
-    void saveHistory(String listOfData);
-
 }
