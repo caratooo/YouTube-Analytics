@@ -98,7 +98,7 @@ public class Main {
         TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
         views.add(trendingDataView, trendingDataView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel,
+        HomeView homeView = new HomeView(homeViewModel,
                 trendingCategorySelectViewModel,
                 videoSearchViewModel, videoStatsViewModel, viewManagerModel,
                 HistoryUseCaseFactory.createUserHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject),
