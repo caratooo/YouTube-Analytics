@@ -48,9 +48,11 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
 
         search = new JButton(CompareSearchViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
+        search.setPreferredSize(new Dimension(200, 100));
 
         back = new JButton(CompareSearchViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
+        back.setPreferredSize(new Dimension(200, 100));
 
         search.addActionListener(new ActionListener() {
             @Override
@@ -122,6 +124,7 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(Box.createRigidArea(new Dimension(0, 150)));
         this.add(videoIdInfoOne);
         this.add(videoIdInfoTwo);
         this.add(buttons);
