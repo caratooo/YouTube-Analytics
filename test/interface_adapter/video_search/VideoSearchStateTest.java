@@ -23,6 +23,13 @@ class VideoSearchStateTest {
     }
 
     @Test
+    void setGetUser() {
+        assertEquals(videoSearchState1.getUsername(), "");
+        videoSearchState1.setUsername("user");
+        assertEquals(videoSearchState1.getUsername(), "user");
+    }
+
+    @Test
     void copyTest() {
         videoSearchState1.setVideoId("id");
         VideoSearchState videoSearchState2 = new VideoSearchState(videoSearchState1);

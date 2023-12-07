@@ -34,6 +34,24 @@ class VideoSearchControllerTest {
 
     }
 
+    @Test
+    void testCallExecute() throws GeneralSecurityException, IOException {
+
+        String str = "H-v6DfxnjF8,videoId1,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount";
+        String username = "user";
+
+        VideoSearchInputBoundary interactor = new VideoSearchInputBoundary() {
+            @Override
+            public void execute(VideoSearchInputData videoSearchInputData) {
+                assertEquals("H-v6DfxnjF8", videoSearchInputData.getVideoId());
+                assertEquals("user", videoSearchInputData.getUsername());
+            }
+        };
+
+        VideoSearchController controller = new VideoSearchController(interactor);
+        controller.callExecute(str, username);
+
+    }
 
 
 }

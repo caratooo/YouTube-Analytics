@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import use_case.video_search.VideoSearchOutputData;
 
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +19,10 @@ class VideoSearchPresenterTest {
     void successTest() {
 
         DateTime dateTime1 = new DateTime("2020-02-19T18:48:38.000Z");
+        ArrayList<Object> channelInfo = new ArrayList<>(3);
+        channelInfo.add("yuh");
+        channelInfo.add(1);
+        channelInfo.add(2);
         VideoSearchOutputData output = new VideoSearchOutputData("H-v6DfxnjF8",
                 "FIE Fencing Channel",
                 "Grand Prix Turin 2020 Women's Foil Final THIBUS FRA vs KIEFER USA",
@@ -26,6 +31,7 @@ class VideoSearchPresenterTest {
                 12996,
                 169,
                 9,
+                channelInfo,
                 false);
 
         VideoStatsViewModel videoStatsViewModel = new VideoStatsViewModel();
