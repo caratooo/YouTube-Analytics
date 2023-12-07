@@ -65,5 +65,4 @@ public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterfa
             csvFileHistories.put(identifier, "userFile");
         }
     }
-
 }
