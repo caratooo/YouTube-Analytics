@@ -26,6 +26,10 @@ import java.util.Collection;
 
 public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface, CompareSearchDataAccessInterface {
 
+    // You need to set this value for your code to compile.
+    // For example: ... DEVELOPER_KEY = "YOUR ACTUAL KEY";
+    private static final String DEVELOPER_KEY = "AIzaSyAtRpQKv5miDIDMqHuVcg71QRfq0CA2yCo";
+
     //    private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
             Arrays.asList("https://www.googleapis.com/auth/youtube.readonly");
@@ -42,26 +46,27 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
      * @return an authorized Credential object.
      * @throws IOException
      */
-    public static Credential authorize(final NetHttpTransport httpTransport) throws IOException {
-        // Load client secrets.
-        FileInputStream fis = new FileInputStream(("./client_secret.json"));
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(fis));
-//        InputStream in = YouTubeDataAccess.class.getResourceAsStream(CLIENT_SECRETS);
-//        GoogleClientSecrets clientSecrets =
-//                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
-                        .build();
-        Credential credential =
-                new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
-        return credential;
-    }
+//    public static Credential authorize(final NetHttpTransport httpTransport) throws IOException {
+//        // Load client secrets.
+//        FileInputStream fis = new FileInputStream(("./client_secret.json"));
+//        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(fis));
+////        InputStream in = YouTubeDataAccess.class.getResourceAsStream(CLIENT_SECRETS);
+////        GoogleClientSecrets clientSecrets =
+////                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+//        // Build flow and trigger user authorization request.
+//        GoogleAuthorizationCodeFlow flow =
+//                new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
+//                        .build();
+//        Credential credential =
+//                new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+//        return credential;
+//    }
 
     public static YouTube getService() throws GeneralSecurityException, IOException {
         final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();
-        Credential credential = authorize(httpTransport);
-        return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
+//        Credential credential = authorize(httpTransport);
+        return new YouTube.Builder(httpTransport, JSON_FACTORY, null)
+//        return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
@@ -69,7 +74,8 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     public static VideoListResponse getVideoResponse(String videoId) throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
-        return request.setId(videoId).execute();
+        return request.setKey(DEVELOPER_KEY).setId(videoId).execute();
+//        return request.setId(videoId).execute();
     }
 
     public entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
@@ -112,13 +118,15 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     public ArrayList<entities.Video> getTrendingDefault() throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
-        VideoListResponse response = request.setChart("mostPopular").execute();
+        VideoListResponse response = request.setKey(DEVELOPER_KEY).setChart("mostPopular").execute();
+//        VideoListResponse response = request.setChart("mostPopular").execute();
         return getVideos(response);
     }
     public ArrayList<entities.Video> getTrendingCategory(String category) throws GeneralSecurityException, IOException {
         YouTube youtubeService = getService();
         YouTube.Videos.List request = youtubeService.videos().list("snippet, statistics");
-        VideoListResponse response = request.setChart("mostPopular").setVideoCategoryId(category).execute();
+        VideoListResponse response = request.setKey(DEVELOPER_KEY).setChart("mostPopular").setVideoCategoryId(category).execute();
+//        VideoListResponse response = request.setChart("mostPopular").setVideoCategoryId(category).execute();
         return getVideos(response);
     }
 
@@ -175,7 +183,8 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         VideoSnippet snippet = video.getSnippet();
         String channelID = snippet.getChannelId();
 
-        ChannelListResponse responseChannel = request.setId(channelID).execute();
+        ChannelListResponse responseChannel = request.setKey(DEVELOPER_KEY).setId(channelID).execute();
+//        ChannelListResponse responseChannel = request.setId(channelID).execute();
         String channelName = snippet.getChannelTitle();
 
         ArrayList<Object> lst = new ArrayList<>();
