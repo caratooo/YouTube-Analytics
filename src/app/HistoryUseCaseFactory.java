@@ -40,13 +40,15 @@ public class HistoryUseCaseFactory {
             VideoSearchDataAccessInterface youtubeDataAccessObject,
             VideoSearchUserDataAccessInterface userDataAccessInterface,
             CompareSearchViewModel compareSearchViewModel,
-            CompareStatsViewModel compareStatsViewModel) {
+            CompareStatsViewModel compareStatsViewModel,
+            CompareSearchDataAccessInterface compareYoutubeDataAccessObject,
+            CompareSearchUserDataAccessInterface compareUserDataAccessInterface) {
 
         try {
             HistoryController historyController = createUserHistoryUseCase(
                     viewManagerModel, historyViewModel, historyDataAccessInterface
             );
-            SearchController compareController = new CompareController();
+            SearchController compareController = createCompareSearchUseCase(viewManagerModel, compareSearchViewModel, compareStatsViewModel, compareUserDataAccessInterface, compareYoutubeDataAccessObject);
             SearchController videoSearchController = createVideoSearchUseCase(viewManagerModel, videoSearchViewModel, videoStatsViewModel, userDataAccessInterface, youtubeDataAccessObject);
 
             return new HistoryView(historyController, historyViewModel, compareController, videoSearchController, homeViewModel, viewManagerModel);
