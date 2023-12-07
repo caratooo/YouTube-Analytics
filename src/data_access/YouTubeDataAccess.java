@@ -172,7 +172,6 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         ChannelListResponse response = request.setForUsername(channelName).execute();
 
         ArrayList<Object> lst = new ArrayList<>();
-        String name = channelName;
         int subscriberCount = 0;
         int viewCount = 0;
         if (response.getItems().get(0).getStatistics().getSubscriberCount() != null) {
@@ -181,7 +180,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         if (response.getItems().get(0).getStatistics().getViewCount() != null){
             viewCount = response.getItems().get(0).getStatistics().getViewCount().intValue();
         }
-        lst.add(name);
+        lst.add(channelName);
         lst.add(subscriberCount);
         lst.add(viewCount);
         return lst;
