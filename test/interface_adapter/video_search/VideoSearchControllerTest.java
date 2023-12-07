@@ -19,16 +19,18 @@ class VideoSearchControllerTest {
     void successTest() throws GeneralSecurityException, IOException {
 
         String videoId = "H-v6DfxnjF8";
+        String username = "user";
 
         VideoSearchInputBoundary interactor = new VideoSearchInputBoundary() {
             @Override
             public void execute(VideoSearchInputData videoSearchInputData) {
                 assertEquals("H-v6DfxnjF8", videoSearchInputData.getVideoId());
+                assertEquals("user", videoSearchInputData.getUsername());
             }
         };
 
         VideoSearchController controller = new VideoSearchController(interactor);
-        controller.execute(videoId);
+        controller.execute(videoId, username);
 
     }
 

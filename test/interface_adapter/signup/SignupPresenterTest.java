@@ -12,7 +12,7 @@ class SignupPresenterTest {
     @Test
     void successTest() {
 
-        SignupOutputData output = new SignupOutputData("good", "2007-12-03T10:15:30", false);
+        SignupOutputData output = new SignupOutputData("good", false);
 
         LoginViewModel loginViewModel = new LoginViewModel();
 

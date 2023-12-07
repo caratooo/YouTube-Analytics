@@ -32,7 +32,7 @@ class SignupViewTest {
         SignupInteractor interactor = new SignupInteractor(userRepository, presenter, factory);
         SignupController controller = new SignupController(interactor);
 
-        SignupView signupView = new SignupView(controller, signupViewModel);
+        SignupView signupView = new SignupView(controller, signupViewModel, loginViewModel, viewManagerModel);
     }
 
 }

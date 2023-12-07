@@ -2,6 +2,7 @@ package interface_adapter.login;
 
 import interface_adapter.ViewManagerModel;
 import interface_adapter.home.HomeViewModel;
+import interface_adapter.signup.SignupViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.login.LoginOutputData;
 
@@ -20,7 +21,9 @@ class LoginPresenterTest {
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
-        LoginPresenter presenter = new LoginPresenter(viewManagerModel, homeViewModel, loginViewModel);
+        SignupViewModel signupViewModel = new SignupViewModel();
+
+        LoginPresenter presenter = new LoginPresenter(viewManagerModel, homeViewModel, loginViewModel, signupViewModel);
         presenter.prepareSuccessView(output);
 
     }
@@ -36,7 +39,9 @@ class LoginPresenterTest {
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
 
-        LoginPresenter presenter = new LoginPresenter(viewManagerModel, homeViewModel, loginViewModel);
+        SignupViewModel signupViewModel = new SignupViewModel();
+
+        LoginPresenter presenter = new LoginPresenter(viewManagerModel, homeViewModel, loginViewModel, signupViewModel);
         presenter.prepareFailView(error);
 
     }
