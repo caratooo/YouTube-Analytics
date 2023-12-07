@@ -1,8 +1,8 @@
 package views;
 
 import app.HistoryUseCaseFactory;
-import data_access.FileHistoryDataAccessObject;
 import data_access.FileUserDataAccessObject;
+import data_access.InMemoryHistoryDataAccessObject;
 import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import entities.UserFactory;
@@ -14,21 +14,26 @@ import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
+import use_case.compare_videos.CompareSearchUserDataAccessInterface;
+import use_case.history.HistoryDataAccessInterface;
+import use_case.video_search.VideoSearchUserDataAccessInterface;
 
+import java.io.File;
 import java.util.List;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
 public class HistoryViewTest {
+    private FileUserDataAccessObject userDataAccessObject;
 
-    @Test
-    public void init() {
+    @Before
+    public void initializeDAO() {
         UserFactory userFactory = new CommonUserFactory();
 
-        FileUserDataAccessObject userDataAccessObject;
         try {
             userDataAccessObject = new FileUserDataAccessObject("usersTest.csv", userFactory);
         } catch (IOException e) {
@@ -36,13 +41,11 @@ public class HistoryViewTest {
         }
 
         userDataAccessObject.save(userFactory.create("user1Test", "password"));
+    }
 
-        FileHistoryDataAccessObject historyDataAccessObject;
-        try {
-            historyDataAccessObject = new FileHistoryDataAccessObject(userDataAccessObject);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    @Test
+    public void init() {
+        HistoryDataAccessInterface historyDataAccessObject = new InMemoryHistoryDataAccessObject();
 
         YouTubeDataAccess youTubeDataAccess;
         try {
@@ -51,7 +54,7 @@ public class HistoryViewTest {
             throw new RuntimeException(e);
         }
 
-        historyDataAccessObject.saveUserHistory("user1Test", "videoSearch,videoid,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount");
+        ((InMemoryHistoryDataAccessObject) historyDataAccessObject).saveUserHistory("user1Test", "videoSearch,videoid,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount");
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
@@ -62,12 +65,18 @@ public class HistoryViewTest {
         CompareStatsViewModel compareStatsViewModel = new CompareStatsViewModel();
 
 
-        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, historyDataAccessObject, compareSearchViewModel, compareStatsViewModel, youTubeDataAccess, historyDataAccessObject);
+        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, (VideoSearchUserDataAccessInterface) historyDataAccessObject, compareSearchViewModel, compareStatsViewModel, youTubeDataAccess, (CompareSearchUserDataAccessInterface) historyDataAccessObject);
 
         HistoryState state = historyViewModel.getState();
         state.setUsername("user1Test");
         state.setUserHistory(List.of("videoSearch,videoid,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount"));
         historyViewModel.setState(state);
         historyViewModel.firePropertyChanged();
+    }
+
+    @After
+    public void deleteFiles() {
+        File usersTestFile = new File("./usersTest.csv");
+        usersTestFile.delete();
     }
 }
