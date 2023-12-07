@@ -30,6 +30,5 @@ public class HistoryPresenter implements HistoryOutputBoundary {
         HistoryState historyState = historyViewModel.getState();
         historyState.setUserHistoryError(error);
         historyViewModel.firePropertyChanged();
-        historyState.setUserHistoryError(null);
     }
 }

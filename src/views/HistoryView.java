@@ -114,6 +114,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         HistoryState state = (HistoryState) evt.getNewValue();
         if (state.getUserHistoryError() != null) {
             JOptionPane.showMessageDialog(this, state.getUserHistoryError());
+            state.setUserHistoryError(null);
         } else {
             List<String> userHistory = historyViewModel.getState().getUserHistory();
 

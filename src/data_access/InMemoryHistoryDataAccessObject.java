@@ -29,7 +29,7 @@ public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterfa
 
     @Override
     public boolean doesUserHistoryExist(String identifier) {
-        return false;
+        return usersHistories.containsKey(identifier);
     }
 
     @Override
