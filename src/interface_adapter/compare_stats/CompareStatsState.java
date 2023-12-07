@@ -32,6 +32,8 @@ public class CompareStatsState {
 
     private int likeCountTwo = 0;
 
+    private int commentCountTwo = 0;
+
     public CompareStatsState(){}
     public CompareStatsState(CompareStatsState copy) {
         videoIdOne = copy.videoIdOne;
@@ -178,8 +180,6 @@ public class CompareStatsState {
     public void setCommentCountTwo(int commentCountTwo) {
         this.commentCountTwo = commentCountTwo;
     }
-
-    private int commentCountTwo = 0;
 
 
 }
