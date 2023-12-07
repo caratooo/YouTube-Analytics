@@ -10,6 +10,8 @@ import use_case.history.HistoryOutputData;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class HistoryPresenterTest {
 
@@ -28,5 +30,16 @@ public class HistoryPresenterTest {
 
         HistoryPresenter presenter = new HistoryPresenter(historyViewModel, viewManagerModel);
         presenter.prepareSuccessView(outputData);
+    }
+
+    @Test
+    void failTest() {
+        HistoryViewModel historyViewModel = new HistoryViewModel();
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+        HistoryPresenter presenter = new HistoryPresenter(historyViewModel, viewManagerModel);
+        presenter.prepareFailView("No history to view");
+
+        assertEquals("No history to view", historyViewModel.getState().getUserHistoryError());
     }
 }

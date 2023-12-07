@@ -17,6 +17,12 @@ public class FileUserDataAccessObject implements SignupDataAccessInterface, Logi
 
     private UserFactory userFactory;
 
+    /**
+     *
+     * @param csvPath the CSV path to keep user usernames and passwords
+     * @param userFactory a user factory to make new User classes
+     * @throws IOException
+     */
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
 
@@ -46,12 +52,21 @@ public class FileUserDataAccessObject implements SignupDataAccessInterface, Logi
         }
     }
 
+    /**
+     *
+     * @param user to save into the system
+     */
     @Override
     public void save(User user) {
         accounts.put(user.getName(), user);
         this.save();
     }
 
+    /**
+     * Requires: user to exist in the system
+     * @param username to retrieve from the system
+     * @return the User class related to the username
+     */
     @Override
     public User get(String username) {
         return accounts.get(username);
@@ -89,10 +104,18 @@ public class FileUserDataAccessObject implements SignupDataAccessInterface, Logi
         return accounts.containsKey(identifier);
     }
 
+    /**
+     * Returns whether there are any accounts made in the system
+     * @return whether there are any accounts made in the system
+     */
     public boolean isEmpty() {
         return accounts.isEmpty();
     }
 
+    /**
+     * Returns all users in the system (it is an array of Strings)
+     * @return all the user usernames in an array
+     */
     public Object[] getUsers() {
         return accounts.keySet().toArray();
     }

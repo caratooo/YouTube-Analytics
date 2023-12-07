@@ -13,6 +13,13 @@ public class SortCompare implements SortSearchQuery {
             "Video ID", "Channel Name", "Title", "Description", "Date Published", "View Count", "Like Count", "Comment Count"
     );
 
+    /**
+     * Returns a panel for a compare search query
+     * @param data the string that contains the stats from a compare search query
+     * @param number the panel number (1 < number < 5)
+     * @param button the button to used to call CompareSearchController
+     * @return a panel for a compare search query
+     */
     @Override
     public JPanel sort(String data, Integer number, JButton button) {
         JPanel main = new JPanel();
@@ -59,7 +66,7 @@ public class SortCompare implements SortSearchQuery {
         return main;
     }
 
-    public JPanel sort_video(List<String> data, Integer num_video, Integer number) {
+    private JPanel sort_video(List<String> data, Integer num_video, Integer number) {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.Y_AXIS));
 

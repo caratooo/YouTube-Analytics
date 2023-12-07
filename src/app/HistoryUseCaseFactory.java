@@ -2,7 +2,6 @@ package app;
 
 import interface_adapter.SearchController;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.compare.CompareController;
 import interface_adapter.compare_search.CompareSearchController;
 import interface_adapter.compare_search.CompareSearchPresenter;
 import interface_adapter.compare_search.CompareSearchViewModel;
@@ -27,9 +26,26 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class HistoryUseCaseFactory {
+
     /** Prevent instantiation. */
     HistoryUseCaseFactory() {}
 
+    /**
+     *
+     * @param viewManagerModel the view manager model to switch views
+     * @param historyViewModel the history view model for view manager model to switch to
+     * @param historyDataAccessInterface the DAO for history
+     * @param homeViewModel the home view model
+     * @param videoSearchViewModel the video search view model for view manager model to switch to
+     * @param videoStatsViewModel the video stats view model for view manager model to switch to
+     * @param youtubeDataAccessObject the DAO for YouTube API calling
+     * @param userDataAccessInterface the DAO for history
+     * @param compareSearchViewModel the compare search view model for view manager model to switch to
+     * @param compareStatsViewModel the compare stats view model for view manager model to switch to
+     * @param compareYoutubeDataAccessObject the DAO for YouTube API calling
+     * @param compareUserDataAccessInterface the DAO for history
+     * @return the history view
+     */
     public static HistoryView create(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
@@ -59,10 +75,17 @@ public class HistoryUseCaseFactory {
         return null;
     }
 
+    /**
+     *
+     * @param viewManagerModel the view manager model to switch views
+     * @param historyViewModel the history view model for view manager model to switch to
+     * @param historyDataAccessInterface the DAO for history
+     * @return the history controller
+     */
     public static HistoryController createUserHistoryUseCase(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
-            HistoryDataAccessInterface historyDataAccessInterface) throws IOException {
+            HistoryDataAccessInterface historyDataAccessInterface) {
 
         HistoryOutputBoundary historyOutputBoundary = new HistoryPresenter(historyViewModel, viewManagerModel);
 

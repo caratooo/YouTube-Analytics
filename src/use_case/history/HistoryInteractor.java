@@ -12,6 +12,11 @@ public class HistoryInteractor implements HistoryInputBoundary {
         this.historyPresenter = historyPresenter;
     }
 
+    /**
+     * Tells the presenter to either send an error message to the history view if a user does not have a history or
+     * displays the user's (up to 5) most recent queries
+     * @param historyInputData includes the user's username to check
+     */
     @Override
     public void execute(HistoryInputData historyInputData) {
         if (!historyDataAccessInterface.doesUserHistoryExist(historyInputData.getIdentifier())) {
