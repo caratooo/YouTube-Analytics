@@ -1,11 +1,7 @@
 package views.sort_algorithms;
 
-import interface_adapter.compare.CompareController;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
@@ -79,6 +75,7 @@ public class SortCompare implements SortSearchQuery {
 
         for (int i = 1; i < data.size(); i++) {
             JLabel newStat = new JLabel(String.format("%s: %s", statLabels.get(i), data.get(i)));
+            newStat.setMaximumSize(new Dimension(200, 100));
             if (i == 3) {
                 continue;
             } else if (i < 5) {
