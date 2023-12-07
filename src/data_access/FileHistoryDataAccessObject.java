@@ -1,11 +1,12 @@
 package data_access;
 
+import use_case.compare_videos.CompareSearchUserDataAccessInterface;
 import use_case.history.HistoryDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileHistoryDataAccessObject implements HistoryDataAccessInterface {
+public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, CompareSearchUserDataAccessInterface {
     private Map<String, File> csvFileHistories = new HashMap<>();
     private Map<String, List<String>> usersHistories = new HashMap<>();
     private final Map<String, String[]> headersHistories = new HashMap<>();
