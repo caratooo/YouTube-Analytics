@@ -1,6 +1,7 @@
 package use_case.video_search;
 
 import data_access.InMemoryHistoryDataAccessObject;
+import data_access.VideoSearchDataAccessObject;
 import data_access.YouTubeDataAccess;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ class VideoSearchInteractorTest {
 
         // input data + data access interface
         VideoSearchInputData inputData = new VideoSearchInputData("H-v6DfxnjF8", "user");
-        VideoSearchDataAccessInterface youtubeRepository = new YouTubeDataAccess();
+        VideoSearchDataAccessInterface youtubeRepository = new VideoSearchDataAccessObject();
 
         // TODO testing that output has been sent to history - also might need to be seperate DAO from writing to files, since you're checking in files
         VideoSearchUserDataAccessInterface historyRepository = new InMemoryHistoryDataAccessObject();
