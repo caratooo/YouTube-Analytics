@@ -1,15 +1,16 @@
 package views;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.compare_search.CompareSearchState;
+import interface_adapter.compare_search.CompareSearchViewModel;
+import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.history.HistoryController;
-import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 import interface_adapter.video_search.VideoSearchState;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,7 @@ import static views.InstructionsView.openInstructionsPanel;
 public class HomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "home";
     private final HomeViewModel homeViewModel;
-    private final SignupViewModel signupViewModel;
+    private final LoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
 
     final JButton searchVideo;
@@ -36,13 +37,14 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel,
+    public HomeView(HomeViewModel homeViewModel,
                     TrendingCategorySelectViewModel trendingCategorySelectViewModel,
                     VideoSearchViewModel videoSearchViewModel, VideoStatsViewModel videoStatsViewModel,
                     ViewManagerModel viewManagerModel, HistoryController historyController,
-                    LoginViewModel loginViewModel) {
+                    LoginViewModel loginViewModel, CompareSearchViewModel compareSearchViewModel,
+                    CompareStatsViewModel compareStatsViewModel) {
         this.homeViewModel = homeViewModel;
-        this.signupViewModel = signupViewModel;
+        this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
         homeViewModel.addPropertyChangeListener(this);
 
@@ -93,6 +95,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                         if (evt.getSource().equals(trending)) {
                             viewManagerModel.setActiveView(trendingCategorySelectViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
+
                         }
                     }
                 }
@@ -103,7 +106,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(compare)) {
-                            new CompareView();
+                            CompareSearchState state = compareSearchViewModel.getState();
+                            state.setUsername(loginViewModel.getState().getUsername());
+                            compareSearchViewModel.setState(state);
+
+                            viewManagerModel.setActiveView(compareSearchViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
@@ -135,7 +143,7 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logout)) {
-                            viewManagerModel.setActiveView(signupViewModel.getViewName());
+                            viewManagerModel.setActiveView(loginViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }
                     }

@@ -3,7 +3,10 @@ package app;
 import interface_adapter.SearchController;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.compare.CompareController;
-import interface_adapter.compare.CompareViewModel;
+import interface_adapter.compare_search.CompareSearchController;
+import interface_adapter.compare_search.CompareSearchPresenter;
+import interface_adapter.compare_search.CompareSearchViewModel;
+import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
@@ -12,6 +15,7 @@ import interface_adapter.video_search.VideoSearchController;
 import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchViewModel;
 import interface_adapter.video_stats.VideoStatsViewModel;
+import use_case.compare_videos.*;
 import use_case.history.HistoryDataAccessInterface;
 import use_case.history.HistoryInputBoundary;
 import use_case.history.HistoryInteractor;
@@ -34,7 +38,9 @@ public class HistoryUseCaseFactory {
             VideoSearchViewModel videoSearchViewModel,
             VideoStatsViewModel videoStatsViewModel,
             VideoSearchDataAccessInterface youtubeDataAccessObject,
-            VideoSearchUserDataAccessInterface userDataAccessInterface) {
+            VideoSearchUserDataAccessInterface userDataAccessInterface,
+            CompareSearchViewModel compareSearchViewModel,
+            CompareStatsViewModel compareStatsViewModel) {
 
         try {
             HistoryController historyController = createUserHistoryUseCase(
@@ -75,6 +81,21 @@ public class HistoryUseCaseFactory {
         VideoSearchInputBoundary videoSearchInteractor = new VideoSearchInteractor(youtubeDataAccessObject, userDataAccessInterface, videoSearchOutputBoundary);
 
         return new VideoSearchController(videoSearchInteractor);
+
+    }
+
+    private static CompareSearchController createCompareSearchUseCase(
+            ViewManagerModel viewManagerModel,
+            CompareSearchViewModel compareSearchViewModel,
+            CompareStatsViewModel compareStatsViewModel,
+            CompareSearchUserDataAccessInterface userDataAccessInterface,
+            CompareSearchDataAccessInterface youtubeDataAccessObject) throws IOException {
+
+        CompareSearchOutputBoundary compareSearchOutputBoundary = new CompareSearchPresenter(compareSearchViewModel, compareStatsViewModel, viewManagerModel);
+
+        CompareSearchInputBoundary compareSearchInteractor = new CompareSearchInteractor(youtubeDataAccessObject, userDataAccessInterface, compareSearchOutputBoundary);
+
+        return new CompareSearchController(compareSearchInteractor);
 
     }
 

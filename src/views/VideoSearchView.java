@@ -48,9 +48,11 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
         JPanel buttons = new JPanel();
         search = new JButton(VideoSearchViewModel.SEARCH_BUTTON_LABEL);
         buttons.add(search);
+        search.setPreferredSize(new Dimension(200, 100));
 
         back = new JButton(VideoSearchViewModel.BACK_BUTTON_LABEL);
         buttons.add(back);
+        back.setPreferredSize(new Dimension(200, 100));
 
         search.addActionListener(
                 new ActionListener() {
@@ -109,6 +111,7 @@ public class VideoSearchView extends JPanel implements ActionListener, PropertyC
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
+        this.add(Box.createRigidArea(new Dimension(0, 200)));
         this.add(videoIdInfo);
         this.add(buttons);
 
