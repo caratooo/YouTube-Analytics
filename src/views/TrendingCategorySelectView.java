@@ -42,6 +42,7 @@ public class TrendingCategorySelectView extends JPanel implements ActionListener
         JPanel viewTitlePanel = new JPanel();
         viewTitlePanel.setLayout(new BoxLayout(viewTitlePanel, BoxLayout.Y_AXIS));
         JLabel title = new JLabel(TrendingCategorySelectViewModel.TITLE_LABEL);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         viewTitlePanel.add(title);
         this.add(viewTitlePanel);
         this.add(categoryComboBox);
