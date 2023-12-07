@@ -53,7 +53,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
      */
     @Override
     public void saveUserHistory(String identifier, String listOfData) {
-        if (usersHistories.containsKey(identifier)) {
+        if (doesUserHistoryExist(identifier)) {
             usersHistories.get(identifier).add(listOfData);
         } else {
             usersHistories.put(identifier, new ArrayList<>());
@@ -96,6 +96,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
      * @param identifier the username to check
      * @return  whether a user history file exists for a user
      */
+    @Override
     public boolean doesUserFileExist(String identifier) {
         return csvFileHistories.containsKey(identifier);
     }

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class SortVideoSearch implements SortSearchQuery {
+public class SortVideoSearch implements SortPanelStrategy {
 
     private static final Color grey = new Color(227, 227, 227);
     private static final List<String> statLabels = Arrays.asList(
