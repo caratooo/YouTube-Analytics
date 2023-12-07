@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-
-public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface, CompareSearchDataAccessInterface {
+public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
 
     //    private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
@@ -36,9 +35,9 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     private static final String APPLICATION_NAME = "API code samples";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    public YouTubeDataAccess(){
-
+    public YouTubeDataAccess() throws IOException {
     }
+
     /**
      * Create an authorized Credential object.
      *
@@ -62,7 +61,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     }
 
     public static YouTube getService() throws GeneralSecurityException, IOException {
-        final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();;
+        final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();
         Credential credential = authorize(httpTransport);
         return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
@@ -84,6 +83,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         int commentCount;
         int likeCount;
         int viewCount;
+        // if the count is null, count is set to be 0
         if (statistics.getCommentCount() != null){
             commentCount =  statistics.getCommentCount().intValue();
         }
@@ -126,7 +126,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
     private static ArrayList<entities.Video> getVideos(VideoListResponse response) {
         ArrayList<entities.Video> videos = new ArrayList<>();
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i ++){
             Video video = response.getItems().get(i);
             VideoSnippet snippet = video.getSnippet();
             String videoId = video.getId();
@@ -164,6 +164,15 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
         }
         return videos;
+    }
+
+    public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
+        try {
+            getVideo(videoId);
+            return false;
+        } catch (IndexOutOfBoundsException e) {
+            return true;
+        }
     }
 
     public boolean isInvalidTwo(String videoIdOne, String videoIdTwo) {

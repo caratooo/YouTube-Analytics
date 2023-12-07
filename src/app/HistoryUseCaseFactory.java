@@ -8,11 +8,14 @@ import interface_adapter.history.HistoryPresenter;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.video_search.VideoSearchController;
+import interface_adapter.video_search.VideoSearchPresenter;
 import interface_adapter.video_search.VideoSearchViewModel;
+import interface_adapter.video_stats.VideoStatsViewModel;
 import use_case.history.HistoryDataAccessInterface;
 import use_case.history.HistoryInputBoundary;
 import use_case.history.HistoryInteractor;
 import use_case.history.HistoryOutputBoundary;
+import use_case.video_search.*;
 import views.HistoryView;
 
 import javax.swing.*;
@@ -26,14 +29,18 @@ public class HistoryUseCaseFactory {
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
             HistoryDataAccessInterface historyDataAccessInterface,
-            HomeViewModel homeViewModel) {
+            HomeViewModel homeViewModel,
+            VideoSearchViewModel videoSearchViewModel,
+            VideoStatsViewModel videoStatsViewModel,
+            VideoSearchDataAccessInterface youtubeDataAccessObject,
+            VideoSearchUserDataAccessInterface userDataAccessInterface) {
 
         try {
             HistoryController historyController = createUserHistoryUseCase(
                     viewManagerModel, historyViewModel, historyDataAccessInterface
             );
             SearchController compareController = new CompareController();
-            SearchController videoSearchController = new VideoSearchController();
+            SearchController videoSearchController = createVideoSearchUseCase(viewManagerModel, videoSearchViewModel, videoStatsViewModel, userDataAccessInterface, youtubeDataAccessObject);
 
             return new HistoryView(historyController, historyViewModel, compareController, videoSearchController, homeViewModel, viewManagerModel);
         } catch (IOException e) {
@@ -54,4 +61,20 @@ public class HistoryUseCaseFactory {
 
         return new HistoryController(historyInteractor);
     }
+
+    private static VideoSearchController createVideoSearchUseCase(
+            ViewManagerModel viewManagerModel,
+            VideoSearchViewModel videoSearchViewModel,
+            VideoStatsViewModel videoStatsViewModel,
+            VideoSearchUserDataAccessInterface userDataAccessInterface,
+            VideoSearchDataAccessInterface youtubeDataAccessObject) throws IOException {
+
+        VideoSearchOutputBoundary videoSearchOutputBoundary = new VideoSearchPresenter(videoSearchViewModel, videoStatsViewModel, viewManagerModel);
+
+        VideoSearchInputBoundary videoSearchInteractor = new VideoSearchInteractor(youtubeDataAccessObject, userDataAccessInterface, videoSearchOutputBoundary);
+
+        return new VideoSearchController(videoSearchInteractor);
+
+    }
+
 }

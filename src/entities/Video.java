@@ -2,9 +2,6 @@ package entities;
 
 import com.google.api.client.util.DateTime;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
-
 public class Video {
     private final String videoId;
     private final String channelName;
@@ -22,11 +19,13 @@ public class Video {
         this.videoId = videoId;
         this.channelName = channelName;
         this.title = title;
+
         if (description.length() > 100) {
             this.description = description.substring(0, 100) + "...";
         } else {
             this.description = description;
         }
+
         this.videoPublishDate = videoPublishDate;
         this.viewCount = viewCount;
         this.likeCount = likeCount;

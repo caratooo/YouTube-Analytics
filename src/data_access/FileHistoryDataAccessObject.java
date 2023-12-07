@@ -1,12 +1,16 @@
 package data_access;
 
+import entities.Video;
 import use_case.compare_videos.CompareSearchUserDataAccessInterface;
 import use_case.history.HistoryDataAccessInterface;
+import use_case.video_search.VideoSearchDataAccessInterface;
+import use_case.video_search.VideoSearchUserDataAccessInterface;
 
 import java.io.*;
+import java.security.GeneralSecurityException;
 import java.util.*;
 
-public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, CompareSearchUserDataAccessInterface {
+public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, VideoSearchUserDataAccessInterface, CompareSearchUserDataAccessInterface {
     private Map<String, File> csvFileHistories = new HashMap<>();
     private Map<String, List<String>> usersHistories = new HashMap<>();
     private final Map<String, String[]> headersHistories = new HashMap<>();
@@ -54,29 +58,35 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
         }
     }
 
+    @Override
     public void saveUserHistory(String identifier, String listOfData) {
-        usersHistories.get(identifier).add(listOfData);
+        if (usersHistories.containsKey(identifier)) {
+            usersHistories.get(identifier).add(listOfData);
+        } else {
+            usersHistories.put(identifier, new ArrayList<>());
+            usersHistories.get(identifier).add(listOfData);
+        }
 
         if (!doesUserFileExist(identifier)) {
             String csvPath = String.format("./%sHistory.csv", identifier);
             File userFile = new File(csvPath);
             csvFileHistories.put(identifier, userFile);
-            save(userFile);
+            save(userFile, identifier);
         } else {
             File userFile = csvFileHistories.get(identifier);
-            save(userFile);
+            save(userFile, identifier);
         }
     }
 
-    public void save(File userFile) {
+    public void save(File userFile, String identifier) {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(userFile));
-            writer.write(String.join(",", headersHistories.keySet()));
+            writer.write(String.join(",", headers.keySet()));
             writer.newLine();
 
-            for (String user : usersHistories.keySet()) {
-                List<String> userHistory = usersHistories.get(user);
+            for (String data : usersHistories.get(identifier)) {
+                List<String> userHistory = usersHistories.get(identifier);
 
                 for (String query : userHistory) {
                     writer.write(query);
@@ -98,4 +108,10 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
     public List<String> getUserHistory(String identifier) {
         return usersHistories.get(identifier);
     }
+
+    @Override
+    public boolean doesUserHistoryExist(String identifier) {
+        return usersHistories.containsKey(identifier);
+    }
+
 }

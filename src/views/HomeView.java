@@ -7,6 +7,9 @@ import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.video_search.VideoSearchState;
+import interface_adapter.video_search.VideoSearchViewModel;
+import interface_adapter.video_stats.VideoStatsViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.trending_category_select.TrendingCategorySelectViewModel;
 
@@ -35,7 +38,11 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
 
 
 
-    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel, TrendingCategorySelectViewModel trendingCategorySelectViewModel, ViewManagerModel viewManagerModel, HistoryController historyController, LoginViewModel loginViewModel, CompareSearchViewModel compareSearchViewModel, CompareStatsViewModel compareStatsViewModel) {
+    public HomeView(HomeViewModel homeViewModel, SignupViewModel signupViewModel,
+                    TrendingCategorySelectViewModel trendingCategorySelectViewModel,
+                    VideoSearchViewModel videoSearchViewModel, VideoStatsViewModel videoStatsViewModel,
+                    ViewManagerModel viewManagerModel, HistoryController historyController,
+                    LoginViewModel loginViewModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
@@ -71,7 +78,12 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(searchVideo)) {
-                            new VideoSearchView();
+                            VideoSearchState state = videoSearchViewModel.getState();
+                            state.setUsername(loginViewModel.getState().getUsername());
+                            videoSearchViewModel.setState(state);
+
+                            viewManagerModel.setActiveView(videoSearchViewModel.getViewName());
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }
