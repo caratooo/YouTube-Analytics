@@ -4,11 +4,10 @@ import use_case.compare_videos.CompareSearchUserDataAccessInterface;
 import use_case.history.HistoryDataAccessInterface;
 import use_case.video_search.VideoSearchUserDataAccessInterface;
 
-import java.io.File;
 import java.util.*;
 
 public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterface, CompareSearchUserDataAccessInterface, VideoSearchUserDataAccessInterface {
-    private Map<String, String> csvFileHistories = new HashMap<>(Map.ofEntries(
+    private final Map<String, String> csvFileHistories = new HashMap<>(Map.ofEntries(
             Map.entry("alex", "csvFile")
     ));
     private final Map<String, List<String>> usersHistories = new HashMap<>(Map.ofEntries(

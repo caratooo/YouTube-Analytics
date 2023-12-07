@@ -6,7 +6,6 @@ import interface_adapter.history.HistoryController;
 import interface_adapter.history.HistoryState;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
-import interface_adapter.signup.SignupState;
 import views.sort_algorithms.SortCompare;
 import views.sort_algorithms.SortSearchQuery;
 import views.sort_algorithms.SortVideoSearch;
@@ -34,13 +33,6 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     private final JButton view4 = new JButton("View");
     private final JButton view5 = new JButton("View");
     private final JButton[] buttonList = new JButton[]{view1, view2, view3, view4, view5};
-    private Map<Integer, String> buttonMap = new HashMap<>(Map.ofEntries(
-            Map.entry(1, ""),
-            Map.entry(2, ""),
-            Map.entry(3, ""),
-            Map.entry(4, ""),
-            Map.entry(5, "")
-    ));
     private JPanel history = new JPanel();
     private JPanel history1 = new JPanel();
     private JPanel history2 = new JPanel();
@@ -50,13 +42,6 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     private final JPanel[] historyPanels = new JPanel[]{history1, history2, history3, history4, history5};
 
     private Map<String, SearchController> searchControllerMap = new HashMap<>();
-    private Map<Integer, String> currentViewHistory = new HashMap<>(Map.ofEntries(
-            Map.entry(1, ""),
-            Map.entry(2, ""),
-            Map.entry(3, ""),
-            Map.entry(4, ""),
-            Map.entry(5, "")
-    ));
 
     public HistoryView(HistoryController historyController, HistoryViewModel historyViewModel, SearchController compareController, SearchController videoSearchController, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
         this.historyController = historyController;
@@ -141,7 +126,6 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                 }
 
                 // get the most recent queries which are at the back of the list
-                currentViewHistory.put(i + 1, userHistory.get(userHistory.size() - i - 1));
                 String[] query = userHistory.get(userHistory.size() - i - 1).split(",", 2);
                 String queryType = query[0];
                 String data = query[1];
@@ -150,7 +134,6 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                 JButton button = buttonList[i];
 
                 JPanel queryPanel = sorter.sort(data, i + 1, button);
-                buttonMap.put(i + 1, queryType);
 
                 button.addActionListener(
                         new ActionListener() {

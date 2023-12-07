@@ -2,7 +2,6 @@ package app;
 
 import interface_adapter.SearchController;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.compare.CompareController;
 import interface_adapter.compare_search.CompareSearchController;
 import interface_adapter.compare_search.CompareSearchPresenter;
 import interface_adapter.compare_search.CompareSearchViewModel;
@@ -82,12 +81,11 @@ public class HistoryUseCaseFactory {
      * @param historyViewModel the history view model for view manager model to switch to
      * @param historyDataAccessInterface the DAO for history
      * @return the history controller
-     * @throws IOException
      */
     public static HistoryController createUserHistoryUseCase(
             ViewManagerModel viewManagerModel,
             HistoryViewModel historyViewModel,
-            HistoryDataAccessInterface historyDataAccessInterface) throws IOException {
+            HistoryDataAccessInterface historyDataAccessInterface) {
 
         HistoryOutputBoundary historyOutputBoundary = new HistoryPresenter(historyViewModel, viewManagerModel);
 
