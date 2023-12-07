@@ -164,7 +164,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         return videos;
     }
 
-    private ArrayList<Object> getChannel(String videoId)throws GeneralSecurityException, IOException, GoogleJsonResponseException {
+    public ArrayList<Object> getChannel(String videoId) throws GeneralSecurityException, IOException, GoogleJsonResponseException {
         YouTube youtubeService = getService();
         // Define and execute the API request
         YouTube.Channels.List request = youtubeService.channels()
@@ -214,8 +214,4 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         }
     }
 
-    public static void main (String[]args) throws IOException, GeneralSecurityException {
-        YouTubeDataAccess youTubeDataAccess = new YouTubeDataAccess();
-        System.out.println(youTubeDataAccess.getChannel("WBw6ycgNksY"));
-    }
 }

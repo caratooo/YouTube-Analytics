@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class VideoStatsView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -35,6 +36,10 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
     JLabel commentCount;
 
     private final JButton back;
+
+    private final JButton channel;
+
+    ArrayList<Object> channelInfo;
 
 
     public VideoStatsView(VideoStatsViewModel videoStatsViewModel, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
@@ -109,6 +114,8 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
 
         back = new JButton(VideoStatsViewModel.BACK_BUTTON_LABEL);
 
+        channel = new JButton("See Channel");
+
 
         back.addActionListener(
                 new ActionListener() {
@@ -121,8 +128,46 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
                 }
         );
 
+
+        channel.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        JFrame instructionsFrame = new JFrame("Channel Info");
+                        instructionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        instructionsFrame.setSize(500, 250);
+
+                        // Create a panel for the search video view
+                        JPanel instructionsPanel = new JPanel();
+                        instructionsPanel.setLayout(new BoxLayout(instructionsPanel, BoxLayout.Y_AXIS));
+
+                        String[] labels = {
+                                "   Channel Name: ",
+                                "   Subscriber Count: ",
+                                "   Total View Count: "
+                        };
+
+                        for (int i = 0; i <= 2; i++) {
+                            String info = String.valueOf(channelInfo.get(i));
+                            JLabel instructionLabel = new JLabel(labels[i] + info);
+                            instructionsPanel.add(instructionLabel);
+
+                            instructionsPanel.add(Box.createRigidArea(new Dimension(0, 40)));
+                        }
+                        // Set the search panel as the content pane of the search frame
+                        instructionsFrame.setContentPane(instructionsPanel);
+
+                        // Display the search frame
+                        instructionsFrame.setVisible(true);
+                    }
+                }
+        );
+
+
         back.setPreferredSize(new Dimension(200, 100));
+        channel.setPreferredSize(new Dimension(200, 100));
         buttons.add(back);
+        buttons.add(channel);
         this.add(buttons);
     }
 
@@ -143,5 +188,6 @@ public class VideoStatsView extends JPanel implements ActionListener, PropertyCh
         viewCount.setText("View count: " + state.getViewCount());
         likeCount.setText("Like count: " + state.getLikeCount());
         commentCount.setText("Comment count: " + state.getCommentCount());
+        channelInfo = state.getChannelInfo();
     }
 }
