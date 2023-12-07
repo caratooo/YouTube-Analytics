@@ -1,6 +1,7 @@
 package views.sort_algorithms;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.List;
 public class SortVideoSearch implements SortSearchQuery {
 
     private static final Color grey = new Color(227, 227, 227);
-    private static final FlowLayout flowlayout = new FlowLayout(FlowLayout.CENTER, 25, 5);
     private static final List<String> statLabels = Arrays.asList(
             "VideoID", "Channel Name", "Title", "Description", "Date Published", "View Count", "Like Count", "Comment Count"
     );
@@ -17,7 +17,7 @@ public class SortVideoSearch implements SortSearchQuery {
     public JPanel sort(String data, Integer number, JButton button) {
         JPanel main = new JPanel();
         main.setLayout(new BoxLayout(main, BoxLayout.LINE_AXIS));
-        main.setBorder(BorderFactory.createEmptyBorder(0, 113, 0, 0));
+        main.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         JPanel mainStats = new JPanel();
         mainStats.setLayout(new BoxLayout(mainStats, BoxLayout.Y_AXIS));
@@ -28,7 +28,7 @@ public class SortVideoSearch implements SortSearchQuery {
         JLabel label = new JLabel(String.format("Video Search (%s)", stats.get(0)));
         panelLabel.add(label);
 
-        JPanel statPanel = new JPanel(flowlayout);
+        JPanel statPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
         JPanel left = new JPanel();
         left.setLayout(new BoxLayout(left, BoxLayout.Y_AXIS));
         JPanel centre = new JPanel();
@@ -43,8 +43,17 @@ public class SortVideoSearch implements SortSearchQuery {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         for (int i = 1; i < 8; i++) {
-            JLabel newStat = new JLabel(String.format("%s: %s", statLabels.get(i), stats.get(i)));
-            newStat.setMaximumSize(new Dimension(250, 100));
+            String stat = stats.get(i);
+            JLabel newStat;
+
+            if (stat.length() > 50) {
+                newStat = new JLabel(String.format("%s: %s...", statLabels.get(i), stat.substring(0, 47)));
+            } else {
+                newStat = new JLabel(String.format("%s: %s", statLabels.get(i), stat));
+            }
+
+            newStat.setMaximumSize(new Dimension(400, 100));
+            newStat.setBorder(new EmptyBorder(1,0,1,0));
             if (i == 3) {
                 right.add(newStat);
             } else if (i < 5) {
@@ -53,6 +62,7 @@ public class SortVideoSearch implements SortSearchQuery {
                 centre.add(newStat);
             }
         }
+        statPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         if (number % 2 != 0) {
             panelLabel.setBackground(grey);
