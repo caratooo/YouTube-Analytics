@@ -35,12 +35,12 @@ public class CompareVideoUseCaseFactory {
             ViewManagerModel viewManagerModel,
             CompareSearchViewModel compareSearchViewModel,
             CompareStatsViewModel compareStatsViewModel,
-            CompareSearchUserDataAccessInterface userDataAccessInterface,
+            CompareSearchUserDataAccessInterface userDataAccessObject,
             CompareSearchDataAccessInterface youtubeDataAccessObject) throws IOException {
 
         CompareSearchOutputBoundary compareSearchOutputBoundary = new CompareSearchPresenter(compareSearchViewModel, compareStatsViewModel, viewManagerModel);
 
-        CompareSearchInputBoundary compareSearchInteractor = new CompareSearchInteractor(youtubeDataAccessObject, userDataAccessInterface, compareSearchOutputBoundary);
+        CompareSearchInputBoundary compareSearchInteractor = new CompareSearchInteractor(youtubeDataAccessObject, userDataAccessObject, compareSearchOutputBoundary);
 
         return new CompareSearchController(compareSearchInteractor);
 
