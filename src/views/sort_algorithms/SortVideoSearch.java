@@ -44,6 +44,7 @@ public class SortVideoSearch implements SortSearchQuery {
 
         for (int i = 1; i < 8; i++) {
             JLabel newStat = new JLabel(String.format("%s: %s", statLabels.get(i), stats.get(i)));
+            newStat.setMaximumSize(new Dimension(250, 100));
             if (i == 3) {
                 right.add(newStat);
             } else if (i < 5) {
