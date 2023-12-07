@@ -5,14 +5,12 @@ import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInsta
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.Video;
-import com.google.api.services.youtube.model.VideoListResponse;
-import com.google.api.services.youtube.model.VideoSnippet;
-import com.google.api.services.youtube.model.VideoStatistics;
+import com.google.api.services.youtube.model.*;
 import use_case.trending.TrendingDataAccessInterface;
 import use_case.compare_videos.CompareSearchDataAccessInterface;
 import use_case.trending.TrendingDataAccessInterface;
@@ -164,6 +162,28 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
         }
         return videos;
+    }
+
+    private ArrayList<Object> getChannel(String channelName)throws GeneralSecurityException, IOException, GoogleJsonResponseException {
+        YouTube youtubeService = getService();
+        // Define and execute the API request
+        YouTube.Channels.List request = youtubeService.channels()
+                .list("snippet,statistics");
+        ChannelListResponse response = request.setForUsername(channelName).execute();
+
+        ArrayList<Object> lst = new ArrayList<>();
+        int subscriberCount = 0;
+        int viewCount = 0;
+        if (response.getItems().get(0).getStatistics().getSubscriberCount() != null) {
+            subscriberCount = response.getItems().get(0).getStatistics().getSubscriberCount().intValue();
+        }
+        if (response.getItems().get(0).getStatistics().getViewCount() != null){
+            viewCount = response.getItems().get(0).getStatistics().getViewCount().intValue();
+        }
+        lst.add(channelName);
+        lst.add(subscriberCount);
+        lst.add(viewCount);
+        return lst;
     }
 
     public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
