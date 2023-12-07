@@ -140,6 +140,10 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
 
                 JButton button = buttonList[i];
 
+                for (ActionListener listener : button.getActionListeners()) {
+                    button.removeActionListener(listener);
+                }
+
                 maker.setSorter(sorters.get(queryType));
                 JPanel queryPanel = maker.makePanel(data, i + 1, button);
 
@@ -149,6 +153,8 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                             public void actionPerformed(ActionEvent e) {
                                 if (e.getSource().equals(button)) {
                                     try {
+                                        System.out.println(queryType);
+//                                        System.out.println(data);
                                         searchControllerMap.get(queryType).callExecute(data, historyViewModel.getState().getUsername());
                                     } catch (GeneralSecurityException ex) {
                                         throw new RuntimeException(ex);
