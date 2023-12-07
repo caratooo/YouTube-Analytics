@@ -75,16 +75,13 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
-
-
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, historyDataAccessObject, compareSearchViewModel, compareStatsViewModel);
+        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, historyDataAccessObject, compareSearchViewModel, compareStatsViewModel, youTubeDataAccess, historyDataAccessObject);
         views.add(historyView, historyView.viewName);
         CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, historyDataAccessObject, youTubeDataAccess);
         views.add(compareSearchView, compareSearchView.viewName);
