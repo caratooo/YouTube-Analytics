@@ -40,7 +40,6 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
                                                                                     video.getCommentCount(),
                                                                                 false);
 
-            // TODO video search output add toString method
             videoSearchUserDataAccessInterface.saveUserHistory(videoSearchInputData.getUsername(), videoSearchOutputData.toString());
 
             videoPresenter.prepareSuccessView(videoSearchOutputData);
