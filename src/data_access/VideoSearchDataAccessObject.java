@@ -39,8 +39,4 @@ public class VideoSearchDataAccessObject implements VideoSearchDataAccessInterfa
         return !(videos.containsKey(identifier));
     }
 
-    @Override
-    public void saveHistory(String listOfData) {
-
-    }
 }

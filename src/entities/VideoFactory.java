@@ -4,7 +4,7 @@ import com.google.api.client.util.DateTime;
 
 public class VideoFactory {
 
-    Video create(String videoId, String channelName, String title,
+    public Video create(String videoId, String channelName, String title,
                  String description, DateTime videoPublishDate,
                  int viewCount, int likeCount, int commentCount) {
         return new Video(videoId, channelName, title,

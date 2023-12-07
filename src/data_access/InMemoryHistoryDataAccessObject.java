@@ -1,13 +1,12 @@
 package data_access;
 
 import use_case.history.HistoryDataAccessInterface;
+import use_case.video_search.VideoSearchUserDataAccessInterface;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
-public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterface {
+public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterface, VideoSearchUserDataAccessInterface {
     private Map<String, String> csvFileHistories = new HashMap<>(Map.ofEntries(
             Map.entry("alex", "csvFile")
     ));
@@ -30,5 +29,19 @@ public class InMemoryHistoryDataAccessObject implements HistoryDataAccessInterfa
     @Override
     public boolean doesUserHistoryExist(String identifier) {
         return false;
+    }
+
+    @Override
+    public void saveUserHistory(String identifier, String listOfData) {
+        if (usersHistories.containsKey(identifier)) {
+            usersHistories.get(identifier).add(listOfData);
+        } else {
+            usersHistories.put(identifier, new ArrayList<>());
+            usersHistories.get(identifier).add(listOfData);
+        }
+
+        if (!doesUserFileExist(identifier)) {
+            csvFileHistories.put(identifier, "userFile");
+        }
     }
 }
