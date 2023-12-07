@@ -29,34 +29,14 @@ public class FileHistoryDataAccessObjectTest {
         userDataAccessObject.save(userFactory.create("user1Test", "password"));
         userDataAccessObject.save(userFactory.create("user2Test", "password"));
 
-        File user1File = new File("user1TestHistory.csv");
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(user1File));
-            writer.write("type,output");
-            writer.newLine();
-
-            List<String> listOfData = Arrays.asList(
-                    "videoSearch,videoid,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount",
-                    "compare,videoid1,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount,videoid2,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount"
-            );
-
-            for (String data : listOfData) {
-                writer.write(data);
-                writer.newLine();
-            }
-
-            writer.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         try {
             historyDataAccessObject = new FileHistoryDataAccessObject(userDataAccessObject);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        historyDataAccessObject.saveUserHistory("user1Test", "videoSearch,videoid,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount");
+        historyDataAccessObject.saveUserHistory("user1Test", "compare,videoid1,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount,videoid2,channelName,title,description,videoPublishDate,viewCount,likeCount,commentCount");
     }
 
     @Test
