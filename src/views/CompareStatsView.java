@@ -57,7 +57,8 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
         JLabel title = new JLabel("Video Stats Comparison Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel videos = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        JPanel videos = new JPanel();
+        videos.setLayout(new BoxLayout(videos, BoxLayout.Y_AXIS));
         JPanel video1 = new JPanel();
         video1.setLayout(new BoxLayout(video1, BoxLayout.Y_AXIS));
         JPanel video2 = new JPanel();
@@ -78,7 +79,9 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
                     }
                 }
         );
-        buttons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+        buttons.setLayout(new FlowLayout()); // This layout manager respects component's preferred sizes.
+        back.setPreferredSize(new Dimension(200, 100));
         buttons.add(back);
 
         this.add(title);

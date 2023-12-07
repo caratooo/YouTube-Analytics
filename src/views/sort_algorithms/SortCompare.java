@@ -68,7 +68,7 @@ public class SortCompare implements SortSearchQuery {
         main.add(mainLabel);
 
         JPanel video = new JPanel();
-        video.setMaximumSize(new Dimension(600, 100));
+        video.setMaximumSize(new Dimension(600, 200));
         video.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         video.setAlignmentX(Component.CENTER_ALIGNMENT);
 

@@ -129,7 +129,6 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
         this.add(videoIdInfoTwo);
         this.add(buttons);
 
-
     }
 
 
