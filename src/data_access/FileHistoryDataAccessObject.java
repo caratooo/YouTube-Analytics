@@ -96,6 +96,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
      * @param identifier the username to check
      * @return  whether a user history file exists for a user
      */
+    @Override
     public boolean doesUserFileExist(String identifier) {
         return csvFileHistories.containsKey(identifier);
     }

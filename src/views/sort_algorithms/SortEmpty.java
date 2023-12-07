@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SortEmpty implements SortPanelStrategy {
+    /**
+     * Returns an empty panel to fill up space
+     * @param data the string that contains the stats from a video search query
+     * @param number the panel number (1 < number < 5)
+     * @param button the button to used to call VideoSearchController
+     * @return an empty panel
+     */
     @Override
     public JPanel sort(String data, Integer number, JButton button) {
         JPanel main = new JPanel();
