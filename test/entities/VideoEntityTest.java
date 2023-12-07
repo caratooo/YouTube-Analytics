@@ -71,7 +71,7 @@ class VideoEntityTest {
 
     @Test
     void checkDescriptionLength() {
-        assert(video.getDescription().length() <= 100);
+        assert(longVideo.getDescription().length() <= 100);
     }
 
 }
