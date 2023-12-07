@@ -59,7 +59,7 @@ public class CompareSearchView extends JPanel implements ActionListener, Propert
                     CompareSearchState currState = compareSearchViewModel.getState();
 
                     try {
-                        compareSearchController.execute(currState.getVideoOneId(),currState.getVideoTwoId());
+                        compareSearchController.execute(currState.getVideoOneId(),currState.getVideoTwoId(), currState.getUsername());
                     } catch (GeneralSecurityException | IOException ex) {
                         throw new RuntimeException(ex);
                     }

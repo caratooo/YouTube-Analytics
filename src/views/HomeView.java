@@ -1,6 +1,7 @@
 package views;
 
 import interface_adapter.ViewManagerModel;
+import interface_adapter.compare_search.CompareSearchState;
 import interface_adapter.compare_search.CompareSearchViewModel;
 import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.history.HistoryController;
@@ -107,6 +108,10 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(compare)) {
+                            CompareSearchState state = compareSearchViewModel.getState();
+                            state.setUsername(loginViewModel.getState().getUsername());
+                            compareSearchViewModel.setState(state);
+
                             viewManagerModel.setActiveView(compareSearchViewModel.getViewName());
                             viewManagerModel.firePropertyChanged();
                         }

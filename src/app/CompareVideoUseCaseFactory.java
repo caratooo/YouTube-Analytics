@@ -6,10 +6,7 @@ import interface_adapter.compare_search.CompareSearchController;
 import interface_adapter.compare_search.CompareSearchPresenter;
 import interface_adapter.compare_search.CompareSearchViewModel;
 import interface_adapter.compare_stats.CompareStatsViewModel;
-import use_case.compare_videos.CompareSearchDataAccessInterface;
-import use_case.compare_videos.CompareSearchInputBoundary;
-import use_case.compare_videos.CompareSearchInteractor;
-import use_case.compare_videos.CompareSearchOutputBoundary;
+import use_case.compare_videos.*;
 import views.CompareSearchView;
 
 import javax.swing.*;
@@ -21,10 +18,11 @@ public class CompareVideoUseCaseFactory {
             CompareSearchViewModel compareSearchViewModel,
             CompareStatsViewModel compareStatsViewModel,
             HomeViewModel homeViewModel,
+            CompareSearchUserDataAccessInterface userDataAccessInterface,
             CompareSearchDataAccessInterface youtubeDataAccessObject) {
 
         try {
-            CompareSearchController compareSearchController = createCompareSearchUseCase(viewManagerModel, compareSearchViewModel, compareStatsViewModel, youtubeDataAccessObject);
+            CompareSearchController compareSearchController = createCompareSearchUseCase(viewManagerModel, compareSearchViewModel, compareStatsViewModel,userDataAccessInterface, youtubeDataAccessObject);
             return new CompareSearchView(compareSearchViewModel,compareSearchController, homeViewModel, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -37,11 +35,12 @@ public class CompareVideoUseCaseFactory {
             ViewManagerModel viewManagerModel,
             CompareSearchViewModel compareSearchViewModel,
             CompareStatsViewModel compareStatsViewModel,
+            CompareSearchUserDataAccessInterface userDataAccessInterface,
             CompareSearchDataAccessInterface youtubeDataAccessObject) throws IOException {
 
         CompareSearchOutputBoundary compareSearchOutputBoundary = new CompareSearchPresenter(compareSearchViewModel, compareStatsViewModel, viewManagerModel);
 
-        CompareSearchInputBoundary compareSearchInteractor = new CompareSearchInteractor(youtubeDataAccessObject, compareSearchOutputBoundary);
+        CompareSearchInputBoundary compareSearchInteractor = new CompareSearchInteractor(youtubeDataAccessObject, userDataAccessInterface, compareSearchOutputBoundary);
 
         return new CompareSearchController(compareSearchInteractor);
 

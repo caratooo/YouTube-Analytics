@@ -6,36 +6,49 @@ import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.home.HomeViewModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class CompareStatsView extends JPanel implements ActionListener, PropertyChangeListener{
-
     public final String viewName = "compare stats";
 
     private final CompareStatsViewModel compareStatsViewModel;
-    JLabel videoIdOne;
-    JLabel channelNameOne;
-    JLabel videoTitleOne;
-    JLabel descriptionOne;
-    JLabel videoPublishDateOne;
-    JLabel viewCountOne;
-    JLabel likeCountOne;
-    JLabel commentCountOne;
-    JLabel videoIdTwo;
-    JLabel channelNameTwo;
-    JLabel videoTitleTwo;
-    JLabel descriptionTwo;
-    JLabel videoPublishDateTwo;
-    JLabel viewCountTwo;
-    JLabel likeCountTwo;
-    JLabel commentCountTwo;
+    JLabel videoIdOne = new JLabel();
+    JLabel channelNameOne = new JLabel();
+    JLabel videoTitleOne = new JLabel();
+    JLabel descriptionOne = new JLabel();
+    JLabel videoPublishDateOne = new JLabel();
+    JLabel viewCountOne = new JLabel();
+    JLabel likeCountOne = new JLabel();
+    JLabel commentCountOne = new JLabel();
+    JLabel videoIdTwo = new JLabel();
+    JLabel channelNameTwo = new JLabel();
+    JLabel videoTitleTwo = new JLabel();
+    JLabel descriptionTwo = new JLabel();
+    JLabel videoPublishDateTwo = new JLabel();
+    JLabel viewCountTwo = new JLabel();
+    JLabel likeCountTwo = new JLabel();
+    JLabel commentCountTwo = new JLabel();
+    JPanel buttons = new JPanel();
+
+    private final List<JLabel> labelsOne = Arrays.asList(
+            videoIdOne, channelNameOne, videoTitleOne, descriptionOne, videoPublishDateOne, viewCountOne, likeCountOne, commentCountOne
+    );
+    private final List<JLabel> labelsTwo = Arrays.asList(
+            videoIdTwo, channelNameTwo, videoTitleTwo, descriptionTwo, videoPublishDateTwo, viewCountTwo, likeCountTwo, commentCountTwo
+    );
+
+    private final List<List<JLabel>> labels = Arrays.asList(labelsOne, labelsTwo);
+
     private final JButton back;
     public CompareStatsView(CompareStatsViewModel compareStatsViewModel, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.compareStatsViewModel = compareStatsViewModel;
         this.compareStatsViewModel.addPropertyChangeListener(this);
         back = new JButton(CompareStatsViewModel.BACK_BUTTON_LABEL);
@@ -44,55 +57,17 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
         JLabel title = new JLabel("Video Stats Comparison Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel panel1 = new JPanel();
-        panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
-        JPanel panel3 = new JPanel();
-        panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
-        JPanel panel5 = new JPanel();
-        panel5.setLayout(new BoxLayout(panel5, BoxLayout.Y_AXIS));
-        JPanel panel7 = new JPanel();
-        panel7.setLayout(new BoxLayout(panel7, BoxLayout.Y_AXIS));
-        JPanel panel9 = new JPanel();
-        panel9.setLayout(new BoxLayout(panel9, BoxLayout.Y_AXIS));
+        JPanel videos = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 5));
+        JPanel video1 = new JPanel();
+        video1.setLayout(new BoxLayout(video1, BoxLayout.Y_AXIS));
+        JPanel video2 = new JPanel();
+        video2.setLayout(new BoxLayout(video2, BoxLayout.Y_AXIS));
 
-        ArrayList<JLabel> labelsOne = new ArrayList<>();
-        ArrayList<JLabel> labelsTwo = new ArrayList<>();
-        videoIdOne = new JLabel();
-        channelNameOne = new JLabel();
-        videoTitleOne = new JLabel();
-        descriptionOne = new JLabel();
-        videoPublishDateOne = new JLabel();
-        viewCountOne = new JLabel();
-        likeCountOne = new JLabel();
-        commentCountOne = new JLabel();
-        labelsOne.add(videoIdOne);
-        labelsOne.add(channelNameOne);
-        labelsOne.add(videoTitleOne);
-        labelsOne.add(descriptionOne);
-        labelsOne.add(videoPublishDateOne);
-        labelsOne.add(viewCountOne);
-        labelsOne.add(likeCountOne);
-        labelsOne.add(commentCountOne);
-        videoIdTwo = new JLabel();
-        channelNameTwo = new JLabel();
-        videoTitleTwo = new JLabel();
-        descriptionTwo = new JLabel();
-        videoPublishDateTwo = new JLabel();
-        viewCountTwo = new JLabel();
-        likeCountTwo = new JLabel();
-        commentCountTwo = new JLabel();
-        labelsTwo.add(videoIdTwo);
-        labelsTwo.add(channelNameTwo);
-        labelsTwo.add(videoTitleTwo);
-        labelsTwo.add(descriptionTwo);
-        labelsTwo.add(videoPublishDateTwo);
-        labelsTwo.add(viewCountTwo);
-        labelsTwo.add(likeCountTwo);
-        labelsTwo.add(commentCountTwo);
-        panel3.add(title);
-        add_labels(labelsOne, panel5);
-        add_labels(labelsTwo, panel7);
-        panel9.add(back);
+        sortPanels(Arrays.asList(video1, video2));
+
+        videos.add(video1);
+        videos.add(video2);
+
         back.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -103,21 +78,33 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
                     }
                 }
         );
-        panel1.add(panel3);
-        panel1.add(panel5);
-        panel1.add(panel7);
-        panel1.add(panel9);
-        this.add(panel1);
+        buttons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        buttons.add(back);
 
-
+        this.add(title);
+        this.add(videos);
+        this.add(buttons);
     }
-    public void add_labels(ArrayList<JLabel> labels, JPanel panel){
-        for (int i = 0; i < labels.size(); i++){
-            labels.get(i).setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(labels.get(i));
+
+    private void sortPanels(List<JPanel> videoPanelList) {
+        for (int i = 0; i < 2; i++) {
+            JLabel title = new JLabel(String.format("Video %s", (i+1)));
+            title.setAlignmentX(Component.CENTER_ALIGNMENT);
+            title.setBorder(new EmptyBorder(10, 10, 10, 10));
+            videoPanelList.get(i).add(title);
+
+            JPanel stats = new JPanel();
+            stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
+
+            List<JLabel> labelList = labels.get(i);
+            for (int i2 = 0; i2 < labelList.size(); i2++) {
+                labelList.get(i2).setBorder(new EmptyBorder(4, 0, 4, 0));
+                stats.add(labelList.get(i2));
+            }
+            stats.setAlignmentX(Component.CENTER_ALIGNMENT);
+            videoPanelList.get(i).add(stats);
         }
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -126,9 +113,7 @@ public class CompareStatsView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        CompareStatsState state = (CompareStatsState) evt.getNewValue();
         CompareStatsState state = compareStatsViewModel.getState();
-        System.out.println(state.getVideoIdOne());
         videoIdOne.setText("Video ID: " + state.getVideoIdOne());
         channelNameOne.setText("Channel name: " + state.getChannelNameOne());
         videoTitleOne.setText("Video name: " + state.getTitleOne());

@@ -15,13 +15,13 @@ public class CompareSearchController implements SearchController {
         this.compareSearchUseCaseInteractor = compareSearchUseCaseInteractor;
     }
 
-    public void execute(String videoOneId, String videoTwoId)throws GeneralSecurityException, IOException {
-        CompareSearchInputData compareSearchInputData = new CompareSearchInputData(videoOneId, videoTwoId);
+    public void execute(String videoOneId, String videoTwoId, String username)throws GeneralSecurityException, IOException {
+        CompareSearchInputData compareSearchInputData = new CompareSearchInputData(videoOneId, videoTwoId, username);
         compareSearchUseCaseInteractor.execute(compareSearchInputData);
     }
 
     @Override
     public void callExecute(String data, String username) throws GeneralSecurityException, IOException {
-        execute(data.split(",")[0], username);
+        execute(data.split(",")[0], data.split(",")[8], username);
     }
 }

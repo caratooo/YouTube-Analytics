@@ -41,7 +41,7 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
                                                                                 false);
 
             // TODO video search output add toString method
-             videoSearchUserDataAccessInterface.saveUserHistory(videoSearchInputData.getUsername(), videoSearchOutputData.toString());
+            videoSearchUserDataAccessInterface.saveUserHistory(videoSearchInputData.getUsername(), videoSearchOutputData.toString());
 
             videoPresenter.prepareSuccessView(videoSearchOutputData);
 

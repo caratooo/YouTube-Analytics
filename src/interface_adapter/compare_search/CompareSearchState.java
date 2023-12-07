@@ -5,6 +5,7 @@ public class CompareSearchState {
     private String videoOneId = "";
     private String videoTwoId = "";
     private String videoIdError = null;
+    private String username = "";
 
     public CompareSearchState(CompareSearchState copy){
         videoOneId = copy.videoOneId;
@@ -37,4 +38,10 @@ public class CompareSearchState {
         this.videoIdError = videoIdError;
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
