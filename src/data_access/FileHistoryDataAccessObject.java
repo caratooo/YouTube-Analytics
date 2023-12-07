@@ -53,7 +53,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
      */
     @Override
     public void saveUserHistory(String identifier, String listOfData) {
-        if (usersHistories.containsKey(identifier)) {
+        if (doesUserHistoryExist(identifier)) {
             usersHistories.get(identifier).add(listOfData);
         } else {
             usersHistories.put(identifier, new ArrayList<>());

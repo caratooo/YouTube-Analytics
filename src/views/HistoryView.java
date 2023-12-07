@@ -7,7 +7,8 @@ import interface_adapter.history.HistoryState;
 import interface_adapter.history.HistoryViewModel;
 import interface_adapter.home.HomeViewModel;
 import views.sort_algorithms.SortCompare;
-import views.sort_algorithms.SortSearchQuery;
+import views.sort_algorithms.SortEmpty;
+import views.sort_algorithms.SortPanelStrategy;
 import views.sort_algorithms.SortVideoSearch;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     public final String viewName = "history";
     private final HistoryViewModel historyViewModel;
     private final HistoryController historyController;
+    private PanelMaker maker = new PanelMaker();
 
     private final JButton home;
     private final JButton view1 = new JButton("View");
@@ -42,6 +44,11 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
     private final JPanel[] historyPanels = new JPanel[]{history1, history2, history3, history4, history5};
 
     private Map<String, SearchController> searchControllerMap = new HashMap<>();
+    private final Map<String, SortPanelStrategy> sorters = new HashMap<>(Map.ofEntries(
+            Map.entry("empty", new SortEmpty()),
+            Map.entry("compare", new SortCompare()),
+            Map.entry("videoSearch", new SortVideoSearch())
+    ));
 
     public HistoryView(HistoryController historyController, HistoryViewModel historyViewModel, SearchController compareController, SearchController videoSearchController, HomeViewModel homeViewModel, ViewManagerModel viewManagerModel) {
         this.historyController = historyController;
@@ -119,7 +126,8 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                         historyPanels[i].remove(i2);
                     }
 
-                    JPanel emptyPanel = createEmptyPanel(i + 1);
+                    maker.setSorter(sorters.get("empty"));
+                    JPanel emptyPanel = maker.makePanel(null, i + 1, null);
                     historyPanels[i].add(emptyPanel);
 
                     continue;
@@ -129,11 +137,11 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                 String[] query = userHistory.get(userHistory.size() - i - 1).split(",", 2);
                 String queryType = query[0];
                 String data = query[1];
-                SortSearchQuery sorter = sorter(queryType);
 
                 JButton button = buttonList[i];
 
-                JPanel queryPanel = sorter.sort(data, i + 1, button);
+                maker.setSorter(sorters.get(queryType));
+                JPanel queryPanel = maker.makePanel(data, i + 1, button);
 
                 button.addActionListener(
                         new ActionListener() {
@@ -158,34 +166,6 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
 
                 historyPanels[i].add(queryPanel);
             }
-        }
-    }
-
-    private JPanel createEmptyPanel(Integer number) {
-        JPanel main = new JPanel();
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 20));
-
-        JLabel label = new JLabel("");
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        if (number % 2 != 0) {
-            panel.setBackground(new Color(227, 227, 227));
-            main.setBackground(new Color(227, 227, 227));
-        }
-
-        panel.add(label);
-        main.add(panel);
-
-        return main;
-    }
-
-    private SortSearchQuery sorter(String queryType) {
-        if (queryType.equals("compare")) {
-            return new SortCompare();
-        } else {
-            return new SortVideoSearch();
         }
     }
 }

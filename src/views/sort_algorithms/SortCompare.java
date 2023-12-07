@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-public class SortCompare implements SortSearchQuery {
+public class SortCompare implements SortPanelStrategy {
     private static final Color grey = new Color(227, 227, 227);
     private static final List<String> statLabels = Arrays.asList(
             "Video ID", "Channel Name", "Title", "Description", "Date Published", "View Count", "Like Count", "Comment Count",
