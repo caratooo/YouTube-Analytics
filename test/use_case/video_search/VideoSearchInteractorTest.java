@@ -24,7 +24,6 @@ class VideoSearchInteractorTest {
         VideoSearchInputData inputData = new VideoSearchInputData("H-v6DfxnjF8", "user");
         VideoSearchDataAccessInterface youtubeRepository = new VideoSearchDataAccessObject();
 
-        // TODO testing that output has been sent to history - also might need to be seperate DAO from writing to files, since you're checking in files
         VideoSearchUserDataAccessInterface historyRepository = new InMemoryHistoryDataAccessObject();
 
         // presenter + success and fail view
