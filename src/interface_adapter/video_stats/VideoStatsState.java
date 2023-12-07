@@ -2,6 +2,8 @@ package interface_adapter.video_stats;
 
 import com.google.api.client.util.DateTime;
 
+import java.util.ArrayList;
+
 public class VideoStatsState {
 
     private String videoId = "";
@@ -20,6 +22,8 @@ public class VideoStatsState {
 
     private int commentCount = 0;
 
+    private ArrayList<Object> channelInfo = new ArrayList<>();
+
     public VideoStatsState(VideoStatsState copy) {
         videoId = copy.videoId;
         channelName = copy.channelName;
@@ -29,6 +33,7 @@ public class VideoStatsState {
         viewCount = copy.viewCount;
         likeCount = copy.likeCount;
         commentCount = copy.commentCount;
+        channelInfo = copy.channelInfo;
     }
 
     public VideoStatsState() {}
@@ -47,7 +52,9 @@ public class VideoStatsState {
 
     public int getLikeCount() { return likeCount; }
 
-    public int getCommentCount() {return commentCount; }
+    public int getCommentCount() { return commentCount; }
+
+    public ArrayList<Object> getChannelInfo() { return channelInfo; }
 
     public void setVideoId(String videoId) {
         this.videoId = videoId;
@@ -78,5 +85,7 @@ public class VideoStatsState {
     }
 
     public void setCommentCount(int commentCount) { this.commentCount = commentCount; }
+
+    public void setChannelInfo(ArrayList<Object> channelInfo) { this.channelInfo = channelInfo; }
 
 }
