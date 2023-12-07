@@ -164,21 +164,28 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         return videos;
     }
 
-    private ArrayList<Object> getChannel(String channelName)throws GeneralSecurityException, IOException, GoogleJsonResponseException {
+    private ArrayList<Object> getChannel(String videoId)throws GeneralSecurityException, IOException, GoogleJsonResponseException {
         YouTube youtubeService = getService();
         // Define and execute the API request
         YouTube.Channels.List request = youtubeService.channels()
                 .list("snippet,statistics");
-        ChannelListResponse response = request.setForUsername(channelName).execute();
+
+        VideoListResponse response = getVideoResponse(videoId);
+        Video video = response.getItems().get(0);
+        VideoSnippet snippet = video.getSnippet();
+        String channelID = snippet.getChannelId();
+
+        ChannelListResponse responseChannel = request.setId(channelID).execute();
+        String channelName = snippet.getChannelTitle();
 
         ArrayList<Object> lst = new ArrayList<>();
         int subscriberCount = 0;
         int viewCount = 0;
-        if (response.getItems().get(0).getStatistics().getSubscriberCount() != null) {
-            subscriberCount = response.getItems().get(0).getStatistics().getSubscriberCount().intValue();
+        if (responseChannel.getItems().get(0).getStatistics().getSubscriberCount() != null) {
+            subscriberCount = responseChannel.getItems().get(0).getStatistics().getSubscriberCount().intValue();
         }
         if (response.getItems().get(0).getStatistics().getViewCount() != null){
-            viewCount = response.getItems().get(0).getStatistics().getViewCount().intValue();
+            viewCount = responseChannel.getItems().get(0).getStatistics().getViewCount().intValue();
         }
         lst.add(channelName);
         lst.add(subscriberCount);
@@ -205,5 +212,10 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void main (String[]args) throws IOException, GeneralSecurityException {
+        YouTubeDataAccess youTubeDataAccess = new YouTubeDataAccess();
+        System.out.println(youTubeDataAccess.getChannel("WBw6ycgNksY"));
     }
 }
