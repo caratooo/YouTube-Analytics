@@ -77,9 +77,6 @@ public class Main {
 
         YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
 
-        YouTubeDataAccess youTubeDataAccess;
-        youTubeDataAccess = new YouTubeDataAccess();
-
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);

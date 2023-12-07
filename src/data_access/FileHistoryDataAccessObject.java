@@ -78,6 +78,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
         }
     }
 
+
     public void save(File userFile, String identifier) {
         BufferedWriter writer;
         try {

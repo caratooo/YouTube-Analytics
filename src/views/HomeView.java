@@ -42,7 +42,8 @@ public class HomeView extends JPanel implements ActionListener, PropertyChangeLi
                     TrendingCategorySelectViewModel trendingCategorySelectViewModel,
                     VideoSearchViewModel videoSearchViewModel, VideoStatsViewModel videoStatsViewModel,
                     ViewManagerModel viewManagerModel, HistoryController historyController,
-                    LoginViewModel loginViewModel) {
+                    LoginViewModel loginViewModel, CompareSearchViewModel compareSearchViewModel,
+                    CompareStatsViewModel compareStatsViewModel) {
         this.homeViewModel = homeViewModel;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;

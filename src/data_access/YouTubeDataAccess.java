@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface {
+public class YouTubeDataAccess implements VideoSearchDataAccessInterface, TrendingDataAccessInterface, CompareSearchDataAccessInterface {
 
     //    private static final String CLIENT_SECRETS= "client_secret.json";
     private static final Collection<String> SCOPES =
