@@ -58,6 +58,11 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
         }
     }
 
+    /**
+     * Saves a search query to the user
+     * @param identifier the username to check
+     * @param listOfData the statistics of a search query all in one line, separated by commas with no whitespaces after
+     */
     @Override
     public void saveUserHistory(String identifier, String listOfData) {
         if (usersHistories.containsKey(identifier)) {
@@ -79,7 +84,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
     }
 
 
-    public void save(File userFile, String identifier) {
+    private void save(File userFile, String identifier) {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(userFile));
@@ -102,14 +107,30 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
         }
     }
 
+    /**
+     * Returns whether a user history file exists for a user
+     * @param identifier the username to check
+     * @return  whether a user history file exists for a user
+     */
     public boolean doesUserFileExist(String identifier) {
         return csvFileHistories.containsKey(identifier);
     }
+
+    /**
+     * Returns a list of search queries, one string is one search query
+     * @param identifier the username to check
+     * @return a list of search queries
+     */
     @Override
     public List<String> getUserHistory(String identifier) {
         return usersHistories.get(identifier);
     }
 
+    /**
+     * Returns whether a user has history (searched before)
+     * @param identifier the username to check
+     * @return whether a user has history
+     */
     @Override
     public boolean doesUserHistoryExist(String identifier) {
         return usersHistories.containsKey(identifier);

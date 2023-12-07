@@ -10,6 +10,10 @@ public class HistoryController {
         this.historyUseCaseInteractor = historyUseCaseInteractor;
     }
 
+    /**
+     * Calls on the history interactor with the identifier as input data
+     * @param identifier the username to check history
+     */
     public void execute(String identifier) {
         HistoryInputData historyInputData = new HistoryInputData(identifier);
 

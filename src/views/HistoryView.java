@@ -105,10 +105,18 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
         this.add(buttons);
     }
 
+    /**
+     * React to a button click that results in evt.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
     }
 
+    /**
+     *
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         HistoryState state = (HistoryState) evt.getNewValue();
