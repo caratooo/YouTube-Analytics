@@ -22,6 +22,6 @@ public class CompareSearchController implements SearchController {
 
     @Override
     public void callExecute(String data, String username) throws GeneralSecurityException, IOException {
-
+        execute(data.split(",")[0], username);
     }
 }
