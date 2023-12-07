@@ -1,6 +1,7 @@
 package data_access;
 
 import entities.Video;
+import use_case.compare_videos.CompareSearchUserDataAccessInterface;
 import use_case.history.HistoryDataAccessInterface;
 import use_case.video_search.VideoSearchDataAccessInterface;
 import use_case.video_search.VideoSearchUserDataAccessInterface;
@@ -9,7 +10,7 @@ import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
-public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, VideoSearchUserDataAccessInterface {
+public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, VideoSearchUserDataAccessInterface, CompareSearchUserDataAccessInterface {
     private Map<String, File> csvFileHistories = new HashMap<>();
     private Map<String, List<String>> usersHistories = new HashMap<>();
     private final Map<String, String[]> headersHistories = new HashMap<>();
@@ -76,6 +77,7 @@ public class FileHistoryDataAccessObject implements HistoryDataAccessInterface, 
             save(userFile, identifier);
         }
     }
+
 
     public void save(File userFile, String identifier) {
         BufferedWriter writer;

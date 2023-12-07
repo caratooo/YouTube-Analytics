@@ -4,6 +4,7 @@ import entities.Video;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 
 public class VideoSearchInteractor implements VideoSearchInputBoundary {
 
@@ -30,6 +31,8 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
         } else {
             Video video = videoSearchDataAccessObject.getVideo(videoSearchInputData.getVideoId());
 
+            ArrayList<Object> channelInfo = videoSearchDataAccessObject.getChannel(videoSearchInputData.getVideoId());
+
             VideoSearchOutputData videoSearchOutputData = new VideoSearchOutputData(video.getId(),
                                                                                     video.getChannelName(),
                                                                                     video.getTitle(),
@@ -38,10 +41,10 @@ public class VideoSearchInteractor implements VideoSearchInputBoundary {
                                                                                     video.getViewCount(),
                                                                                     video.getLikeCount(),
                                                                                     video.getCommentCount(),
+                                                                                    channelInfo,
                                                                                 false);
 
-            // TODO video search output add toString method
-             videoSearchUserDataAccessInterface.saveUserHistory(videoSearchInputData.getUsername(), videoSearchOutputData.toString());
+            videoSearchUserDataAccessInterface.saveUserHistory(videoSearchInputData.getUsername(), videoSearchOutputData.toString());
 
             videoPresenter.prepareSuccessView(videoSearchOutputData);
 

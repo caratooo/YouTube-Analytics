@@ -54,11 +54,11 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         this.trendingDataViewModel.addPropertyChangeListener(this);
 
         //initialize components
-        homeButton = new JButton("Home");
+        homeButton = new JButton("Back to Home");
 
         category = new JLabel();
 
-        topOne = new JLabel("Top One");
+        topOne = new JLabel("First");
         topOneVideoId = new JLabel();
         topOneChannelName = new JLabel();
         topOneTitle = new JLabel();
@@ -68,7 +68,7 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         topOneLikeCount = new JLabel();
         topOneCommentCount = new JLabel();
 
-        topTwo = new JLabel("Top Two");
+        topTwo = new JLabel("Second");
         topTwoVideoId = new JLabel();
         topTwoChannelName = new JLabel();
         topTwoTitle = new JLabel();
@@ -78,7 +78,7 @@ public class TrendingDataView extends JPanel implements ActionListener, Property
         topTwoLikeCount = new JLabel();
         topTwoCommentCount = new JLabel();
 
-        topThree = new JLabel("Top Three");
+        topThree = new JLabel("Third");
         topThreeVideoId = new JLabel();
         topThreeChannelName = new JLabel();
         topThreeTitle = new JLabel();

@@ -2,9 +2,6 @@ package data_access;
 
 import entities.User;
 import entities.UserFactory;
-import use_case.channel_search.ChannelSearchDataAccessInterface;
-import use_case.compare_videos.CompareDataAccessInterface;
-import use_case.history.HistoryDataAccessInterface;
 import use_case.login.LoginDataAccessInterface;
 import use_case.signup.SignupDataAccessInterface;
 

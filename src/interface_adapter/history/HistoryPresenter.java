@@ -1,9 +1,6 @@
 package interface_adapter.history;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.compare.CompareViewModel;
-import interface_adapter.signup.SignupState;
-import interface_adapter.video_search.VideoSearchViewModel;
 import use_case.history.HistoryOutputBoundary;
 import use_case.history.HistoryOutputData;
 

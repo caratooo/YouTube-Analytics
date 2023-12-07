@@ -6,6 +6,8 @@ import data_access.YouTubeDataAccess;
 import entities.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.history.HistoryViewModel;
+import interface_adapter.compare_search.CompareSearchViewModel;
+import interface_adapter.compare_stats.CompareStatsViewModel;
 import interface_adapter.home.HomeViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -48,6 +50,9 @@ public class Main {
         VideoSearchViewModel videoSearchViewModel = new VideoSearchViewModel();
         VideoStatsViewModel videoStatsViewModel = new VideoStatsViewModel();
         HistoryViewModel historyViewModel = new HistoryViewModel();
+        CompareSearchViewModel compareSearchViewModel = new CompareSearchViewModel();
+        CompareStatsViewModel compareStatsViewModel = new CompareStatsViewModel();
+
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -70,16 +75,19 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        YouTubeDataAccess trendingDataAccess = new YouTubeDataAccess();
-
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homeViewModel, signupViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, historyDataAccessObject);
+        HistoryView historyView = HistoryUseCaseFactory.create(viewManagerModel, historyViewModel, historyDataAccessObject, homeViewModel, videoSearchViewModel, videoStatsViewModel, youTubeDataAccess, historyDataAccessObject, compareSearchViewModel, compareStatsViewModel, youTubeDataAccess, historyDataAccessObject);
         views.add(historyView, historyView.viewName);
+        CompareSearchView compareSearchView = CompareVideoUseCaseFactory.create(viewManagerModel, compareSearchViewModel, compareStatsViewModel, homeViewModel, historyDataAccessObject, youTubeDataAccess);
+        views.add(compareSearchView, compareSearchView.viewName);
+
+        CompareStatsView compareStatsView = new CompareStatsView(compareStatsViewModel, homeViewModel, viewManagerModel);
+        views.add(compareStatsView, compareStatsView.viewName);
 
         TrendingCategorySelectView trendingCategorySelectView =  TrendingUseCaseFactory.create(viewManagerModel, trendingCategorySelectViewModel, trendingDataViewModel, youTubeDataAccess, homeViewModel);
         views.add(trendingCategorySelectView, trendingCategorySelectView.viewName);
@@ -87,11 +95,11 @@ public class Main {
         TrendingDataView trendingDataView = new TrendingDataView(trendingDataViewModel, homeViewModel, viewManagerModel);
         views.add(trendingDataView, trendingDataView.viewName);
 
-        HomeView homeView = new HomeView(homeViewModel, signupViewModel,
+        HomeView homeView = new HomeView(homeViewModel,
                 trendingCategorySelectViewModel,
                 videoSearchViewModel, videoStatsViewModel, viewManagerModel,
                 HistoryUseCaseFactory.createUserHistoryUseCase(viewManagerModel, historyViewModel, historyDataAccessObject),
-                loginViewModel);
+                loginViewModel, compareSearchViewModel, compareStatsViewModel);
         views.add(homeView, homeView.viewName);
 
         VideoSearchView videoSearchView = VideoSearchUseCaseFactory.create(viewManagerModel, videoSearchViewModel, videoStatsViewModel, homeViewModel, youTubeDataAccess, historyDataAccessObject);
