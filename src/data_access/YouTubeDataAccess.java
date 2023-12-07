@@ -33,9 +33,9 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     private static final String APPLICATION_NAME = "API code samples";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    public YouTubeDataAccess(){
-
+    public YouTubeDataAccess() throws IOException {
     }
+
     /**
      * Create an authorized Credential object.
      *
@@ -59,7 +59,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
     }
 
     public static YouTube getService() throws GeneralSecurityException, IOException {
-        final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();;
+        final NetHttpTransport httpTransport = new com.google.api.client.http.javanet.NetHttpTransport();
         Credential credential = authorize(httpTransport);
         return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
                 .setApplicationName(APPLICATION_NAME)
@@ -72,7 +72,7 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         return request.setId(videoId).execute();
     }
 
-    public static entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
+    public entities.Video getVideo(String videoId) throws GeneralSecurityException, IOException {
         VideoListResponse response = getVideoResponse(videoId);
         Video video = response.getItems().get(0);
         VideoSnippet snippet = video.getSnippet();
@@ -81,27 +81,28 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
         int commentCount;
         int likeCount;
         int viewCount;
-        if (statistics.getCommentCount() == null){
+
+        // if the count is null, count is set to be 0
+        if (statistics.getCommentCount() != null){
             commentCount =  statistics.getCommentCount().intValue();
         }
         else{
-            commentCount = Integer.parseInt(null);
+            commentCount = 0;
         }
 
-        if (statistics.getLikeCount() == null){
+        if (statistics.getLikeCount() != null){
             likeCount =  statistics.getLikeCount().intValue();
         }
         else{
-            likeCount = Integer.parseInt(null);
+            likeCount = 0;
         }
 
-        if (statistics.getViewCount() == null){
+        if (statistics.getViewCount() != null){
             viewCount =  statistics.getViewCount().intValue();
         }
         else{
-            viewCount = Integer.parseInt(null);
+            viewCount = 0;
         }
-
 
         entities.Video myVideo = new entities.Video(videoId, snippet.getChannelTitle(), snippet.getTitle(),
                 snippet.getDescription(), snippet.getPublishedAt(), viewCount, likeCount, commentCount);
@@ -161,6 +162,15 @@ public class YouTubeDataAccess implements VideoSearchDataAccessInterface, Trendi
 
         }
         return videos;
+    }
+
+    public boolean isInvalid(String videoId) throws GeneralSecurityException, IOException {
+        try {
+            getVideo(videoId);
+            return false;
+        } catch (IndexOutOfBoundsException e) {
+            return true;
+        }
     }
 
 }

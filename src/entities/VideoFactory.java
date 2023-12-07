@@ -2,9 +2,6 @@ package entities;
 
 import com.google.api.client.util.DateTime;
 
-import java.math.BigInteger;
-import java.time.LocalDate;
-
 public class VideoFactory {
 
     Video create(String videoId, String channelName, String title,

@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.*;
 import java.util.List;
 
@@ -146,7 +148,13 @@ public class HistoryView extends JPanel implements ActionListener, PropertyChang
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 if (e.getSource().equals(button)) {
-                                    searchControllerMap.get(queryType).callExecute(data);
+                                    try {
+                                        searchControllerMap.get(queryType).callExecute(data, historyViewModel.getState().getUsername());
+                                    } catch (GeneralSecurityException ex) {
+                                        throw new RuntimeException(ex);
+                                    } catch (IOException ex) {
+                                        throw new RuntimeException(ex);
+                                    }
                                 }
                             }
                         }
